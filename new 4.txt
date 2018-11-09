@@ -1,0 +1,41 @@
+margin pics oba
+edit button
+strona rejestracji
+
+font-sze wszedzie vw;
+media-query!!
+edit bio button
+accept and end friendship buttons
+
+update db query
+put the result of the function on actions in redux!!
+
+icons zamiast slow i slowa, jak hover
+online to pomaranczowa lampka??
+
+
+doesnt render anything
+gives ids of both users online;
+
+error message when wrong credentials;
+
+
+cannot find offline ppl
+no profits of friendship
+
+delete user;
+and search medium hard;
+
+a brand new query for a user that joined;
+
+delete;
+different pics in uploader;
+css for uploader;
+profile,
+online
+friends (also cursor on hover)
+buttons 
+online button blinking;
+chat box shadow? when focus;
+
+all input fields:focus some nice box shadow all over?
