@@ -212,7 +212,8 @@ body{
 
 .friend-req-bttn,
 .bttn-register,
-.bio-bttn {
+.bio-bttn,
+.bttn {
     margin: 1vw;
     border: 1px solid grey;
     /* background-color: lightgrey; */
@@ -233,7 +234,7 @@ body{
     visibility: hidden;
 }
 
-.bio-bttn{
+.bio-bttn {
     margin: 0.5vw 1vw;
 }
 
@@ -244,7 +245,8 @@ body{
 .friend-req-bttn:hover,
 .bttn-register:hover,
 .bio-bttn:hover,
-#bttn-uploader:hover {
+#bttn-uploader:hover,
+.bttn:hover {
     border: 1px solid black;
     color: black;
     cursor: pointer;
@@ -259,7 +261,8 @@ body{
 .bttn-chat:focus,
 .chat-textarea:focus,
 .bttn-register:focus,
-.bio-bttn:focus {
+.bio-bttn:focus,
+.bttn:focus {
     outline: none;
 }
 
@@ -271,7 +274,8 @@ body{
 .bttn-chat:active,
 .bttn-register:active,
 .bio-bttn:active,
-#bttn-uploader:active {
+#bttn-uploader:active,
+.bttn:active {
     box-shadow: none;
 }
 .friend, .wannabe {
@@ -493,4 +497,10 @@ body{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     background-color: rgb(119,204,98);
+}
+
+/* SPACE MANAGER COMPONENT */
+
+#space-manager-title {
+    margin: 1vw;
 }

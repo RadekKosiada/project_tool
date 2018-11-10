@@ -5,9 +5,9 @@ import Bio from './bio.js';
 import ProfilePic from './profilePic.js';
 import {App, Logout, Uploader } from './app.js';
 import FriendButton from './friendButton.js';
+import {SpaceManager, NewSpacePopup } from './SpaceManager.js';
 
 export function DeletePopup(props) {
-
     return (
         <div className="overlay">
             <div id="delete-popup">
@@ -72,11 +72,11 @@ export default class Profile extends React.Component {
                         cupcakeBio={this.props.muffinBio}
                         setMuffinBio={this.props.setBio}
                     />
-                    
-                    <a className="bio-bttn" title="Your space" href="/space1">Your space</a>
+
+                    <SpaceManager />
 
                     <br />
-                    <button className="bio-bttn"
+                    <button className="bttn"
                         onClick={this.showDeletePopup}>Delete profile</button>
                     {this.state.deletePopupVisible &&
                             (<DeletePopup
