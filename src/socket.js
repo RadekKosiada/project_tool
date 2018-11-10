@@ -1,6 +1,6 @@
 //frontend socket code here;
 import * as io from 'socket.io-client';
-import {onlineUsers, userLeft, userJoined, singleChatMessage, lastChatMessages } from './actions';
+import {onlineUsers, userLeft, userJoined, singleChatMessage, lastChatMessages, newSpace } from './actions';
 let socket;
 
 export function initSocket(store) {
@@ -28,6 +28,11 @@ export function initSocket(store) {
         socket.on('lastChatMessages', function(lastMessages) {
             // console.log('SOCKET LAST MSSG: ', lastMessages);
             store.dispatch(lastChatMessages(lastMessages));
+        });
+
+        socket.on('newSpace', function(newWorkspace) {
+            console.log('newSpace Socket: ', newSpace);
+            store.dispatch(newSpace(newWorkspace));
         });
 
     }

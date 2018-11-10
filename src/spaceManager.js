@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from './axios';
 import { initSocket } from './socket';
+import { connect } from 'react-redux';
 
 export class NewSpacePopup extends React.Component {
     constructor(props) {
@@ -87,6 +88,24 @@ export class SpaceManager extends React.Component {
     }
 
     render() {
+        let {yourSpaces} = this.props;
+        if(!yourSpaces) {
+            return null
+        }
+        const allYourSpaces = (
+            <div>
+                <h5 id="space-manager-list">Your own spaces</h5>
+                <div id="your-space-container">
+                    {this.props.yourSpaces.map(space => (
+                        <div key={space.id} className="single-space">
+                            <p>{space.name}</p>
+                            <p>{space.category}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+
         return (
             <div>
                 <h5 id="space-manager-title">Create and manage your space</h5>
@@ -94,8 +113,9 @@ export class SpaceManager extends React.Component {
 
                 <button className="bttn" onClick={this.showSpacePopup}>Create a new space</button>
 
-                <h5 id="space-manager-list">Your active spaces</h5>
-                <div id="space-container">
+
+                <div id="all-spaces">
+                    {allYourSpaces}
                 </div>
 
                 {this.state.newSpacePopupVisible &&
@@ -106,3 +126,12 @@ export class SpaceManager extends React.Component {
         );
     }
 }
+
+const mapStateToProps=state=> {
+    return {
+        yourSpaces: state.newSpaceReducer
+    };
+};
+// console.log('mapStateToProps: ', mapStateToProps);
+
+export default connect(mapStateToProps)(SpaceManager)

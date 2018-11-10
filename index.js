@@ -117,7 +117,7 @@ app.get('/allImages', (req, res) => {
 app.get('/user', (req, res) => {
     database.getUsersProfile(req.session.user.id)
         .then(usersProfile => {
-            console.log('USERS PROFILE: ', usersProfile.rows[0]);
+            // console.log('USERS PROFILE: ', usersProfile.rows[0]);
             res.json(usersProfile.rows[0]);
 
         })
@@ -423,12 +423,17 @@ io.on('connection', function(socket) {
             .catch(err => {
                 console.log('ERR in saveMessage: ', err.message);
             });
-
     });
 
     // CREATING A NEW SPACE ////////////////////////////////////
     socket.on('newSpace', function(spaceObj) {
-        console.log('SPACE OBJ: ', spaceObj.name, spaceObj.category);
+        // console.log('SPACE OBJ: ', spaceObj.name, spaceObj.category);
+        database.saveNewSpace(socket.request.session.user.id, spaceObj.name, spaceObj.category)
+            .then(result => {
+                console.log('SPACE SAVED: ', result.rows[0]);
+                io.sockets.emit('newSpace', result.rows[0]);
+            })
+            .catch(err => console.log('ERR in saveNewSpace: ', err.message));
     });
 
 }); //end of io.on!!!!!!!

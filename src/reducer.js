@@ -18,7 +18,7 @@ export default function reducer (state = {}, action) {
             })
         };
     } else if (action.type == 'END_FRIENDSHIP') {
-        console.log('action', action);
+        // console.log('action', action);
         state= {
             ...state,
             users: state.users.filter(wannabe =>
@@ -32,7 +32,7 @@ export default function reducer (state = {}, action) {
             onlineUsersReducer: action.listOfUsers
         };
     } else if(action.type=='USER_JOINED') {
-        console.log('name of the new user: ', action);
+        // console.log('name of the new user: ', action);
         state={
             ...state,
             onlineUsersReducer: [ ...state.onlineUsersReducer,
@@ -45,7 +45,7 @@ export default function reducer (state = {}, action) {
             onlineUsersReducer: state.onlineUsersReducer.filter(user => {
                 console.log('USER FROM REDUCER:', user);
                 if(user.id != action.userWentOff) {
-                    console.log('USER FROM REDUCER from if statement:', user);
+                    // console.log('USER FROM REDUCER from if statement:', user);
                     return user;
                 }
 
@@ -58,14 +58,21 @@ export default function reducer (state = {}, action) {
             ...state,
             allMessagesReducer: [...state.allMessagesReducer, action.newMessageAction]
         };
-        console.log('STATE in REDUCER: ', state.chatMessageReducer);
+        // console.log('STATE in REDUCER: ', state.chatMessageReducer);
     }
     else if (action.type=='LAST_MESSAGES') {
         state={
             ...state,
             allMessagesReducer: action.lastMessagesAction
         };
-        console.log('MSSGS from REDUCER: ', state.allMessagesReducer);
+        // console.log('MSSGS from REDUCER: ', state.allMessagesReducer);
+    }
+    else if(action.type=='NEW_SPACE') {
+        state = {
+            ...state,
+            newSpaceReducer: action.newSpaceAction
+        };
+        console.log('SPACE from REDUCER: ', state.newSpaceReducer);
     }
 
     return state;

@@ -263,3 +263,18 @@ module.exports.checkPassword = function(textEnteredInLoginForm, hashedPasswordFr
         });
     });
 };
+
+module.exports.saveNewSpace = function(owner_id, name, category) {
+    const q = `
+    INSERT INTO spaces (owner_id, name, category)
+    VALUES ($1, $2, $3) RETURNING *
+    `;
+    const params = [
+        owner_id || null,
+        name || null,
+        category || null
+    ];
+    return db.query(q, params);
+};
+
+// module.exports.updateSpace = function(user_id, )
