@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom';
 import { HashRouter, Route } from 'react-router-dom';
 import Registration from './registration';
 import Login from './login';
+import {Logo} from './app.js';
 
 //THE WHOLE WELCOME PAGE
 export default function Welcome() {
     return (
         <div id="welcome-component">
-            <h1>Welcome to</h1>
+            <h1>Register at</h1>
             <br />
-            <h1 id="logo-big">SOCIETY</h1>
+            <Logo />
             <br />
-            <h3>Join our community!</h3>
+            <h3>and get things done!</h3>
             <br />
             <HashRouter>
                 <div>

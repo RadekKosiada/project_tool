@@ -72,6 +72,10 @@ export default class Profile extends React.Component {
                         cupcakeBio={this.props.muffinBio}
                         setMuffinBio={this.props.setBio}
                     />
+                    
+                    <a className="bio-bttn" title="Your space" href="/space1">Your space</a>
+
+                    <br />
                     <button className="bio-bttn"
                         onClick={this.showDeletePopup}>Delete profile</button>
                     {this.state.deletePopupVisible &&

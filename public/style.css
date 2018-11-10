@@ -4,42 +4,36 @@
     margin: 0;
     padding: 0;
 }
-/* https://www.rapidtables.com/web/color/gray-color.html
-font-family: 'Noto Sans JP', sans-serif;
-font-family: 'Londrina Outline', cursive;
-*/
-
-/* https://colorhunt.co/palette/111218
-https://colorhunt.co/palette/73271
-https://colorhunt.co/palette/130807
-https://www.colourlovers.com/palette/323660/Andy_Warhols_Colors
-https://www.colourlovers.com/palette/312478/almodovar_at_home
-https://thenounproject.com/hey.farrahdiba/uploads/ */
 
 body{
     background-color: 	rgba(211,211,211, 0.5);
 }
 
-#logo-small, #logo-big{
+/* #logo-small, #logo-big{
     font-family: 'Londrina Outline', cursive;
-    /* color: rgb(26, 45, 191); */
-    /* color: rgb(232, 232, 232); */
+    color: rgb(26, 45, 191);
+    color: rgb(232, 232, 232);
     color: white;
     font-size: 5vw;
     margin: 0 0.05vw 0 0.05vw;
     display: inline-block;
     padding: 0 1vw 0 1vw;
-    /* background-color: white; */
+    background-color: white;
     text-shadow: 0.05vw 0.05vw 2.5vw black;
-    /* text-shadow: 0.05vw 0.05vw 2.5vw rgb(196, 68, 68); */
-    /* text-shadow: 0.05vw 0.05vw 2.5vw rgb(26, 45, 191); */
-    /* border: 0.25vw solid grey; */
+    text-shadow: 0.05vw 0.05vw 2.5vw rgb(196, 68, 68);
+    text-shadow: 0.05vw 0.05vw 2.5vw rgb(26, 45, 191);
+    border: 0.25vw solid grey;
+} */
+
+#welcome-component .logo{
+    width: 30vw;
 }
 
-#logo-big{
-    font-size: 15vw;
-    /* font-weight: 400; */
+#app-component .logo{
+    width: 5vw;
 }
+
+
 
 .input-email{
 
@@ -487,3 +481,16 @@ body{
     box-shadow: none;
 }
 /*  END OF CHAT PICTURE */
+
+/* SPACE COMPONENT */
+.single-space{
+    margin: 3vw 2vw;
+    border: 1px solid rgb(119,204,98);
+    background-color: rgba(119,204,98, 0.25);
+}
+
+#space-nav-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: rgb(119,204,98);
+}

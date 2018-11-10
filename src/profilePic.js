@@ -1,6 +1,6 @@
 import React from 'react';
 
-/ PROFILE PIC COMPONENT ////////////////////////
+// PROFILE PIC COMPONENT ////////////////////////
 export default function ProfilePic(props) {
     let imgSrc = '';
     if(!props.image) {

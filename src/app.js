@@ -8,6 +8,8 @@ import Opp from './opp.js';
 import Friends from './friends.js';
 import FriendsOnline from './FriendsOnline.js';
 import Chat from './chat.js';
+import Space1 from './space.js';
+// import Navbar from './navbar.js';
 
 // import { createStore, applyMiddleware } from 'redux';
 // import reduxPromise from 'redux-promise';
@@ -17,10 +19,10 @@ import Chat from './chat.js';
 //<img src={'https://via.placeholder.com/200x125'} />
 
 ///// LOGO COMPONENT ///////////////////////////////
-function Logo(props) {
+export function Logo() {
     return (
-        <h1 id="logo-small">SOCIETY</h1>
-    )
+        <img className="logo" src="./imgs/logo.png"/>
+    );
 }
 
 ////// LOG OUT BUTTON //////////////////////////////
@@ -28,10 +30,12 @@ export function Logout(props) {
         return <a className="logout-bttn" title="Log out" href='/logout'><img src="./imgs/logout.png" /></a>
     {/*return <img className="logout-bttn" src="/imgs/logout.png" />*/}
 }
+
 /////////LINK TO MY PROFILE ///////////////////////
 export function LinkToProfile(props) {
     return <a className="to-my-profile-bttn" title="Your profile" href='/'><img src="./imgs/profile.png" /></a>
 }
+
 ///////UPLOADER ///////////////////////////////////
 export function Uploader(props) {
     // var overlayHidden = true;
@@ -136,10 +140,9 @@ export class App extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div id="app-component">
                 <Logo />
                 <div id="nav-bar">
-
                     <LinkToProfile />
                     {/*BUTTON TO FRIENDS*/}
                     <a className="bttn-to-friends" title="Your friends" href="/friends"><img src="./imgs/friends.png" /></a>
@@ -157,10 +160,8 @@ export class App extends React.Component {
                         muffinBio={this.state.bio}
                         clickHandler={this.showUploader}
                     />
-                
-
-
                 </div>
+
                 <BrowserRouter>
                     <div>
                         <Route exact path="/"
@@ -194,6 +195,11 @@ export class App extends React.Component {
                         />
                         <Route exact path="/online"
                             render={props => (<FriendsOnline />
+                            )}
+                        />
+
+                        <Route exact path="/space1"
+                            render={props => (<Space1 />
                             )}
                         />
 
