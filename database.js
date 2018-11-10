@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'production') {
     dbUrl = process.env.DATABASE_URL;
 } else {
     secrets = require('./secrets');
-    dbUrl = `postgres://${secrets.dbUser}:${secrets.dbPassword}@localhost:5432/social`;
+    dbUrl = `postgres://${secrets.dbUser}:${secrets.dbPassword}@localhost:5432/projecttool`;
 }
 
 const bcrypt = require('bcryptjs');
