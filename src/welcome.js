@@ -9,11 +9,11 @@ import {Logo} from './app.js';
 export default function Welcome() {
     return (
         <div id="welcome-component">
-            <h1>Register at</h1>
+            <h1>Welcome to<br />YOUR ONLINE WORKSPACE</h1>
             <br />
             <Logo />
             <br />
-            <h3>and get things done!</h3>
+            <h3>Register and get things done!</h3>
             <br />
             <HashRouter>
                 <div>

@@ -343,6 +343,7 @@ io.on('connection', function(socket) {
         .catch(err => {
             console.log('Error in getOnlineUsersByIds: ', err.message);
         });
+
 //// LAST 10 MESSAGES ////////////////////////////////////
     database.getLastChatMessages()
         .then(lastMessages=>{
@@ -352,7 +353,7 @@ io.on('connection', function(socket) {
         .catch(err=> {
             console.log('ERR in getLastChatMessages: ', err.message);
         });
-///// USER JOINED
+///// USER JOINED //////////////////////////////////////
     let counter=0;
     for(let i=0; i<ids.length; i++){
         if(ids[i]==socket.request.session.user.id){
@@ -374,10 +375,6 @@ io.on('connection', function(socket) {
     ///USER LEFT ////////////////////////////////////////////////
     socket.on('disconnect', function() {
         console.log(`socket with the id ${socket.id} is now disconnected`);
-        // onlineUsers = onlineUsers.filter(function(user) {
-        //     return user.socketId != socket.id;
-        // });
-        // console.log("ONLINE USERS", onlineUsers);
 
         let indexToRemove = onlineUsers.findIndex(user => {
             console.log('USER!!!!!!!!!!!!!!!', user)
@@ -385,10 +382,7 @@ io.on('connection', function(socket) {
         });
         console.log('indextoremove: ', indexToRemove)
         onlineUsers.splice(indexToRemove, 1);
-        // let userIsStillHere = onlineUsers.find(
-        //     function(user) {
-        //         user.userId == socket.request.session.user.id;
-        //     });
+
         let counter= 0;
         for(let i=0; i<onlineUsers.length; i++) {
             if(onlineUsers[i].userId === socket.request.session.user.id) {
@@ -398,30 +392,10 @@ io.on('connection', function(socket) {
         if(!counter) {
             io.sockets.emit('userLeft',  socket.request.session.user.id);
         }
-        // let userIsStillHere = onlineUsers.find((user) =>
-        // {
-        //     return user.userId == userId;
-
-        // console.log('user is still here:', userIsStillHere, 'Online users', onlineUsers);
-
-        console.log('USER ID:', socket.request.session.user.id);
-        // if (!userIsStillHere) {
-        //     io.sockets.emit('userLeft',  socket.request.session.user.id);
-        // }
-
-//                 disconnect{
-//     1. remove the item from onlineUsers whose socketId is the id of the socket that just disconnected
-//     2. check to see if the there are any objects in online users that still have the user's id
-//     3. if the user is really gone, emit the userLeft event
-// }
-//
-// onlineUsers = onlineUsers.filter(function(user) {
-//     return user.socketId != socket.id
-// });
 
     });
-    // sends event to EVERY connected socket
 
+    // CHAT ////////////////////////////////////////////////////////
     socket.on('newMessage', function(newMessage) {
         // console.log('newMessage from CHAT: ', newMessage);
         database.saveMessage(newMessage, socket.request.session.user.id)
@@ -449,38 +423,12 @@ io.on('connection', function(socket) {
             .catch(err => {
                 console.log('ERR in saveMessage: ', err.message);
             });
-        //if ypur using the db method, insert new chat message into our chats table;
-        //get the posters data, first, last url, message create an object with that properties;
 
-        // io.socket.emit('newMessage', newMessageObj); and emit this object from the back to the front
+    });
+
+    // CREATING A NEW SPACE ////////////////////////////////////
+    socket.on('newSpace', function(spaceObj) {
+        console.log('SPACE OBJ: ', spaceObj.name, spaceObj.category);
     });
 
 }); //end of io.on!!!!!!!
-
-//this emits events to all but the person who just joined;
-
-
-
-
-
-// socket.broadcast.emit('userJoined: ', results);
-    // console.log('ids:', ids);
-    // console.log('online users', onlineUsers);
-
-    //take newly connected users' id
-
-
-
-
-    // this event fires hen a user disconnect
-    // socket.on('disconnect', function() {
-    //     console.log(`socket with the id ${socket.id} is now disconnected`);
-    // });
-
-
-    //sends event to EVERY connected socket
-    // io.sockets.emit -sends message to everyone;
-    // io.sockets.emit('userLeft', someMessage);
-    //
-
-// })

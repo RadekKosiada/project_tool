@@ -128,15 +128,17 @@ export class App extends React.Component {
             // );
                 this.setState({
                     first: usersData.data.first,
+                    firstLetter: usersData.data.first.charAt(0),
                     last: usersData.data.last,
                     id: usersData.data.id,
                     url: usersData.data.url,
                     bio: usersData.data.bio
+
                 });
             })
             .catch(err=>{
                 console.log('ERROR IN usersData:', err.message);
-            })
+            });
     }
     render() {
         return (
@@ -156,6 +158,7 @@ export class App extends React.Component {
                     <ProfilePic
                         image={this.state.url}
                         muffin={this.state.first}
+                        firstLetter = {this.state.firstLetter}
                         last={this.state.last}
                         muffinBio={this.state.bio}
                         clickHandler={this.showUploader}

@@ -29,7 +29,6 @@ module.exports.saveMessage = function(message, user_id) {
     return db.query(q, params);
 };
 
-
 module.exports.getLastChatMessages =function() {
     const q= `
     SELECT messages.*, users.last, users.first, images.url
@@ -110,7 +109,6 @@ module.exports.getAllImages=function(user_id) {
     const params =[user_id|| null];
     return db.query(q, params);
 };
-
 
 module.exports.getOtherUsersProfile = function(id) {
     const q = `

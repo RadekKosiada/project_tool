@@ -29,22 +29,22 @@ export default class Registration extends React.Component {
             password: this.state.password,
 
         })
-        .then(result =>{
-            console.log('RESULT: ', result)
-            if(result.data.success) {
-            // if(result.data) {
-                // console.log('SUCCESS: ', result.data, result.data.success);
+            .then(result =>{
+                console.log('RESULT: ', result)
+                if(result.data.success) {
+                // if(result.data) {
+                    // console.log('SUCCESS: ', result.data, result.data.success);
 
-                location.replace('/')
-            } else {
-                this.setState({
-                    error : true
-                })
-            }
-        })
-        .catch(err => {
-            console.log("Error in submit REGISTER", err.message);
-        })
+                    location.replace('/')
+                } else {
+                    this.setState({
+                        error : true
+                    })
+                }
+            })
+            .catch(err => {
+                console.log("Error in submit REGISTER", err.message);
+            })
     }
 
     render() {
@@ -59,7 +59,7 @@ export default class Registration extends React.Component {
                 <br />
                 <button className="bttn-register" onClick={this.handleSubmit}>Register</button>
                 <br />
-                <p>Already registered? <Link to="/login">Log in!</Link></p>
+                <p>Already a member? <Link to="/login">Log in!</Link></p>
 
 
             </div>

@@ -61,6 +61,7 @@ export default class Profile extends React.Component {
                 <div>
                     <ProfilePic
                         image={this.props.image}
+                        firstLetter={this.props.firstLetter}
                         first={this.props.muffin}
                         last={this.props.last}
                         clickHandler={this.props.clickHandler}

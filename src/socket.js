@@ -30,18 +30,6 @@ export function initSocket(store) {
             store.dispatch(lastChatMessages(lastMessages));
         });
 
-        //this is where we will listen for socket events;
-        //ie wher you wil write your socket frontend code;
-
-        // socket.on('userOnline', (userWhosOnline) => {
-        //     store.dispatch(userOnline(userWhosOnline));
-        // });
-        //
-
-        //
-        // socket.on('userLeft', (userWhoLeft) => {
-        //     store.dispatch(userLeft(userWhoLeft));
-        // });
     }
 
     return socket;

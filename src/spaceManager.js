@@ -1,42 +1,62 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from './axios';
+import { initSocket } from './socket';
 
 export class NewSpacePopup extends React.Component {
     constructor(props) {
         super(props);
-        this.state={};
-
+        this.state={
+            name: '',
+            category: '',
+        };
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeCategory = this.handleChangeCategory.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
     }
-    handleChangeName() {
-        console.log("yey");
+    handleChangeName(e) {
+        this.setState({
+            name:e.target.value
+        });
+        // console.log('space name:', this.state.name);
     }
-    handleChangeCategory(){
-        console.log("YUPPI!");
+    handleChangeCategory(e){
+        this.setState({
+            category:e.target.value
+        });
+        console.log('space category:', this.state.category);
     }
     handleSubmit(){
-        console.log("YEAYE!");
+        let socket=initSocket();
+        let spaceObj= {
+            name: this.state.name,
+            category: this.state.category
+        };
+        console.log(spaceObj);
+        socket.emit('newSpace', spaceObj);
+        // socket.emit('spaceCategory', this.state.category);
     }
-
     render() {
         return (
             <div className="overlay">
                 <div id="space-popup">
                     <p className="close-popup" onClick={this.props.hideSpacePopup}>&#10006;</p>
+                    <p>Fill the following fields:</p>
                     <input
                         className="space-input"
                         onChange={this.handleChangeName}
                         placeholder="Your new space's name"
                     />
+                    <br />
                     <input
                         className="space-input"
                         onChange={this.handleChangeCategory}
                         placeholder="Set a category"
                     />
-                    <button className="bttn" onClick={this.handleSubmit}>Save</button>
+                    <br />
+                    <button className="bttn"
+                        onClick={this.handleSubmit}
+                    >Save</button>
                     <button className="bttn" onClick={this.props.hideSpacePopup}>Cancel</button>
                 </div>
             </div>
@@ -74,6 +94,9 @@ export class SpaceManager extends React.Component {
 
                 <button className="bttn" onClick={this.showSpacePopup}>Create a new space</button>
 
+                <h5 id="space-manager-list">Your active spaces</h5>
+                <div id="space-container">
+                </div>
 
                 {this.state.newSpacePopupVisible &&
                     (<NewSpacePopup
