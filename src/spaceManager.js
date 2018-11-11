@@ -76,6 +76,10 @@ export class SpaceManager extends React.Component {
         this.showSpacePopup=this.showSpacePopup.bind(this);
         this.hideSpacePopup=this.hideSpacePopup.bind(this);
     }
+    // componentDidUpdate(){
+    //     console.log('THIS', this);
+    //     this.elem.scrollTop=this.elem.scrollHeight - this.elem.clientHeight;
+    // }
     showSpacePopup() {
         this.setState({
             newSpacePopupVisible: true
@@ -90,12 +94,13 @@ export class SpaceManager extends React.Component {
     render() {
         let {yourSpaces} = this.props;
         if(!yourSpaces) {
-            return null
+            return null;
         }
         const allYourSpaces = (
             <div>
                 <h5 id="space-manager-list">Your own spaces</h5>
                 <div id="your-space-container">
+
                     {this.props.yourSpaces.map(space => (
                         <div key={space.id} className="single-space">
                             <p>{space.name}</p>
@@ -115,7 +120,14 @@ export class SpaceManager extends React.Component {
 
 
                 <div id="all-spaces">
-                    {allYourSpaces}
+                    <div>
+                        <h5 id="space-manager-list">Your own spaces</h5>
+                        <div id="your-space-container">
+                            {allYourSpaces}
+
+
+                        </div>
+                    </div>
                 </div>
 
                 {this.state.newSpacePopupVisible &&
@@ -129,7 +141,7 @@ export class SpaceManager extends React.Component {
 
 const mapStateToProps=state=> {
     return {
-        yourSpaces: state.newSpaceReducer
+        yourSpaces: state.allSpacesReducer
     };
 };
 // console.log('mapStateToProps: ', mapStateToProps);

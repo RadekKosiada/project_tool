@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { initSocket } from './socket';
 import ProfilePic from './profilePic';
 
@@ -76,12 +76,12 @@ class Chat extends React.Component{
 const mapStateToProps=state=> {
     return {
         messages: state.allMessagesReducer
-    }
+    };
 };
 
 export default connect(mapStateToProps)(Chat)
 
 function changeDate(date) {
     const dateFormat =  { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    return new Date(date).toLocaleDateString('en-EN', dateFormat);
+    return new Date(date).toLocaleDateString('us-US', dateFormat);
 }

@@ -53,13 +53,16 @@ export default function reducer (state = {}, action) {
 
         };
     }
+
+    // SINGLE MESSAGE ///////////////////////////////////
     else if(action.type=='CHAT_MESSAGE') {
         state= {
             ...state,
             allMessagesReducer: [...state.allMessagesReducer, action.newMessageAction]
         };
-        // console.log('STATE in REDUCER: ', state.chatMessageReducer);
+        // console.log('SINGLE MSSG in REDUCER: ', state.chatMessageReducer);
     }
+    // ALL MESSAGES ///////////////////////////////////////
     else if (action.type=='LAST_MESSAGES') {
         state={
             ...state,
@@ -67,12 +70,21 @@ export default function reducer (state = {}, action) {
         };
         // console.log('MSSGS from REDUCER: ', state.allMessagesReducer);
     }
-    else if(action.type=='NEW_SPACE') {
+    // ALL SPACES ///////////////////////////////////////////////
+    else if(action.type == 'ALL_SPACES') {
         state = {
+            ...state,
+            allSpacesReducer: action.allSpacesAction
+        };
+        // console.log('ALL SPACES from REDUCER: ', state.allSpacesReducer);
+    }
+    // SINGLE SPACE ////////////////////////////////////////////
+    else if(action.type=='NEW_SPACE') {
+        state= {
             ...state,
             newSpaceReducer: action.newSpaceAction
         };
-        console.log('SPACE from REDUCER: ', state.newSpaceReducer);
+        console.log('1 SPACE from REDUCER: ', state.newSpaceReducer);
     }
 
     return state;

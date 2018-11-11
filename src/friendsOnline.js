@@ -16,7 +16,10 @@ class FriendsOnline extends React.Component {
             console.log('new user joined: ', user);
             return (
                 <div key={ idx } className="users-online-container">
-                    <ProfilePic image={user.url} />
+                    <ProfilePic
+                        image={user.url}
+                        
+                    />
 
                     <p>{user.first} {user.last}</p>
                 </div>

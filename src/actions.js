@@ -65,6 +65,14 @@ export function lastChatMessages(lastMessagesAction) {
     };
 }
 
+export function allUsersSpaces(allSpacesAction) {
+    console.log('allSpacesAction: ', allSpacesAction);
+    return {
+        type: 'ALL_SPACES',
+        allSpacesAction
+    };
+}
+
 export function newSpace(newSpaceAction) {
     console.log('newSpaceAction: ', newSpaceAction);
     return {

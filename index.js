@@ -344,7 +344,7 @@ io.on('connection', function(socket) {
             console.log('Error in getOnlineUsersByIds: ', err.message);
         });
 
-//// LAST 10 MESSAGES ////////////////////////////////////
+//// CHAT: LAST 10 MESSAGES ////////////////////////////////////
     database.getLastChatMessages()
         .then(lastMessages=>{
             // console.log('LAST MESSAGES: ', lastMessages.rows);
@@ -353,7 +353,18 @@ io.on('connection', function(socket) {
         .catch(err=> {
             console.log('ERR in getLastChatMessages: ', err.message);
         });
-///// USER JOINED //////////////////////////////////////
+
+///// SPACES: ALL AVAILABLE USER'S SPACES  //////////////////////////////
+    database.getAllUsersSpaces(socket.request.session.user.id)
+        .then(allSpaces =>{
+            console.log('All SPACES: ', allSpaces.rows);
+            socket.emit('allUsersSpaces', allSpaces.rows);
+        })
+        .catch(err => {
+            console.log('ERR in getAllUsersSpaces: ', err.message);
+        });
+
+///// USER JOINED ////////////////////////////////////////////
     let counter=0;
     for(let i=0; i<ids.length; i++){
         if(ids[i]==socket.request.session.user.id){
@@ -395,7 +406,7 @@ io.on('connection', function(socket) {
 
     });
 
-    // CHAT ////////////////////////////////////////////////////////
+    // CHAT: HANDLING NEW MESSAGE //////////////////////////////////////////////
     socket.on('newMessage', function(newMessage) {
         // console.log('newMessage from CHAT: ', newMessage);
         database.saveMessage(newMessage, socket.request.session.user.id)
@@ -429,9 +440,27 @@ io.on('connection', function(socket) {
     socket.on('newSpace', function(spaceObj) {
         // console.log('SPACE OBJ: ', spaceObj.name, spaceObj.category);
         database.saveNewSpace(socket.request.session.user.id, spaceObj.name, spaceObj.category)
-            .then(result => {
-                console.log('SPACE SAVED: ', result.rows[0]);
-                io.sockets.emit('newSpace', result.rows[0]);
+            .then(space => {
+                console.log('SPACE SAVED: ', space.rows[0].owner_id);
+                database.getUsersProfile(space.rows[0].owner_id)
+                    .then(user => {
+                        let spaceInfo={
+                            first: user.rows[0].first,
+                            last: user.rows[0].last,
+                            url: user.rows[0].url,
+                            created_at: space.rows[0].created_at,
+                            name: space.rows[0].name,
+                            category: space.rows[0].category,
+                            status: space.rows[0].status,
+                            color: space.rows[0].color,
+                            eta: space.rows[0].eta
+                        };
+                        console.log('SPACE INFO TO BE SENT: ', spaceInfo);
+                        io.sockets.emit('newSpace', spaceInfo);
+                    })
+                    .catch(err => {
+                        console.log('ERR in getUsersProfile: ', err.message);
+                    });
             })
             .catch(err => console.log('ERR in saveNewSpace: ', err.message));
     });

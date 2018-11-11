@@ -264,6 +264,8 @@ module.exports.checkPassword = function(textEnteredInLoginForm, hashedPasswordFr
     });
 };
 
+// module.exports.updateSpace = function(user_id, )
+
 module.exports.saveNewSpace = function(owner_id, name, category) {
     const q = `
     INSERT INTO spaces (owner_id, name, category)
@@ -277,4 +279,26 @@ module.exports.saveNewSpace = function(owner_id, name, category) {
     return db.query(q, params);
 };
 
-// module.exports.updateSpace = function(user_id, )
+module.exports.getAllUsersSpaces = function(owner_id) {
+    const q = `
+        SELECT * FROM spaces WHERE spaces.owner_id =$1
+    `;
+
+    const params =[
+        owner_id || null
+    ];
+
+    //     const q= `
+    //     SELECT spaces.*, users.last, users.first, images.url
+    //     FROM spaces
+    //     LEFT JOIN images
+    //     ON images.user_id = spaces.owner_id
+    //     JOIN users
+    //     ON users.id = spaces.user_id
+    //     ORDER BY id DESC
+    //     `;
+    //     return db.query(q);
+    // }
+
+    return db.query(q, params);
+};
