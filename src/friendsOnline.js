@@ -18,7 +18,7 @@ class FriendsOnline extends React.Component {
                 <div key={ idx } className="users-online-container">
                     <ProfilePic
                         image={user.url}
-                        
+
                     />
 
                     <p>{user.first} {user.last}</p>
@@ -26,23 +26,6 @@ class FriendsOnline extends React.Component {
             );
         });
 
-        // console.log('newUser: ', this.props);
-        // if(!this.props.newUserOnlineComponent) {
-        //     return null;
-        // }
-        // let newUser = this.props.newUserOnlineComponent.map(user => {
-        //     console.log('new user: ', user);
-        //     return(
-        //         <div key={ user.id }>
-        //             {!user.url ? (
-        //                 <img className='pic-friends-list' src='/imgs/default_bolek.png' />
-        //             ) : (
-        //                 <img className='pic-friends-list' src={user.url} />
-        //             )}
-        //             <p>{user.first} {user.last}</p>
-        //         </div>
-        //     );
-        // });
         return (
             <div>
                 <h3 id="online-users-title">Online Now: </h3>

@@ -5,7 +5,10 @@ import Bio from './bio.js';
 import ProfilePic from './profilePic.js';
 import {App, Logout, Uploader } from './app.js';
 import FriendButton from './friendButton.js';
-import {SpaceManager, NewSpacePopup } from './SpaceManager.js';
+import {SpaceManager} from './SpaceManager.js';
+import NewSpacePopup from './spacePopup.js';
+
+// console.log('space manager', SpaceManager);
 
 export function DeletePopup(props) {
     return (
@@ -74,7 +77,9 @@ export default class Profile extends React.Component {
                         setMuffinBio={this.props.setBio}
                     />
 
-                    <SpaceManager />
+                    <SpaceManager
+                        spaces={this.props.yourSpaces}
+                    />
 
                     <br />
                     <button className="bttn"

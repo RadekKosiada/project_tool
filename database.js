@@ -302,3 +302,28 @@ module.exports.getAllUsersSpaces = function(owner_id) {
 
     return db.query(q, params);
 };
+
+module.exports.saveNewNote = function(owner_id, title, task, space_id) {
+    const q = `
+    INSERT INTO tasks (owner_id, title, task, space_id)
+    VALUES ($1, $2, $3, $4) RETURNING *
+    `;
+    const params = [
+        owner_id || null,
+        title || null,
+        task || null,
+        space_id || null
+    ];
+    return db.query(q, params);
+};
+
+module.exports.getTasksFromCurrentSpace = function(space_id) {
+    const q = `
+        SELECT * FROM tasks WHERE space_id =$1
+    `;
+
+    const params =[
+        space_id || null
+    ];
+    return db.query(q, params);
+}

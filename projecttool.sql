@@ -50,6 +50,7 @@ CREATE TABLE tasks(
     space_id INT NOT NULL REFERENCES spaces(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     title VARCHAR(255) NOT NULL,
+    task VARCHAR(1000) NOT NULL,
     status VARCHAR(255),
     category VARCHAR(255),
     color VARCHAR(255),

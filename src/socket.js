@@ -1,13 +1,16 @@
 //frontend socket code here;
 import * as io from 'socket.io-client';
 import {onlineUsers,
-    userLeft,
-    userJoined,
-    singleChatMessage,
-    lastChatMessages,
-    newSpace,
-    allUsersSpaces
+        userLeft,
+        userJoined,
+        singleChatMessage,
+        lastChatMessages,
+        newSpace,
+        allUsersSpaces,
+        newTask,
+        allTasks
 } from './actions';
+
 let socket;
 
 export function initSocket(store) {
@@ -47,6 +50,15 @@ export function initSocket(store) {
             store.dispatch(newSpace(newWorkspace));
         });
 
+        socket.on('allCurrentTasks', function(allSpacesTasks) {
+            console.log('allCurrentTasks Socket: ', allSpacesTasks);
+            store.dispatch(allTasks(allSpacesTasks));
+        });
+
+        socket.on('newTask', function(workTask) {
+            console.log('newTask Socket: ', workTask);
+            store.dispatch(newTask(workTask));
+        });
     }
 
     return socket;

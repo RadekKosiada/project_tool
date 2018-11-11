@@ -12,7 +12,7 @@ class Chat extends React.Component{
     //when the component updates;
     //ie when user posts a new chat message;
     componentDidUpdate(){
-        console.log('THIS', this);
+        // console.log('THIS', this);
         //only works if you have a srollbar
         //if you dont have it, it wont work it;
         this.elem.scrollTop=this.elem.scrollHeight - this.elem.clientHeight;
@@ -33,6 +33,7 @@ class Chat extends React.Component{
     }
     render(){
         let { messages} = this.props;
+        console.log('chat messages: ', this.props.messages);
         if (!messages) {
             return null;
         }

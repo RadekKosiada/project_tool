@@ -70,6 +70,7 @@ export default function reducer (state = {}, action) {
         };
         // console.log('MSSGS from REDUCER: ', state.allMessagesReducer);
     }
+
     // ALL SPACES ///////////////////////////////////////////////
     else if(action.type == 'ALL_SPACES') {
         state = {
@@ -82,9 +83,26 @@ export default function reducer (state = {}, action) {
     else if(action.type=='NEW_SPACE') {
         state= {
             ...state,
-            newSpaceReducer: action.newSpaceAction
+            allSpacesReducer: [...state.allSpacesReducer, action.newSpaceAction]
         };
-        console.log('1 SPACE from REDUCER: ', state.newSpaceReducer);
+        // console.log('1 SPACE from REDUCER: ', state.newSpaceReducer);
+    }
+
+    // SINGLE TASK ///////////////////////////////////////////////
+    else if(action.type=='NEW_TASK') {
+        state={
+            ...state,
+            newTaskReducer: action.newTaskAction
+        };
+        console.log('1 TASK from REDUCER: ', state.newTaskReducer);
+    }
+    //ALL TASKS FROM THE SPACE ////////////////////////////////////
+    else if(action.type=='ALL_TASKS') {
+        state={
+            ...state,
+            allTasksReducer: action.allTasksAction
+        };
+        console.log('ALL AVAIL TASKS: ', state.allTasksReducer);
     }
 
     return state;

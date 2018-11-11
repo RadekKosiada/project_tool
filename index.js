@@ -357,11 +357,20 @@ io.on('connection', function(socket) {
 ///// SPACES: ALL AVAILABLE USER'S SPACES  //////////////////////////////
     database.getAllUsersSpaces(socket.request.session.user.id)
         .then(allSpaces =>{
-            console.log('All SPACES: ', allSpaces.rows);
+            // console.log('All SPACES: ', allSpaces.rows);
             socket.emit('allUsersSpaces', allSpaces.rows);
         })
         .catch(err => {
             console.log('ERR in getAllUsersSpaces: ', err.message);
+        });
+//// TASKS: ALL AVAILABLE USER'S TASKS  //////////////////////
+    database.getTasksFromCurrentSpace(1)
+        .then(allTasks =>{
+            console.log('All TASKS FROM CUR SPACE: ', allTasks.rows);
+            socket.emit('allUsersSpaces', allTasks.rows);
+        })
+        .catch(err => {
+            console.log('ERR in getTasksFromCurrentSpace: ', err.message);
         });
 
 ///// USER JOINED ////////////////////////////////////////////
@@ -455,7 +464,7 @@ io.on('connection', function(socket) {
                             color: space.rows[0].color,
                             eta: space.rows[0].eta
                         };
-                        console.log('SPACE INFO TO BE SENT: ', spaceInfo);
+                        // console.log('SPACE INFO TO BE SENT: ', spaceInfo);
                         io.sockets.emit('newSpace', spaceInfo);
                     })
                     .catch(err => {
@@ -463,6 +472,36 @@ io.on('connection', function(socket) {
                     });
             })
             .catch(err => console.log('ERR in saveNewSpace: ', err.message));
+    });
+
+    //SAVING A NEW TASK //////////////////////////////////////////
+    socket.on('newTask', function(task) {
+        database.saveNewNote(socket.request.session.user.id, task.title, task.task, 1)
+            .then(task => {
+                console.log('NOTE SAVED: ', task.rows[0]);
+                database.getUsersProfile(task.rows[0].owner_id)
+                    .then(user => {
+                        let taskInfo={
+                            firstLetter: (user.rows[0].first).charAt(0),
+                            lastLetter: (user.rows[0].last).charAt(0),
+                            created_at: task.rows[0].created_at,
+                            edited_at: task.rows[0].edited_at,
+                            title: task.rows[0].title,
+                            category: task.rows[0].category,
+                            status: task.rows[0].status,
+                            color: task.rows[0].color,
+                            eta: task.rows[0].eta
+                        };
+                        console.log('TASK INFO TO BE SENT: ', taskInfo);
+                        io.sockets.emit('newTask', taskInfo);
+                    })
+                    .catch(err => {
+                        console.log('ERR in getUsersProfile in noteSaved: ', err.message);
+                    });
+            })
+            .catch(err => {
+                console.log('ERR in saveNewNote: ', err.message);
+            });
     });
 
 }); //end of io.on!!!!!!!
