@@ -303,7 +303,7 @@ module.exports.getAllUsersSpaces = function(owner_id) {
     return db.query(q, params);
 };
 
-module.exports.saveNewNote = function(owner_id, title, task, space_id) {
+module.exports.saveNewTask = function(owner_id, title, task, space_id) {
     const q = `
     INSERT INTO tasks (owner_id, title, task, space_id)
     VALUES ($1, $2, $3, $4) RETURNING *
@@ -323,6 +323,7 @@ module.exports.getAllTasks = function() {
     FROM tasks
     LEFT JOIN users
     ON users.id=tasks.owner_id
+    ORDER BY id ASC
     `;
 
     return db.query(q);

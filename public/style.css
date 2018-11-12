@@ -629,6 +629,10 @@ body{
     height: 13vw;
 }
 
+.tasks-list{
+     display: grid;
+     grid-template-columns: repeat(4, 1fr);
+}
 /* SINGLE TASK DIV */
 .single-task{
     display: inline-block;
@@ -642,6 +646,7 @@ body{
 
 }
 .task-initials{
+    font-size: 1.5vw;
     border-radius: 50%;
     padding: 0.1vw 0.2vw;
     border: 0.1vw solid rgb(119,204,98);
@@ -650,6 +655,7 @@ body{
     margin: 0.25vw;
     margin-right: 0.5vw;
     align-self: flex-start;
+
 }
 .task-infobar{
     padding: 0.35vw;
@@ -668,16 +674,16 @@ body{
     left: 90%; */
     color: white;
     flex: 1;
-    align-self: flex-end;
+    align-self: flex-start;
     text-align: right;
     margin-right: 0.5vw;
 }
 
-
-
 .task-title{
     text-align: center;
     flex: 2;
+    font-size: 1.25vw;
+    align-self: center;
 }
 
 .task-task{

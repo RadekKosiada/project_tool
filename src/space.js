@@ -40,9 +40,10 @@ class Space extends React.Component {
         let socket=initSocket();
         let taskObj = {
             title: this.state.title,
-            task: this.state.task
+            task: this.state.task,
+            space_id: this.props.match.params.id
         };
-        console.log('HANLDE SUBMIT FIRED: ',taskObj);
+        console.log('HANDLE SUBMIT FIRED: ',taskObj);
         socket.emit('newTask', taskObj);
         // this.setState({
         //     textareaValue: ''
@@ -61,14 +62,23 @@ class Space extends React.Component {
     // }
 
     render() {
+        let spaceId = this.props.match.params.id;
+
         let {yourTasks} =this.props;
         if(!this.props.yourTasks) {
             return null
         }
-        console.log('YOUR TASKS!!!!!', this.props.yourTasks[0]);
-        let tasksFromCurrentSpace = this.props.yourTasks.map(task => {
+        // filter tasks only for this particular space!!!
+        var tasksArr=[];
+        for(var i=0; i<yourTasks.length; i++) {
+            if(yourTasks[i].space_id == spaceId){
+                tasksArr.push(yourTasks[i])
+            }
+        }
+        console.log('YOUR TASKS ARRAY!!!!!', tasksArr);
+        let tasksFromCurrentSpace = tasksArr.map((task, idx) => {
             return (
-                <div key={task.id} className="single-task">
+                <div key={idx} className="single-task">
                     <div className="task-infobar">
                         {/*  INITIALS*/}
                         <span className="task-initials bold">
@@ -76,7 +86,7 @@ class Space extends React.Component {
                             {(task.last).charAt(0)}
                         </span>
                         {/*  TITLE  */}
-                        <span className="task-title">
+                        <span className="task-title bold">
                             {task.title}
                         </span>
                         {/*  DATE   */}
@@ -108,18 +118,15 @@ class Space extends React.Component {
                 <div className="tasks-container">
                     <div className="tasks-saving-tool">
                         <div className="task-input">
-                            <input placeholder="Label your task" onChange={this.handleChangeTitle}></input>
-                            <textarea placeholder="Make a note" onChange={this.handleChangeTask}></textarea>
+                            <input placeholder="Label your task..." onChange={this.handleChangeTitle}></input>
+                            <textarea placeholder="... and describe it" onChange={this.handleChangeTask}></textarea>
                         </div>
                         <button className="bttn" onClick={this.handleSubmit}>Save</button>
                     </div>
                     <div className="tasks-list">
                         {tasksFromCurrentSpace}
                     </div>
-
-
                 </div>
-
             </div>
         );
 
@@ -147,6 +154,6 @@ console.log('LANGUAGE: ', lang);
 
 // console.log(lang);
 function changeDate(date) {
-    const dateFormat =  {hour: 'numeric', minute: 'numeric' };
+    const dateFormat =  { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
     return new Date(date).toLocaleDateString(lang, dateFormat);
 }

@@ -476,7 +476,7 @@ io.on('connection', function(socket) {
 
     //SAVING A NEW TASK //////////////////////////////////////////
     socket.on('newTask', function(task) {
-        database.saveNewNote(socket.request.session.user.id, task.title, task.task, 1)
+        database.saveNewTask(socket.request.session.user.id, task.title, task.task, task.space_id)
             .then(task => {
                 console.log('NOTE SAVED: ', task.rows[0]);
                 database.getUsersProfile(task.rows[0].owner_id)
@@ -486,7 +486,9 @@ io.on('connection', function(socket) {
                             last: user.rows[0].last,
                             created_at: task.rows[0].created_at,
                             edited_at: task.rows[0].edited_at,
+                            space_id: task.rows[0].space_id,
                             title: task.rows[0].title,
+                            task: task.rows[0].task,
                             category: task.rows[0].category,
                             status: task.rows[0].status,
                             color: task.rows[0].color,
