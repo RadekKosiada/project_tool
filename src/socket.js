@@ -8,7 +8,8 @@ import {onlineUsers,
         newSpace,
         allUsersSpaces,
         newTask,
-        allTasks
+        allTasks,
+        deletingTask
 } from './actions';
 
 let socket;
@@ -58,6 +59,11 @@ export function initSocket(store) {
         socket.on('newTask', function(workTask) {
             console.log('newTask Socket: ', workTask);
             store.dispatch(newTask(workTask));
+        });
+
+        socket.on('deletingTask', function(deletedTask) {
+            console.log('DELETED TASK!!!!!!!: ',deletedTask);
+            store.dispatch(deletingTask(deletedTask));
         });
     }
 

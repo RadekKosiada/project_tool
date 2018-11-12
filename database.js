@@ -328,3 +328,21 @@ module.exports.getAllTasks = function() {
 
     return db.query(q);
 };
+
+module.exports.deleteSingleTask = function(id){
+    const q=`
+    DELETE FROM tasks WHERE id = $1
+    `;
+    const params = [id || null];
+
+    return db.query(q, params);
+};
+
+
+module.exports.deleteSingleSpace = function(id) {
+    const params = [id || null];
+    return Promise.all([
+        db.query((`DELETE FROM spaces WHERE id= $1`), params),
+        db.query((`DELETE FROM tasks WHERE space_id =$1`), params)
+    ]);
+};

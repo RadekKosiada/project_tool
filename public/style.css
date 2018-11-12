@@ -541,7 +541,7 @@ body{
 
 .space-color-bttns{
     display: block;
-    background-color: rgba(119,204,98, 0.5);
+    /* background-color: rgba(119,204,98, 0.5); */
 }
 .space-color-bttns *{
     display: inline-block;
@@ -555,6 +555,11 @@ body{
 }
 
 .space-color-bttns button:hover{
+    cursor: pointer;
+    box-shadow: 0.25vw 0.25vw 1vw grey;
+}
+
+.space-delete:hover{
     cursor: pointer;
     box-shadow: 0.25vw 0.25vw 1vw grey;
 }
@@ -726,7 +731,7 @@ body{
     height: 2vw;
     border: none;
     margin-left: 0.5vw;
-    transition: 0.5s;
+    transition: 0.25s;
 }
 .task-delete {
 

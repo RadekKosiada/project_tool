@@ -366,11 +366,11 @@ io.on('connection', function(socket) {
 //// TASKS: ALL AVAILABLE USER'S TASKS  //////////////////////
     database.getAllTasks()
         .then(allTasks =>{
-            console.log('All TASKS: ', allTasks.rows);
+            // console.log('All TASKS: ', allTasks.rows);
             socket.emit('allCurrentTasks', allTasks.rows);
         })
         .catch(err => {
-            console.log('ERR in getAllTasks: ', err);
+            console.log('ERR in getAllTasks: ', err.message);
         });
 
 ///// USER JOINED ////////////////////////////////////////////
@@ -485,6 +485,7 @@ io.on('connection', function(socket) {
                         let taskInfo={
                             first: user.rows[0].first,
                             last: user.rows[0].last,
+                            id: task.rows[0].id,
                             created_at: task.rows[0].created_at,
                             edited_at: task.rows[0].edited_at,
                             space_id: task.rows[0].space_id,
@@ -506,5 +507,31 @@ io.on('connection', function(socket) {
                 console.log('ERR in saveNewNote: ', err.message);
             });
     });
+
+    //// DELETING SINGLE TASK ////////////////////////////////////
+    socket.on('deleteSingleTask', function(taskId) {
+        database.deleteSingleTask(taskId)
+            .then(result => {
+                console.log('RES OF DEL 1 TASK: ', result.rows);
+                socket.emit('deletingTask', result.rows);
+            })
+            .catch(err=> {
+                console.log('ERR in deleteSingleTask', err);
+            });
+    });
+
+    ///// DELETING SINGLE SPACE AND ALL THE TASKS INSIDE ///////////////
+    socket.on('deleteSingleSpace', function(spaceId, client) {
+        database.deleteSingleSpace(spaceId)
+            .then(result=> {
+                console.log('RES OF DEL SPACE: ', result.rows);
+                // socket.emit('deletingTask', result.rows);
+                let destination = '/';
+                client.emit('redirect', destination);
+            })
+            .catch(err=> {
+                console.log('ERR in deleteSingleSpace', err.message);
+            })
+    })
 
 }); //end of io.on!!!!!!!

@@ -15,6 +15,8 @@ class Space extends React.Component {
         this.handleChangeTitle=this.handleChangeTitle.bind(this);
         this.handleChangeTask=this.handleChangeTask.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
+        // this.deleteSpace=this.deleteSpace.bind(this);
+        // this.deleteTask=this.deleteTask.bind(this, i);
         // this.saveTask=this.saveTask.bind(this);
     }
     componentDidMount() {
@@ -49,6 +51,17 @@ class Space extends React.Component {
         //     textareaValue: ''
         // });
     }
+    deleteTask(taskId, e){
+        let socket=initSocket();
+        console.log(taskId);
+        socket.emit('deleteSingleTask', taskId);
+    }
+
+    deleteSpace(spaceId) {
+        let socket=initSocket();
+        console.log(spaceId);
+        socket.emit('deleteSingleSpace', spaceId);
+    }
     // saveTask(e) {
     //     let socket=initSocket();
     //
@@ -76,9 +89,9 @@ class Space extends React.Component {
             }
         }
         console.log('YOUR TASKS ARRAY!!!!!', tasksArr);
-        let tasksFromCurrentSpace = tasksArr.map((task, idx) => {
+        let tasksFromCurrentSpace = tasksArr.map(task => {
             return (
-                <div key={idx} className="single-task">
+                <div key={task.id} className="single-task">
                     <div className="task-infobar">
                         {/*  INITIALS*/}
                         <span className="task-initials bold">
@@ -102,11 +115,12 @@ class Space extends React.Component {
                         <div className="task-green"></div>
                         <div className="task-blue"></div>
                         <div className="task-red"></div>
-                        <div className="task-delete"><img src="./imgs/alert.png" /></div>
+                        <div className="task-delete" key={task.id} onClick={this.deleteTask.bind(this, task.id)}><img src="./imgs/alert.png" /></div>
                     </div>
                 </div>
             );
         });
+
         return (
             <div className="single-space">
                 <h3 className="space-name">Your work space!</h3>
@@ -120,6 +134,7 @@ class Space extends React.Component {
                         <button className="green"></button>
                         <button className="blue"></button>
                         <button className="red"></button>
+                        <img className="space-delete" src="./imgs/alert.png" onClick={this.deleteSpace.bind(this, spaceId)} />
                     </div>
                 </div>
                 <div className="tasks-container">

@@ -29,12 +29,11 @@ export default class Bio extends React.Component {
             bio: e.target.value
         });
         // console.log(this.state.bio);
-    };
+    }
     handleSubmit() {
-            axios.post('/add-bio.json', {
-                bio: this.state.bio,
-
-            })
+        axios.post('/add-bio.json', {
+            bio: this.state.bio,
+        })
             .then(result => {
                 console.log("RESULT OF SAVING BIO: ", result);
                 this.setState({
@@ -46,7 +45,6 @@ export default class Bio extends React.Component {
                 console.log("Error in saving bio: ", err.message);
             })
     }
-
     render() {
         if(this.state.bioTextareaIsVisible) {
             return (
