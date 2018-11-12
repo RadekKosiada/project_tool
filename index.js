@@ -357,7 +357,7 @@ io.on('connection', function(socket) {
 ///// SPACES: ALL AVAILABLE USER'S SPACES  //////////////////////////////
     database.getAllUsersSpaces(socket.request.session.user.id)
         .then(allSpaces =>{
-            console.log('All SPACES: ', allSpaces.rows[0].id);
+            // console.log('All SPACES: ', allSpaces.rows[0].id);
             socket.emit('allUsersSpaces', allSpaces.rows);
         })
         .catch(err => {
@@ -366,11 +366,11 @@ io.on('connection', function(socket) {
 //// TASKS: ALL AVAILABLE USER'S TASKS  //////////////////////
     database.getAllTasks()
         .then(allTasks =>{
-            // console.log('All TASKS FROM CUR SPACE: ', allTasks.rows);
+            console.log('All TASKS: ', allTasks.rows);
             socket.emit('allCurrentTasks', allTasks.rows);
         })
         .catch(err => {
-            console.log('ERR in getTasksFromCurrentSpace: ', err.message);
+            console.log('ERR in getAllTasks: ', err);
         });
 
 ///// USER JOINED ////////////////////////////////////////////
@@ -482,8 +482,8 @@ io.on('connection', function(socket) {
                 database.getUsersProfile(task.rows[0].owner_id)
                     .then(user => {
                         let taskInfo={
-                            firstLetter: (user.rows[0].first).charAt(0),
-                            lastLetter: (user.rows[0].last).charAt(0),
+                            first: user.rows[0].first,
+                            last: user.rows[0].last,
                             created_at: task.rows[0].created_at,
                             edited_at: task.rows[0].edited_at,
                             title: task.rows[0].title,

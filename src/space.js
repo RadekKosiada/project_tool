@@ -65,12 +65,24 @@ class Space extends React.Component {
         if(!this.props.yourTasks) {
             return null
         }
-        console.log('YOUR TASKS!!!!!', this.props.yourTasks[0].space_id);
+        console.log('YOUR TASKS!!!!!', this.props.yourTasks[0]);
         let tasksFromCurrentSpace = this.props.yourTasks.map(task => {
             return (
                 <div key={task.id} className="single-task">
-                    <div className="task-title">
-                        {task.title}
+                    <div className="task-infobar">
+                        {/*  INITIALS*/}
+                        <span className="task-initials bold">
+                            {(task.first).charAt(0)}
+                            {(task.last).charAt(0)}
+                        </span>
+                        {/*  TITLE  */}
+                        <span className="task-title">
+                            {task.title}
+                        </span>
+                        {/*  DATE   */}
+                        <span className="task-date">
+                            {changeDate(task.created_at)}
+                        </span>
                     </div>
                     <div className="task-task">
                         {task.task}
@@ -121,3 +133,20 @@ const mapStateToProps=state=> {
 };
 
 export default connect(mapStateToProps)(Space);
+
+let lang = '';
+function getLang()
+{
+    if (navigator.languages != undefined)
+        lang = (navigator.languages[0]).toString();
+    else
+        lang = (navigator.languages).toString();
+}
+getLang();
+console.log('LANGUAGE: ', lang);
+
+// console.log(lang);
+function changeDate(date) {
+    const dateFormat =  {hour: 'numeric', minute: 'numeric' };
+    return new Date(date).toLocaleDateString(lang, dateFormat);
+}

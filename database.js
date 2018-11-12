@@ -319,11 +319,11 @@ module.exports.saveNewNote = function(owner_id, title, task, space_id) {
 
 module.exports.getAllTasks = function() {
     const q = `
-        SELECT * FROM tasks
+    SELECT tasks.*, users.first, users.last
+    FROM tasks
+    LEFT JOIN users
+    ON users.id=tasks.owner_id
     `;
-    //
-    // const params =[
-    //     space_id || null
-    // ];
+
     return db.query(q);
 };
