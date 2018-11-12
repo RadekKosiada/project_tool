@@ -38,10 +38,10 @@ class SpaceManager extends React.Component {
         if(!this.props.yourSpaces) {
             return null;
         }
-        let allSpaces = this.props.yourSpaces.map(space => {
+        let allSpaces = this.props.yourSpaces.map((space, idx) => {
 
             return (
-                <div key={space.id} className="single-space-bttn">
+                <div key={idx} className="single-space-bttn">
                     <Link to = {`/space/${space.id}`} className="bttn-white" >
                         {space.name}
                     </Link>
@@ -52,11 +52,11 @@ class SpaceManager extends React.Component {
 
         return (
             <div>
-                <h5 id="space-manager-title">Create and manage your space</h5>
+                {/* <h5 id="space-manager-title">Create and manage your space</h5> */}
                 <button className="bttn-white" onClick={this.showSpacePopup}>Create a new space</button>
                 <div id="all-spaces">
                     <div>
-                        <h5 id="space-manager-list">Your own spaces</h5>
+                        {!this.props.yourSpaces.length && <h5 id="space-manager-list">You have no spaces yet</h5> || <h5 id="space-manager-list">Your own spaces</h5>}
                         <div id="your-space-container">
                             {allSpaces}
                         </div>

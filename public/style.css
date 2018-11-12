@@ -559,24 +559,28 @@ body{
     box-shadow: 0.25vw 0.25vw 1vw grey;
 }
 
-.space-color-bttns .yellow{
+.yellow {
     background-color: rgb(240,216,72);
 }
-.space-color-bttns .green{
+.green{
     background-color: rgb(119,204,98);
     border: 0.10vw solid lightgrey;
 }
-.space-color-bttns .blue{
+.blue {
     background-color: rgb(82,128,199);
 }
-.space-color-bttns .red{
+.red {
     background-color: rgb(242,58,58);
 }
+
 
 /* SPACE FOR NOTES */
 .tasks-container{
     min-height: 25vw;
     text-align: center;
+}
+
+.tasks-container .yellow{
 
 }
 .tasks-container textarea,
@@ -606,7 +610,7 @@ body{
     /* margin-top: 1vw; */
 }
 
-.tasks-container button{
+.tasks-container .bttn-white{
     position: relative;
     left: 43%;
     background-color: white;
@@ -691,9 +695,51 @@ body{
     font-size: 1.25vw;
     text-align: left;
     margin-left: 0.25vw;
+    min-height: 8.5vw;
 }
 
+/* TASK TOOLBAR */
+.task-red{
+    background-color: rgb(242,58,58);
+}
 
+.task-green{
+    background-color: rgb(119,204,98);
+}
+
+.task-yellow{
+    background-color: rgb(240,216,72);
+}
+
+.task-blue{
+    background-color: rgb(82,128,199);
+}
+.task-toolbar{
+    margin-right: 0.5vw;
+    display: grid;
+    grid-template-columns: repeat(5, 3vw);
+        float: right;
+}
+
+.task-toolbar * {
+    width: 2vw;
+    height: 2vw;
+    border: none;
+    margin-left: 0.5vw;
+    transition: 0.5s;
+}
+.task-delete {
+
+}
+
+.task-toolbar *:hover{
+    cursor: pointer;
+    box-shadow: 0.5vw 0.5vw 0.5vw grey;
+}
+
+.task-toolbar *:active{
+    box-shadow: none;
+}
 
 /* SPACE POPUP  */
 #space-popup{

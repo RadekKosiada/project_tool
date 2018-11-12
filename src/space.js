@@ -97,6 +97,13 @@ class Space extends React.Component {
                     <div className="task-task">
                         {task.task}
                     </div>
+                    <div className="task-toolbar">
+                        <div className="task-yellow"></div>
+                        <div className="task-green"></div>
+                        <div className="task-blue"></div>
+                        <div className="task-red"></div>
+                        <div className="task-delete"><img src="./imgs/alert.png" /></div>
+                    </div>
                 </div>
             );
         });
@@ -121,7 +128,7 @@ class Space extends React.Component {
                             <input placeholder="Label your task..." onChange={this.handleChangeTitle}></input>
                             <textarea placeholder="... and describe it" onChange={this.handleChangeTask}></textarea>
                         </div>
-                        <button className="bttn" onClick={this.handleSubmit}>Save</button>
+                        <button className="bttn-white" onClick={this.handleSubmit}>Save</button>
                     </div>
                     <div className="tasks-list">
                         {tasksFromCurrentSpace}

@@ -457,6 +457,7 @@ io.on('connection', function(socket) {
                             first: user.rows[0].first,
                             last: user.rows[0].last,
                             url: user.rows[0].url,
+                            id: space.rows[0].id,
                             created_at: space.rows[0].created_at,
                             name: space.rows[0].name,
                             category: space.rows[0].category,
