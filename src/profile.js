@@ -5,7 +5,7 @@ import Bio from './bio.js';
 import ProfilePic from './profilePic.js';
 import {App, Logout, Uploader } from './app.js';
 import FriendButton from './friendButton.js';
-import {SpaceManager} from './SpaceManager.js';
+import SpaceManager from './SpaceManager.js';
 import NewSpacePopup from './spacePopup.js';
 
 // console.log('space manager', SpaceManager);
@@ -78,7 +78,7 @@ export default class Profile extends React.Component {
                     />
 
                     <SpaceManager
-                        spaces={this.props.yourSpaces}
+
                     />
 
                     <br />

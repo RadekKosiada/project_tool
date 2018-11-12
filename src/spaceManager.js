@@ -4,8 +4,9 @@ import axios from './axios';
 import { initSocket } from './socket';
 import { connect } from 'react-redux';
 import NewSpacePopup from './spacePopup.js';
+import {Link} from 'react-router-dom';
 
-export class SpaceManager extends React.Component {
+class SpaceManager extends React.Component {
     constructor(props) {
         super(props);
         this.state={
@@ -33,54 +34,32 @@ export class SpaceManager extends React.Component {
 
     render() {
         //LATER APPROACH
-        // let {yourSpaces} = this.props;
-        // console.log('yourSpaces: ', this.props);
-        // if(!this.props.spaces) {
-        //     return null;
-        // }
-        // let allSpaces = this.props.spaces.map(space => {
-        //
-        //     return (
-        //         <div key={space.id}>
-        //             {space.name}
-        //         </div>
-        //     );
-        // });
-        // console.log('space: ', allSpaces);
+        let {yourSpaces} = this.props;
+        console.log('yourSpaces: ', this.props);
+        if(!this.props.yourSpaces) {
+            return null;
+        }
+        let allSpaces = this.props.yourSpaces.map(space => {
 
-        // OLD APPROACH
-        // let {yourSpaces} = this.props;
-        // console.log('yourSpaces: ', this.props);
-        // const allYourSpaces = (
-        //     <div>
-        //         <h5 id="space-manager-list">Your own spaces</h5>
-        //         <div id="your-space-container">
-        //
-        //             {this.props.yourSpaces.map(space => (
-        //                 <div key={space.id} className="single-space">
-        //                     <p>{space.name}</p>
-        //                     <p>{space.category}</p>
-        //                 </div>
-        //             ))}
-        //         </div>
-        //     </div>
-        // );
+            return (
+                <div key={space.id}>
+                    <Link to = {`/spaces/${space.id}`} className="bttn">
+                        {space.name}
+                    </Link>
+                </div>
+            );
+        });
+        console.log('space: ', allSpaces);
 
         return (
             <div>
                 <h5 id="space-manager-title">Create and manage your space</h5>
-
-
                 <button className="bttn" onClick={this.showSpacePopup}>Create a new space</button>
-
-
                 <div id="all-spaces">
                     <div>
                         <h5 id="space-manager-list">Your own spaces</h5>
                         <div id="your-space-container">
-                            <a className="bttn" title="Your space" href="/space1">Your space</a>
-
-
+                            {allSpaces}
                         </div>
                     </div>
                 </div>
@@ -95,6 +74,7 @@ export class SpaceManager extends React.Component {
 }
 
 const mapStateToProps=state=> {
+    console.log('STATE:', state);
     return {
         yourSpaces: state.allSpacesReducer
     };

@@ -66,7 +66,7 @@ export function lastChatMessages(lastMessagesAction) {
 }
 
 export function allUsersSpaces(allSpacesAction) {
-    // console.log('allSpacesAction: ', allSpacesAction);
+    console.log('allSpacesAction: ', allSpacesAction);
     return {
         type: 'ALL_SPACES',
         allSpacesAction

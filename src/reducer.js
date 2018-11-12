@@ -77,7 +77,7 @@ export default function reducer (state = {}, action) {
             ...state,
             allSpacesReducer: action.allSpacesAction
         };
-        // console.log('ALL SPACES from REDUCER: ', state.allSpacesReducer);
+        console.log('ACTION FROM REDUCER: ', action);
     }
     // SINGLE SPACE ////////////////////////////////////////////
     else if(action.type=='NEW_SPACE') {
@@ -85,7 +85,7 @@ export default function reducer (state = {}, action) {
             ...state,
             allSpacesReducer: [...state.allSpacesReducer, action.newSpaceAction]
         };
-        // console.log('1 SPACE from REDUCER: ', state.newSpaceReducer);
+        console.log('1 SPACE from REDUCER: ', state.allSpacesReducer);
     }
 
     // SINGLE TASK ///////////////////////////////////////////////

@@ -201,7 +201,7 @@ export class App extends React.Component {
                             )}
                         />
 
-                        <Route exact path="/space1"
+                        <Route exact path="/spaces/:id"
                             render={props => (<Space1 />
                             )}
                         />
