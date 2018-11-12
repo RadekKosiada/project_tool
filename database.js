@@ -317,13 +317,13 @@ module.exports.saveNewNote = function(owner_id, title, task, space_id) {
     return db.query(q, params);
 };
 
-module.exports.getTasksFromCurrentSpace = function(space_id) {
+module.exports.getAllTasks = function() {
     const q = `
-        SELECT * FROM tasks WHERE space_id =$1
+        SELECT * FROM tasks
     `;
-
-    const params =[
-        space_id || null
-    ];
-    return db.query(q, params);
-}
+    //
+    // const params =[
+    //     space_id || null
+    // ];
+    return db.query(q);
+};

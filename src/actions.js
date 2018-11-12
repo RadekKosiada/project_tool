@@ -82,7 +82,7 @@ export function newSpace(newSpaceAction) {
 }
 
 export function allTasks(allTasksAction) {
-    console.log('allTasks: ', allTasksAction);
+    console.log('allTasks ACTION: ', allTasksAction);
     return {
         type: 'ALL_TASKS',
         allTasksAction

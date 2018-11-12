@@ -8,7 +8,7 @@ import Opp from './opp.js';
 import Friends from './friends.js';
 import FriendsOnline from './FriendsOnline.js';
 import Chat from './chat.js';
-import Space1 from './space.js';
+import Space from './space.js';
 // import Navbar from './navbar.js';
 
 // import { createStore, applyMiddleware } from 'redux';
@@ -201,10 +201,9 @@ export class App extends React.Component {
                             )}
                         />
 
-                        <Route exact path="/spaces/:id"
-                            render={props => (<Space1 />
-                            )}
-                        />
+                        <Route exact path="/space/:id"
+                            component={Space}/>
+                    
 
                     </div>
                 </BrowserRouter>

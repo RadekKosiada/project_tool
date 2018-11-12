@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from './axios';
 import { initSocket } from './socket';
+import { connect } from 'react-redux';
 
-export default class Space1 extends React.Component {
+class Space extends React.Component {
     constructor(props) {
         super(props)
         this.state ={
@@ -15,6 +16,11 @@ export default class Space1 extends React.Component {
         this.handleChangeTask=this.handleChangeTask.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
         // this.saveTask=this.saveTask.bind(this);
+    }
+    componentDidMount() {
+        const currentSpaceId = this.props.match.params.id;
+        console.log('CURRENT SPACE ID: ', currentSpaceId);
+
     }
     handleChangeTitle(e) {
         this.setState({
@@ -55,6 +61,23 @@ export default class Space1 extends React.Component {
     // }
 
     render() {
+        let {yourTasks} =this.props;
+        if(!this.props.yourTasks) {
+            return null
+        }
+        console.log('YOUR TASKS!!!!!', this.props.yourTasks[0].space_id);
+        let tasksFromCurrentSpace = this.props.yourTasks.map(task => {
+            return (
+                <div key={task.id} className="single-task">
+                    <div className="task-title">
+                        {task.title}
+                    </div>
+                    <div className="task-task">
+                        {task.task}
+                    </div>
+                </div>
+            );
+        });
         return (
             <div className="single-space">
                 <h3 className="space-name">Your work space!</h3>
@@ -78,6 +101,9 @@ export default class Space1 extends React.Component {
                         </div>
                         <button className="bttn" onClick={this.handleSubmit}>Save</button>
                     </div>
+                    <div className="tasks-list">
+                        {tasksFromCurrentSpace}
+                    </div>
 
 
                 </div>
@@ -87,3 +113,11 @@ export default class Space1 extends React.Component {
 
     }
 }
+
+const mapStateToProps=state=> {
+    return{
+        yourTasks: state.allTasksReducer
+    };
+};
+
+export default connect(mapStateToProps)(Space);

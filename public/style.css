@@ -156,11 +156,10 @@ body{
     display: grid;
     grid-template-columns: 25vw 1fr;
     border: 1px solid rgb(119,204,98);
-    background-color: rgba(119,204,98, 1);
+    background-color: rgba(119,204,98, 0.75);
     border: 1vw solid white;
     transition-duration: 0.5s;
     margin: 3vw 1vw;
-
 }
 
 .profile-big .pic-friends-list {
@@ -231,7 +230,8 @@ body{
 .friend-req-bttn,
 .bttn-register,
 .bio-bttn,
-.bttn {
+.bttn,
+.bttn-white {
     margin: 1vw;
     border: 1px solid grey;
     /* background-color: lightgrey; */
@@ -245,6 +245,7 @@ body{
 .bttn {
     font-size: 1vw;
 }
+
 
 #bttn-uploader{
     background-color: lightgrey;
@@ -268,11 +269,12 @@ body{
 .bttn-register:hover,
 .bio-bttn:hover,
 #bttn-uploader:hover,
-.bttn:hover {
-    border: 1px solid black;
+.bttn:hover,
+.bttn-white:hover {
+    /* border: 1px solid black; */
     color: black;
     cursor: pointer;
-    box-shadow: 2px 2px 3px grey;
+    box-shadow: 0.5vw 0.5vw 1vw grey;
 }
 
 .logout-bttn:focus,
@@ -284,7 +286,8 @@ body{
 .chat-textarea:focus,
 .bttn-register:focus,
 .bio-bttn:focus,
-.bttn:focus {
+.bttn:focus,
+.bttn-white:focus {
     outline: none;
 }
 
@@ -297,7 +300,8 @@ body{
 .bttn-register:active,
 .bio-bttn:active,
 #bttn-uploader:active,
-.bttn:active {
+.bttn:active,
+.bttn-white:active {
     box-shadow: none;
 }
 .friend, .wannabe {
@@ -625,7 +629,7 @@ body{
     height: 13vw;
 }
 
-/* SPACE MANAGER COMPONENT */
+/* SPACE POPUP  */
 #space-popup{
     background-color: white;
     border: 1vw solid rgb(119,204,98);
@@ -637,22 +641,44 @@ body{
     outline: none;
     border: 0.25vw solid rgba(119,204,98, 0.8);
 }
-#space-popup button{
+#space-popup button, .bttn-white{
     background-color: white;
     border: 0.25vw solid rgb(119,204,98);
     /* color: rgb(119,204,98); */
 }
+
 #space-popup button:hover{
     background-color: rgb(119,204,98);
-    border: 0.25vw solid rgb(119,204,98);
+    /* border: 0.25vw solid rgb(119,204,98); */
     color: white;
     /* box-shadow: none; */
-
-
 }
 
-
+/* SPACE MANAGER COMPONENT; check also .profile */
 #space-manager-title,
 #space-manager-list {
     margin: 1vw;
+}
+
+#your-space-container{
+    /* border: 1px solid grey; */
+    border-bottom: 0.5vw solid white;
+    display: grid;
+    width: 65vw;
+    grid-template-columns:repeat(7, 1fr);
+}
+
+
+
+/* BUTTONS */
+
+.bttn-white{
+    font-size:1vw;
+    background-color: white;
+    border: none;
+}
+
+.bttn-white:hover {
+    background-color: rgb(119,204,98);
+    color: white;
 }

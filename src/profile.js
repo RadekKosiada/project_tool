@@ -77,9 +77,7 @@ export default class Profile extends React.Component {
                         setMuffinBio={this.props.setBio}
                     />
 
-                    <SpaceManager
-
-                    />
+                    <SpaceManager />
 
                     <br />
                     <button className="bttn"

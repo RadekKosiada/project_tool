@@ -92,7 +92,7 @@ export default function reducer (state = {}, action) {
     else if(action.type=='NEW_TASK') {
         state={
             ...state,
-            newTaskReducer: action.newTaskAction
+            allTasksReducer: [...state.allTasksReducer, action.newTaskAction]
         };
         console.log('1 TASK from REDUCER: ', state.newTaskReducer);
     }
@@ -102,7 +102,7 @@ export default function reducer (state = {}, action) {
             ...state,
             allTasksReducer: action.allTasksAction
         };
-        console.log('ALL AVAIL TASKS: ', state.allTasksReducer);
+        console.log('ALL TASKS REDUCER: ', state.allTasksReducer);
     }
 
     return state;

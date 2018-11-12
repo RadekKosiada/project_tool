@@ -41,12 +41,12 @@ export function initSocket(store) {
         });
 
         socket.on('allUsersSpaces', function(allSpaces) {
-            console.log('allSpace Socket: ', allSpaces);
+            // console.log('allSpace Socket: ', allSpaces);
             store.dispatch(allUsersSpaces(allSpaces));
         });
 
         socket.on('newSpace', function(newWorkspace) {
-            console.log('newSpace Socket: ', newSpace);
+            // console.log('newSpace Socket: ', newSpace);
             store.dispatch(newSpace(newWorkspace));
         });
 

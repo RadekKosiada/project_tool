@@ -357,16 +357,16 @@ io.on('connection', function(socket) {
 ///// SPACES: ALL AVAILABLE USER'S SPACES  //////////////////////////////
     database.getAllUsersSpaces(socket.request.session.user.id)
         .then(allSpaces =>{
-            console.log('All SPACES: ', allSpaces.rows);
+            console.log('All SPACES: ', allSpaces.rows[0].id);
             socket.emit('allUsersSpaces', allSpaces.rows);
         })
         .catch(err => {
             console.log('ERR in getAllUsersSpaces: ', err.message);
         });
 //// TASKS: ALL AVAILABLE USER'S TASKS  //////////////////////
-    database.getTasksFromCurrentSpace(1)
+    database.getAllTasks()
         .then(allTasks =>{
-            console.log('All TASKS FROM CUR SPACE: ', allTasks.rows);
+            // console.log('All TASKS FROM CUR SPACE: ', allTasks.rows);
             socket.emit('allCurrentTasks', allTasks.rows);
         })
         .catch(err => {
