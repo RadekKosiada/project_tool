@@ -393,7 +393,7 @@ io.on('connection', function(socket) {
         .catch(err => {
             console.log('ERR in getAllUsersSpaces: ', err.message);
         });
-///// ALL SPACES ////////////////////////////////////////////////////
+///// ALL POSSIBLE EXISTING SPACES ////////////////////////////
     database.getAllSpaces()
         .then(allTheSpaces =>{
             // console.log('All SPACES !!!!!: ', allTheSpaces.rows);
@@ -407,24 +407,17 @@ io.on('connection', function(socket) {
             database.getAllSpacesAndOwners(ownersIds)
                 .then(ownersAndSpaces =>{
                     console.log('RES OF getAllSpacesAndOwners: ', ownersAndSpaces.rows);
-                    // let spacesAndOwners={
-                    //     first: owners.rows[0].first,
-                    //     last: owners.rows[0].last,
-                    //     name: allTheSpaces.rows[0].name,
-                    //     id: allTheSpaces.rows[0].id
-                    // };
-                    // console.log('SPACE OBJ!!!!!', spacesAndOwners);
+                    socket.emit('AllSpacesAndOwners', ownersAndSpaces.rows);
                 })
                 .catch(err=> {
                     console.log('ERR IN getAllSpacesAndOwners: ', err.message);
                 });
-
         })
         .catch(err => {
             console.log('ERR in allTheSpaces: ', err.message);
         });
 
-//// TASKS: ALL AVAILABLE USER'S TASKS  //////////////////////
+//// TASKS: ALL USER'S TASKS  //////////////////////
     database.getAllTasks()
         .then(allTasks =>{
             // console.log('All TASKS: ', allTasks.rows);

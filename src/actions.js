@@ -98,7 +98,7 @@ export function newTask(newTaskAction) {
 }
 
 export function deletedTask(delTaskAction) {
-    console.log('delTaskAction !!!!!!!!!!!!!!!!!!!!: ', delTaskAction);
+    // console.log('delTaskAction: ', delTaskAction);
     return {
         type: 'DELETE_TASK',
         delTaskAction
@@ -110,5 +110,13 @@ export function deletedSpace(delSpaceAction) {
     return {
         type: 'DELETE_SPACE',
         delSpaceAction
+    };
+}
+
+export function allTheSpaces(allAvailSpacesAction) {
+    console.log('ALL AVAIL SPACES: ', allAvailSpacesAction);
+    return{
+        type: 'ALL_AVAIL_SPACES',
+        allAvailSpacesAction
     };
 }

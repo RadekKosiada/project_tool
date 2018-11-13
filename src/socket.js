@@ -10,7 +10,8 @@ import {onlineUsers,
     newTask,
     allTasks,
     deletedTask,
-    deletedSpace
+    deletedSpace,
+    allTheSpaces
 } from './actions';
 
 let socket;
@@ -75,6 +76,12 @@ export function initSocket(store) {
         socket.on('deletingSpace', function(delSpace) {
             console.log('DELETED SPACE SOCKET!!!!!!', delSpace);
             store.dispatch(deletedSpace(delSpace));
+        });
+
+        /////ALL POSSIBLE EXISTING SPACES ////////////////////
+        socket.on('AllSpacesAndOwners', function(allAvailSpaces){
+            console.log('ALLTHE SPACES AVAIL:, ', allAvailSpaces);
+            store.dispatch(allTheSpaces(allAvailSpaces));
         });
     }
 

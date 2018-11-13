@@ -77,7 +77,7 @@ export default function reducer (state = {}, action) {
             ...state,
             allSpacesReducer: action.allSpacesAction
         };
-        console.log('ACTION FROM REDUCER: ', action);
+        // console.log('ACTION FROM REDUCER: ', action);
     }
     // SINGLE SPACE ////////////////////////////////////////////
     else if(action.type=='NEW_SPACE') {
@@ -85,7 +85,7 @@ export default function reducer (state = {}, action) {
             ...state,
             allSpacesReducer: [...state.allSpacesReducer, action.newSpaceAction]
         };
-        console.log('1 SPACE from REDUCER: ', state.allSpacesReducer);
+        // console.log('1 SPACE from REDUCER: ', state.allSpacesReducer);
     }
 
     // SINGLE TASK ///////////////////////////////////////////////
@@ -94,7 +94,7 @@ export default function reducer (state = {}, action) {
             ...state,
             allTasksReducer: [...state.allTasksReducer, action.newTaskAction]
         };
-        console.log('1 TASK from REDUCER: ', state.newTaskReducer);
+        // console.log('1 TASK from REDUCER: ', state.newTaskReducer);
     }
     //ALL TASKS FROM THE SPACE ////////////////////////////////////
     else if(action.type=='ALL_TASKS') {
@@ -102,28 +102,35 @@ export default function reducer (state = {}, action) {
             ...state,
             allTasksReducer: action.allTasksAction
         };
-        console.log('ALL TASKS REDUCER: ', state.allTasksReducer);
+        // console.log('ALL TASKS REDUCER: ', state.allTasksReducer);
     }
     else if(action.type=='DELETE_TASK') {
         state={
             ...state,
             allTasksReducer: state.allTasksReducer.filter(task =>{
                 if(task.id !== action.delTaskAction) {
-                    return task
+                    return task;
                 }
             })
         };
-        console.log('TASKS AFTER DELETE: ', state.allTasksReducer);
+        // console.log('TASKS AFTER DELETE: ', state.allTasksReducer);
     }
     else if(action.type=='DELETE_SPACE') {
         state= {
             ...state,
             allSpacesReducer: state.allSpacesReducer.filter(space => {
                 if(space.id !==action.delSpaceAction) {
-                    return space
+                    return space;
                 }
             })
-        }
+        };
+    }
+    else if(action.type=='ALL_AVAIL_SPACES') {
+        state={
+            ...state,
+            allAvailSpacesReducer: action.allAvailSpacesAction
+        };
+        console.log('ALL AVAIL SPACES: ', state.allAvailSpacesReducer);
     }
     return state;
 }
