@@ -51,7 +51,8 @@ class Space extends React.Component {
         //     textareaValue: ''
         // });
     }
-    deleteTask(taskId, e){
+
+    deleteTask(taskId){
         let socket=initSocket();
         console.log(taskId);
         socket.emit('deleteSingleTask', taskId);
@@ -61,6 +62,8 @@ class Space extends React.Component {
         let socket=initSocket();
         console.log(spaceId);
         socket.emit('deleteSingleSpace', spaceId);
+        this.props.history.push()
+        location.replace('/');
     }
     // saveTask(e) {
     //     let socket=initSocket();
@@ -88,7 +91,7 @@ class Space extends React.Component {
                 tasksArr.push(yourTasks[i])
             }
         }
-        console.log('YOUR TASKS ARRAY!!!!!', tasksArr);
+        // console.log('YOUR TASKS ARRAY!!!!!', tasksArr);
         let tasksFromCurrentSpace = tasksArr.map(task => {
             return (
                 <div key={task.id} className="single-task">

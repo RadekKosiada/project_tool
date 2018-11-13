@@ -66,7 +66,7 @@ export function lastChatMessages(lastMessagesAction) {
 }
 
 export function allUsersSpaces(allSpacesAction) {
-    console.log('allSpacesAction: ', allSpacesAction);
+    // console.log('allSpacesAction: ', allSpacesAction);
     return {
         type: 'ALL_SPACES',
         allSpacesAction
@@ -82,7 +82,7 @@ export function newSpace(newSpaceAction) {
 }
 
 export function allTasks(allTasksAction) {
-    console.log('allTasks ACTION: ', allTasksAction);
+    // console.log('allTasks ACTION: ', allTasksAction);
     return {
         type: 'ALL_TASKS',
         allTasksAction
@@ -90,9 +90,25 @@ export function allTasks(allTasksAction) {
 }
 
 export function newTask(newTaskAction) {
-    console.log('newTaskAction: ', newTaskAction);
+    // console.log('newTaskAction: ', newTaskAction);
     return {
         type: 'NEW_TASK',
         newTaskAction
+    };
+}
+
+export function deletedTask(delTaskAction) {
+    console.log('delTaskAction !!!!!!!!!!!!!!!!!!!!: ', delTaskAction);
+    return {
+        type: 'DELETE_TASK',
+        delTaskAction
+    };
+}
+
+export function deletedSpace(delSpaceAction) {
+    console.log('Del Space Action: ', delSpaceAction);
+    return {
+        type: 'DELETE_SPACE',
+        delSpaceAction
     };
 }

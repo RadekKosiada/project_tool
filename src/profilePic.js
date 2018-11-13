@@ -19,8 +19,6 @@ export default function ProfilePic(props) {
             ||
             <img className="pic-friends-list" src={image} onClick={props.clickHandler}/>
             }
-
-
         </div>
     );
 }

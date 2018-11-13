@@ -104,6 +104,26 @@ export default function reducer (state = {}, action) {
         };
         console.log('ALL TASKS REDUCER: ', state.allTasksReducer);
     }
-
+    else if(action.type=='DELETE_TASK') {
+        state={
+            ...state,
+            allTasksReducer: state.allTasksReducer.filter(task =>{
+                if(task.id !== action.delTaskAction) {
+                    return task
+                }
+            })
+        };
+        console.log('TASKS AFTER DELETE: ', state.allTasksReducer);
+    }
+    else if(action.type=='DELETE_SPACE') {
+        state= {
+            ...state,
+            allSpacesReducer: state.allSpacesReducer.filter(space => {
+                if(space.id !==action.delSpaceAction) {
+                    return space
+                }
+            })
+        }
+    }
     return state;
 }

@@ -512,8 +512,8 @@ io.on('connection', function(socket) {
     socket.on('deleteSingleTask', function(taskId) {
         database.deleteSingleTask(taskId)
             .then(result => {
-                console.log('RES OF DEL 1 TASK: ', result.rows);
-                socket.emit('deletingTask', result.rows);
+                // console.log('RES OF DEL 1 TASK: ', result.rows);
+                socket.emit('deletingTask', taskId);
             })
             .catch(err=> {
                 console.log('ERR in deleteSingleTask', err);
@@ -521,17 +521,20 @@ io.on('connection', function(socket) {
     });
 
     ///// DELETING SINGLE SPACE AND ALL THE TASKS INSIDE ///////////////
-    socket.on('deleteSingleSpace', function(spaceId, client) {
+    socket.on('deleteSingleSpace', function(spaceId) {
         database.deleteSingleSpace(spaceId)
             .then(result=> {
-                console.log('RES OF DEL SPACE: ', result.rows);
-                // socket.emit('deletingTask', result.rows);
-                let destination = '/';
-                client.emit('redirect', destination);
+                // console.log('RES OF DEL SPACE: ', result.rows);
+                socket.emit('deletingSpace', spaceId);
+                // let destination = '/';
+                // client.emit('redirect', destination);
+                //client-side;
+                // props.history.push()
+
             })
             .catch(err=> {
                 console.log('ERR in deleteSingleSpace', err.message);
-            })
-    })
+            });
+    });
 
 }); //end of io.on!!!!!!!

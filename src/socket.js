@@ -1,15 +1,16 @@
 //frontend socket code here;
 import * as io from 'socket.io-client';
 import {onlineUsers,
-        userLeft,
-        userJoined,
-        singleChatMessage,
-        lastChatMessages,
-        newSpace,
-        allUsersSpaces,
-        newTask,
-        allTasks,
-        deletingTask
+    userLeft,
+    userJoined,
+    singleChatMessage,
+    lastChatMessages,
+    newSpace,
+    allUsersSpaces,
+    newTask,
+    allTasks,
+    deletedTask,
+    deletedSpace
 } from './actions';
 
 let socket;
@@ -52,18 +53,28 @@ export function initSocket(store) {
         });
 
         socket.on('allCurrentTasks', function(allSpacesTasks) {
-            console.log('allCurrentTasks Socket: ', allSpacesTasks);
+            // console.log('allCurrentTasks Socket: ', allSpacesTasks);
             store.dispatch(allTasks(allSpacesTasks));
         });
 
         socket.on('newTask', function(workTask) {
-            console.log('newTask Socket: ', workTask);
+            // console.log('newTask Socket: ', workTask);
             store.dispatch(newTask(workTask));
         });
+        ////// DELETING TASKS ////////////////////////////////////
+        // deletingTask from index.js
+        // deletedTask function from action.js
+        // the argument delTask has to be different
 
-        socket.on('deletingTask', function(deletedTask) {
-            console.log('DELETED TASK!!!!!!!: ',deletedTask);
-            store.dispatch(deletingTask(deletedTask));
+        socket.on('deletingTask', function(delTask) {
+            console.log('DELETED TASK SOCKET!!!!!!!: ', deletedTask);
+            store.dispatch(deletedTask(delTask));
+        });
+
+        //// DELETING SPACES /////////////////////////////////////
+        socket.on('deletingSpace', function(delSpace) {
+            console.log('DELETED SPACE SOCKET!!!!!!', delSpace);
+            store.dispatch(deletedSpace(delSpace));
         });
     }
 
