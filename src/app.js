@@ -202,8 +202,14 @@ export class App extends React.Component {
                         />
 
                         <Route exact path="/space/:id"
-                            component={Space}/>
-                    
+                            render={props => (<Space {...props}
+                                // first={props.first}
+                                // last={props.last}
+                                // name={props.name}
+                            />
+                            )}
+                        />
+
 
                     </div>
                 </BrowserRouter>

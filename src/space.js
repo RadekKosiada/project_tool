@@ -7,11 +7,14 @@ import { connect } from 'react-redux';
 class Space extends React.Component {
     constructor(props) {
         super(props)
+        console.log('PROPS FROM SPACE: ', props)
         this.state ={
             title: '',
             task: '',
-            textareaValue: ''
-        }
+            textareaValue: '',
+            submitFired: false,
+            spaceOwner: ''
+        };
         this.handleChangeTitle=this.handleChangeTitle.bind(this);
         this.handleChangeTask=this.handleChangeTask.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
@@ -22,7 +25,16 @@ class Space extends React.Component {
     componentDidMount() {
         const currentSpaceId = this.props.match.params.id;
         console.log('CURRENT SPACE ID: ', currentSpaceId);
-
+        axios.get('/get-space-details/'+ currentSpaceId)
+            .then(res => {
+                console.log('SPACEINFO CLIENT: ', res.data);
+                this.setState({
+                    spaceOwner: res.data
+                });
+            })
+            .catch(err => {
+                console.log('ERR in getSpaceDetails: ', err.message);
+            });
     }
     handleChangeTitle(e) {
         this.setState({
@@ -45,6 +57,7 @@ class Space extends React.Component {
             task: this.state.task,
             space_id: this.props.match.params.id
         };
+
         console.log('HANDLE SUBMIT FIRED: ',taskObj);
         socket.emit('newTask', taskObj);
         // this.setState({
@@ -92,6 +105,7 @@ class Space extends React.Component {
             }
         }
         // console.log('YOUR TASKS ARRAY!!!!!', tasksArr);
+        console.log('STATE!!!!!!!', this.state);
         let tasksFromCurrentSpace = tasksArr.map(task => {
             return (
                 <div key={task.id} className="single-task">
@@ -126,11 +140,12 @@ class Space extends React.Component {
 
         return (
             <div className="single-space">
-                <h3 className="space-name">Your work space!</h3>
+                <h3 className="space-name"><span className="bold">Work space: </span>{this.state.spaceOwner.name}</h3>
                 <div className="space-nav-bar">
-                    <p><span className="bold">Owner:</span> Radek</p>
-                    <p><span className="bold">Name:</span> Private errands</p>
-                    <p><span className="bold">Category:</span> Current</p>
+                    <p><span className="bold">Owner: </span>{this.state.spaceOwner.first}</p>
+                    <p><span className="bold">Category: </span>{this.state.spaceOwner.category}</p>
+                    <p><span className="bold">Created at: </span>{changeDate(this.state.spaceOwner.created_at)}</p>
+                    <p><span className="bold">ETA: </span>{this.state.spaceOwner.eta}</p>
                     <div className="space-color-bttns">
                         <p><span className="bold">Colors: </span></p>
                         <button className="yellow"></button>
@@ -143,8 +158,8 @@ class Space extends React.Component {
                 <div className="tasks-container">
                     <div className="tasks-saving-tool">
                         <div className="task-input">
-                            <input placeholder="Label your task..." onChange={this.handleChangeTitle}></input>
-                            <textarea placeholder="... and describe it" onChange={this.handleChangeTask}></textarea>
+                            <input id="spaceInput" placeholder="Label your task..." onChange={this.handleChangeTitle}></input>
+                            <textarea id="spaceTextarea" placeholder="... and describe it" onChange={this.handleChangeTask}></textarea>
                         </div>
                         <button className="bttn-white" onClick={this.handleSubmit}>Save</button>
                     </div>
@@ -160,7 +175,9 @@ class Space extends React.Component {
 
 const mapStateToProps=state=> {
     return{
-        yourTasks: state.allTasksReducer
+        yourTasks: state.allTasksReducer,
+        yourSpaces: state.allSpacesReducer
+
     };
 };
 

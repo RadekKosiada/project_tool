@@ -215,24 +215,53 @@ app.get('/get-other-user.json/:id',  (req, res) => {
         res.json(false);
     }else {
         database.getOtherUsersProfile(req.params.id)
-        .then(otherUsersProfile => {
-            // console.log('OTHER USER`S PROFILE: ', otherUsersProfile.rows[0]);
-            res.json(otherUsersProfile.rows[0]);
+            .then(otherUsersProfile => {
+                // console.log('OTHER USER`S PROFILE: ', otherUsersProfile.rows[0]);
+                res.json(otherUsersProfile.rows[0]);
+            })
+            .catch(err=> {
+                console.log('ERROR in db.getOtherUsersProfile: ', err.message)
+            })
+    }
+});
+
+/// GETTING INFO ABOUT SPACES /////////////////////////////
+app.get('/get-space-details/:id', (req, res) => {
+    database.getSpaceDetails(req.params.id)
+        .then(spaceInfo => {
+            // console.log('SPACE INFO: ', spaceInfo.rows[0]);
+            database.getUsersProfile(spaceInfo.rows[0].owner_id)
+                .then(spaceOwner => {
+                    // console.log('SPACE OWNER: ', spaceOwner.rows);
+                    let currSpaceObj={
+                        first: spaceOwner.rows[0].first,
+                        last: spaceOwner.rows[0].last,
+                        name:spaceInfo.rows[0].name,
+                        created_at: spaceInfo.rows[0].created_at,
+                        category: spaceInfo.rows[0].category,
+                        color: spaceInfo.rows[0].color,
+                        eta: spaceInfo.rows[0].eta,
+                    };
+                    console.log('SPACE INFO: ', currSpaceObj);
+                    res.json(currSpaceObj);
+                })
+                .catch(err=>{
+                    console.log('ERR IN SPACE OWNER INFO: ', err.message);
+                })
         })
         .catch(err=> {
-            console.log('ERROR in db.getOtherUsersProfile: ', err.message)
+            console.log('ERR in getSpaceDetails: ', err.message);
         })
-    }
 });
 
 app.post('/add-bio.json', (req, res)=> {
     database.saveBio(req.body.bio, req.session.user.id)
-    .then(results => {
-        // console.log('RESULTS OF SAVE BIO:', results.rows[0]);
-        res.json(results.rows[0]);
-    }).catch(err=> {
-        console.log(err.message);
-    })
+        .then(results => {
+            // console.log('RESULTS OF SAVE BIO:', results.rows[0]);
+            res.json(results.rows[0]);
+        }).catch(err=> {
+            console.log(err.message);
+        })
 })
 
 // route in the app.post should be the same as in handleSubmit in welcome.js
@@ -283,6 +312,7 @@ app.post('/login', (req, res) => {
             console.log('Error in the getPassword: ', err);
             });
 });
+
 
 app.get('/logout', (req, res) => {
     req.session = null;

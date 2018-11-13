@@ -303,6 +303,14 @@ module.exports.getAllUsersSpaces = function(owner_id) {
     return db.query(q, params);
 };
 
+module.exports.getSpaceDetails = function(id) {
+    const q = `
+        SELECT * FROM spaces WHERE spaces.id = $1
+    `;
+    const params = [ id || null ];
+    return db.query(q, params);
+}
+
 module.exports.saveNewTask = function(owner_id, title, task, space_id) {
     const q = `
     INSERT INTO tasks (owner_id, title, task, space_id)

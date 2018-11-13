@@ -34,6 +34,7 @@ export default class NewSpacePopup extends React.Component {
         console.log(spaceObj);
         socket.emit('newSpace', spaceObj);
         // socket.emit('spaceCategory', this.state.category);
+        this.props.hideSpacePopup();
     }
     render() {
         return (
