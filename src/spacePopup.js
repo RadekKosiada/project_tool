@@ -40,7 +40,7 @@ export default class NewSpacePopup extends React.Component {
         return (
             <div className="overlay">
                 <div id="space-popup">
-                    <p className="close-popup" onClick={this.props.hideSpacePopup}>&#10006;</p>
+                    <p className="space-close-popup" onClick={this.props.hideSpacePopup}>&#10006;</p>
                     <p>Fill the following fields:</p>
                     <input
                         className="space-input"

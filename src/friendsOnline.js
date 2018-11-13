@@ -18,9 +18,7 @@ class FriendsOnline extends React.Component {
                 <div key={ idx } className="users-online-container">
                     <ProfilePic
                         image={user.url}
-
                     />
-
                     <h5>{user.first} {user.last}</h5>
                     <p>{user.name}</p>
                 </div>

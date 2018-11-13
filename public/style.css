@@ -778,6 +778,22 @@ body{
     /* box-shadow: none; */
 }
 
+.space-close-popup{
+    color: rgb(242,58,58);
+    position: absolute;
+    top: 0.75vw;
+    left: 93%;
+    font-size: 2.5vw;
+    transition-duration: 0.5s;
+}
+.space-close-popup:hover {
+    cursor: pointer;
+    transform: rotate(180deg);
+}
+.space-close-popup:active{
+    font-size: 2vw;
+    text-decoration: none;
+}
 /* SPACE MANAGER COMPONENT; check also .profile */
 #space-manager-title,
 #space-manager-list {
@@ -792,7 +808,57 @@ body{
     grid-template-columns:repeat(7, 1fr);
 }
 
+/* ALL AVAIL SPACES COMPONENT */
+.all-spaces-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
 
+.all-spaces-single .pic-friends-list{
+    height: 6vw;
+    width: 6vw;
+}
+.all-spaces-single .pic-friends-list:hover{
+    box-shadow: none;
+    cursor: default;
+    transform: none;
+}
+
+.all-spaces-single{
+    display:grid;
+    grid-template-columns: 7vw 15vw;
+    /* background-color: rgba(119,204,98, 0.75); */
+    margin: 1vw;
+    border: 0.5vw solid rgb(119,204,98);
+    transition-duration: 1s;
+    box-shadow: 0.25vw 0.25vw 0.25vw grey;
+}
+
+.all-spaces-single:hover{
+    /* box-shadow: 0.5vw 0.5vw 0.5vw grey; */
+    /* border: 0.75vw solid rgb(119,204,98); */
+}
+
+.all-spaces-bttn{
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    padding: 0.5vw;
+    transition-duration: 0.5s;
+    outline: none;
+    margin-bottom: 1vw;
+    border: 0.1vw solid rgb(119,204,98);
+}
+
+.all-spaces-bttn:hover{
+    box-shadow: 0.25vw 0.25vw 0.25vw grey;
+    background-color: rgb(119,204,98);
+    color: white;
+}
+.all-spaces-bttn:active{
+    box-shadow: none;
+    outline: none;
+}
 
 /* BUTTONS */
 

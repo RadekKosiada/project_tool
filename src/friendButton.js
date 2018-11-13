@@ -27,13 +27,13 @@ export default class FriendButton extends React.Component {
         let friendsId = this.props.oppId;
         console.log('POTENTIAL FRIEND`s ID', friendsId!==undefined);
 
-            axios.get('/friendship.status.json/'+ friendsId)
+        axios.get('/friendship.status.json/'+ friendsId)
             .then(friendshipStatus=> {
                 console.log('FRIENDSHIP STATUS: ', friendshipStatus.data);
-                    this.setState({
-                        status: friendshipStatus.data
-                    })
+                this.setState({
+                    status: friendshipStatus.data
                 })
+            })
             .catch(err=> {
                 console.log('ERROR IN FRIEND STATUS: ', err.message);
             })
