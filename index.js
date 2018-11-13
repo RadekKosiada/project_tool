@@ -209,6 +209,7 @@ app.post('/acceptFRequest.json', (req, res) => {
     })
 })
 
+///OTHER USERS PROFILE //////////////////////////////////////////////////
 app.get('/get-other-user.json/:id',  (req, res) => {
     // console.log('REQ PARAMS ID', req.params.id);
     if(req.params.id==req.session.user.id) {
@@ -402,11 +403,21 @@ io.on('connection', function(socket) {
                 usersArr.push(allTheSpaces.rows[i].owner_id);
             }
             let ownersIds=[...new Set(usersArr)];
-            console.log('OWNERS ARR: ', ownersIds);
+            // console.log('OWNERS ARR: ', ownersIds);
             // socket.emit('allTheSpaces', allTheSpaces.rows);
             database.getAllSpacesAndOwners(ownersIds)
                 .then(ownersAndSpaces =>{
-                    console.log('RES OF getAllSpacesAndOwners: ', ownersAndSpaces.rows);
+                    // console.log('RES OF getAllSpacesAndOwners: ', ownersAndSpaces.rows);
+                    // let ownersAndSpacesObj= {
+                    //     requester_id=socket.request.session.user.id,
+                    //     first: ownersAndSpaces.rows.
+                    //     last: ownersAndSpaces.rows
+                    //     url: ownersAndSpaces.rows
+                    //     id: ownersAndSpaces.rows
+                    //     owner_id:ownersAndSpaces.rows
+                    //     name:ownersAndSpaces.rows
+                    //
+                    // }
                     socket.emit('AllSpacesAndOwners', ownersAndSpaces.rows);
                 })
                 .catch(err=> {
@@ -416,6 +427,8 @@ io.on('connection', function(socket) {
         .catch(err => {
             console.log('ERR in allTheSpaces: ', err.message);
         });
+
+// ALL PERMISSIONS /////////////////////////////////////////////
 
 //// TASKS: ALL USER'S TASKS  //////////////////////
     database.getAllTasks()
@@ -560,6 +573,34 @@ io.on('connection', function(socket) {
             .catch(err => {
                 console.log('ERR in saveNewNote: ', err.message);
             });
+    });
+
+    /// SENDING AN ACCES REQUST //////////////////////////////////
+    socket.on('sendAccessReq',function(spaceId){
+        database.getSpaceDetails(spaceId)
+            .then(res => {
+                console.log('spaceDetails from sendAccessReq: ', res.rows);
+                database.sendAccessReq(spaceId, res.rows[0].owner_id, socket.request.session.user.id)
+                    .then(result => {
+                        console.log('RES of sendAccessReq: ', result.rows[0]);
+                        // let accessObj = {
+                        //     requester: socket.request.session.user.id,
+                        //     id: result.rows[0].id,
+                        //     owner_id: result.rows[0].owner_id,
+                        //     created_at: result.rows[0].created_at,
+                        //     name: result.rows[0].name,
+                        //     category: result.rows[0].category
+                        // }
+                        socket.emit('sendingAccessReq', result.rows[0])
+                    })
+                    .catch(err => {
+                        console.log('ERR in sendAccessReq: ', err.message);
+                    });
+            })
+            .catch(err=> {
+                console.log('ERR in spaceDetails from sendAccessReq: ', err.message);
+            });
+
     });
 
     //// DELETING SINGLE TASK ////////////////////////////////////

@@ -832,6 +832,7 @@ body{
     border: 0.5vw solid rgb(119,204,98);
     transition-duration: 1s;
     box-shadow: 0.25vw 0.25vw 0.25vw grey;
+    min-height: 12vw;
 }
 
 .all-spaces-single:hover{

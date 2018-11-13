@@ -7,11 +7,6 @@ import SpaceReqButton from './spaceReqButton.js';
 class AllSpaces extends React.Component {
     constructor() {
         super();
-        this.handleRequest=this.handleRequest.bind(this);
-    }
-
-    handleRequest(){
-        console.log("vöjfdnvköjfbdkvjf")
     }
 
     render() {
@@ -28,8 +23,14 @@ class AllSpaces extends React.Component {
                     <div>
                         <p className="all-spaces-user">Owner: {space.first} {space.last}</p>
                         <p className="all-spaces-name"> Space: <span className="bold">{space.name}</span></p>
-                        <SpaceReqButton
-                            spaceId={space.id}/>
+
+                        {space.owner_id == space.user_id &&
+                            <SpaceReqButton
+                                spaceId={space.id}
+                                spaceName={space.name}
+                                spaceOwnerId={space.owner_id}
+                            /> || ''}
+
                         {/*<button className="all-spaces-bttn" onClick={this.handleRequest}>Request access</button>*/}
                     </div>
                 </div>
@@ -53,5 +54,6 @@ const mapStateToProps=state=> {
 
     };
 };
+
 
 export default connect(mapStateToProps)(AllSpaces);

@@ -63,5 +63,6 @@ CREATE TABLE permissions(
     id SERIAL PRIMARY KEY,
     owner_id INT NOT NULL REFERENCES users(id),
     contributor_id INT NOT NULL REFERENCES users(id),
-    space_id INT NOT NULL REFERENCES spaces(id)
+    space_id INT NOT NULL REFERENCES spaces(id),
+    accepted BOOLEAN DEFAULT false
 );

@@ -364,3 +364,16 @@ module.exports.deleteSingleSpace = function(id) {
         db.query((`DELETE FROM tasks WHERE space_id =$1`), params)
     ]);
 };
+
+module.exports.sendAccessReq = function(space_id, owner_id, contributor_id) {
+    const q = `
+        INSERT INTO permissions (space_id, owner_id, contributor_id)
+        VALUES ($1, $2, $3) RETURNING *
+    `;
+    const params = [
+        space_id || null,
+        owner_id || null,
+        contributor_id || null
+    ];
+    return db.query(q, params);
+};
