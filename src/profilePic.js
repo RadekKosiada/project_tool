@@ -3,23 +3,22 @@ import React from 'react';
 // PROFILE PIC COMPONENT ////////////////////////
 
 export default function ProfilePic(props) {
-    let letter= props.firstLetter;
-    console.log(letter);
-    let image = props.image;
-    // let imgSrc = '';
-    // if(!props.image) {
-    //     imgSrc = '/imgs/default_bolek.png';
-    // } else {
-    //     imgSrc = props.image;
-    // }
+    // let letter= props.firstLetter;
+    // console.log(letter);
+    // let image = props.image;
+    let imgSrc = '';
+    if(!props.image) {
+        imgSrc = '/imgs/default_bolek.png';
+    } else {
+        imgSrc = props.image;
+    }
     // const image = props.image |< 'default.jpg'
     return (
         <div>
-            {!props.image && <h1 className="profile-letter" onClick={props.clickHandler}>{letter}</h1>
-            ||
-            <img className="pic-friends-list" src={image} onClick={props.clickHandler}/>
-            }
+            <img className="pic-friends-list" src={imgSrc} onClick={props.clickHandler}/>
         </div>
+
+
     );
 }
 

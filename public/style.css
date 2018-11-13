@@ -100,11 +100,20 @@ body{
 
 .close-popup{
     color: rgb(242,58,58);
-    position: absolute;
+    /* position: absolute;
     top: 0.75vw;
-    left: 93%;
+    left: 93%; */
     font-size: 2.5vw;
     transition-duration: 0.5s;
+}
+
+/* NEW CHAT COMPONENT RENDERED IN THE SPACE */
+#chat-component{
+    border: 1px solid grey;
+}
+#chat-component .close-popup{
+    position: relative;
+    left: 30%;
 }
 
 .close-popup:hover {

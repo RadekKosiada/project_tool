@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from './axios';
 import { initSocket } from './socket';
 import { connect } from 'react-redux';
+import Chat from './chat.js';
 
 class Space extends React.Component {
     constructor(props) {
@@ -13,11 +14,14 @@ class Space extends React.Component {
             task: '',
             textareaValue: '',
             submitFired: false,
-            spaceOwner: ''
+            spaceOwner: '',
+            chatOpened: false
         };
         this.handleChangeTitle=this.handleChangeTitle.bind(this);
         this.handleChangeTask=this.handleChangeTask.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
+        this.openChat=this.openChat.bind(this);
+        this.hideChat=this.hideChat.bind(this);
         // this.deleteSpace=this.deleteSpace.bind(this);
         // this.deleteTask=this.deleteTask.bind(this, i);
         // this.saveTask=this.saveTask.bind(this);
@@ -35,6 +39,16 @@ class Space extends React.Component {
             .catch(err => {
                 console.log('ERR in getSpaceDetails: ', err.message);
             });
+    }
+    openChat(){
+        this.setState({
+            chatOpened: true
+        });
+    }
+    hideChat(){
+        this.setState({
+            chatOpened: false
+        });
     }
     handleChangeTitle(e) {
         this.setState({
@@ -154,6 +168,7 @@ class Space extends React.Component {
                         <button className="red"></button>
                         <img className="space-delete" src="./imgs/alert.png" onClick={this.deleteSpace.bind(this, spaceId)} />
                     </div>
+                    <button className="open-chat" onClick={this.openChat}>Start a chat</button>
                 </div>
                 <div className="tasks-container">
                     <div className="tasks-saving-tool">
@@ -166,6 +181,7 @@ class Space extends React.Component {
                     <div className="tasks-list">
                         {tasksFromCurrentSpace}
                     </div>
+                    {this.state.chatOpened && <Chat hideChat={this.hideChat}/>}
                 </div>
             </div>
         );
