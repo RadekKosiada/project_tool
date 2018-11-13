@@ -181,7 +181,12 @@ class Space extends React.Component {
                     <div className="tasks-list">
                         {tasksFromCurrentSpace}
                     </div>
-                    {this.state.chatOpened && <Chat hideChat={this.hideChat}/>}
+                    {this.state.chatOpened &&
+                        <Chat
+                            hideChat={this.hideChat}
+                            spaceOwner={this.state.spaceOwner.first}
+                            name={this.state.spaceOwner.name}
+                        />}
                 </div>
             </div>
         );

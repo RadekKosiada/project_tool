@@ -6,7 +6,7 @@
 }
 
 body{
-    background-color: 	rgba(211,211,211, 0.5);
+    /* background-color: 	rgba(211,211,211, 0.5); */
 }
 
 .bold {
@@ -36,8 +36,6 @@ body{
 #app-component .logo{
     width: 5vw;
 }
-
-
 
 .input-email{
 
@@ -365,7 +363,7 @@ body{
     width: 57%;
     height: 7vw;
     display: grid;
-    grid-template-columns: repeat(7, 8vw);
+    grid-template-columns: repeat(9, 8vw);
     margin-bottom: 3vw;
     align-items: center;
 }

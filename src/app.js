@@ -9,6 +9,7 @@ import Friends from './friends.js';
 import FriendsOnline from './FriendsOnline.js';
 import Chat from './chat.js';
 import Space from './space.js';
+import AllSpaces from './allSpaces.js';
 // import Navbar from './navbar.js';
 
 // import { createStore, applyMiddleware } from 'redux';
@@ -27,7 +28,7 @@ export function Logo() {
 
 ////// LOG OUT BUTTON //////////////////////////////
 export function Logout(props) {
-        return <a className="logout-bttn" title="Log out" href='/logout'><img src="./imgs/logout.png" /></a>
+    return <a className="logout-bttn" title="Log out" href='/logout'><img src="./imgs/logout.png" /></a>
     {/*return <img className="logout-bttn" src="/imgs/logout.png" />*/}
 }
 
@@ -146,6 +147,8 @@ export class App extends React.Component {
                 <Logo />
                 <div id="nav-bar">
                     <LinkToProfile />
+                    {/*BUTTON TO SPACES*/}
+                    <a className="bttn-chat" title="Spaces" href="/spaces">SPACES</a>
                     {/*BUTTON TO FRIENDS*/}
                     <a className="bttn-to-friends" title="Your friends" href="/friends"><img src="./imgs/friends.png" /></a>
 
@@ -194,6 +197,11 @@ export class App extends React.Component {
                         <Route exact path="/chat"
                             render={props => (
                                 <Chat />
+                            )}
+                        />
+                        <Route exact path="/spaces"
+                            render={props => (
+                                <AllSpaces />
                             )}
                         />
                         <Route exact path="/online"

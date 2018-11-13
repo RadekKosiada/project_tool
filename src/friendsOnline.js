@@ -21,7 +21,8 @@ class FriendsOnline extends React.Component {
 
                     />
 
-                    <p>{user.first} {user.last}</p>
+                    <h5>{user.first} {user.last}</h5>
+                    <p>{user.name}</p>
                 </div>
             );
         });

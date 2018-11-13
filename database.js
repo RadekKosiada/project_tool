@@ -54,6 +54,9 @@ module.exports.getOnlineUsersByIds = function(arrayOfIds) {
     return db.query(query, [arrayOfIds]);
 };
 
+
+
+
 module.exports.getFriends = function(receiver_id) {
     const q = `
         SELECT users.id, first, last, url, accepted
@@ -288,19 +291,26 @@ module.exports.getAllUsersSpaces = function(owner_id) {
         owner_id || null
     ];
 
-    //     const q= `
-    //     SELECT spaces.*, users.last, users.first, images.url
-    //     FROM spaces
-    //     LEFT JOIN images
-    //     ON images.user_id = spaces.owner_id
-    //     JOIN users
-    //     ON users.id = spaces.user_id
-    //     ORDER BY id DESC
-    //     `;
-    //     return db.query(q);
-    // }
-
     return db.query(q, params);
+};
+
+module.exports.getAllSpaces= function() {
+    const q= `
+    SELECT * FROM spaces`;
+    return db.query(q);
+};
+module.exports.getAllSpacesAndOwners = function(arrayOfIds){
+    const q = `
+        SELECT users.id as user_id,
+        first, last, url, spaces.id, spaces.owner_id, spaces.name
+        FROM users
+        LEFT JOIN images
+        ON images.user_id =users.id
+        JOIN spaces
+        ON spaces.owner_id=users.id
+        WHERE users.id = ANY($1)
+    `;
+    return db.query(q, [arrayOfIds]);
 };
 
 module.exports.getSpaceDetails = function(id) {
