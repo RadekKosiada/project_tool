@@ -148,7 +148,7 @@ export class App extends React.Component {
                 <div id="nav-bar">
                     <LinkToProfile />
                     {/*BUTTON TO SPACES*/}
-                    <a className="bttn-chat" title="Spaces" href="/spaces">SPACES</a>
+                    <a className="bttn-chat" title="Spaces" href={`/spaces/${this.state.id}`}>SPACES</a>
                     {/*BUTTON TO FRIENDS*/}
                     <a className="bttn-to-friends" title="Your friends" href="/friends"><img src="./imgs/friends.png" /></a>
 
@@ -199,9 +199,12 @@ export class App extends React.Component {
                                 <Chat />
                             )}
                         />
-                        <Route exact path="/spaces"
+                        <Route exact path={`/spaces/${this.state.id}`}
                             render={props => (
-                                <AllSpaces />
+                                <AllSpaces
+                                    key={props.match.url}
+                                    id={this.state.id}
+                                />
                             )}
                         />
                         <Route exact path="/online"

@@ -17,22 +17,22 @@ export default class Opp extends React.Component {
         // console.log('otherUsersId:', otherUsersId, 'myId: ', this.props.id );
 
         axios.get('/get-other-user.json/'+ otherUsersId)
-        .then(otherUser=> {
-            console.log('RESULT of get other user:', otherUser.data);
-            if(!otherUser.data){
-                this.props.history.push('/');
-                return;
-            } else {
-                this.setState({
-                    first: otherUser.data.first,
-                    last: otherUser.data.last,
-                    url: otherUser.data.url,
-                    bio: otherUser.data.bio
-                })
-            }
-        })
-        .catch(err=> { console.log('ERROR of get other user:', err.message);
-        })
+            .then(otherUser=> {
+                console.log('RESULT of get other user:', otherUser.data);
+                if(!otherUser.data){
+                    this.props.history.push('/');
+                    return;
+                } else {
+                    this.setState({
+                        first: otherUser.data.first,
+                        last: otherUser.data.last,
+                        url: otherUser.data.url,
+                        bio: otherUser.data.bio
+                    })
+                }
+            })
+            .catch(err=> { console.log('ERROR of get other user:', err.message);
+            })
     }
 
     render() {
@@ -50,7 +50,7 @@ export default class Opp extends React.Component {
                     <h3>Name: {this.state.first} {this.state.last}</h3>
                     <p className="displayed-bio">Bio: {this.state.bio}</p>
 
-                 </div>
+                </div>
             </div>
         )
     }

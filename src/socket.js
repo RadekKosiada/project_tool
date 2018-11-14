@@ -11,7 +11,8 @@ import {onlineUsers,
     allTasks,
     deletedTask,
     deletedSpace,
-    allTheSpaces
+    allTheSpaces,
+    sentAccessRequest
 } from './actions';
 
 let socket;
@@ -82,6 +83,12 @@ export function initSocket(store) {
         socket.on('AllSpacesAndOwners', function(allAvailSpaces){
             console.log('ALLTHE SPACES AVAIL:, ', allAvailSpaces);
             store.dispatch(allTheSpaces(allAvailSpaces));
+        });
+
+        //// SENDING ACCESS REQUEST ///////////////////////////////
+        socket.on('sendingAccessReq', function(sentAccessReq) {
+            console.log('SENT ACCESS SOCKET:', sentAccessReq);
+            store.dispatch(sentAccessRequest(sentAccessReq));
         });
     }
 

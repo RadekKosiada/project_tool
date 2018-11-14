@@ -134,8 +134,47 @@ app.get('/get-all-friends.json', (req, res) => {
         })
         .catch(err => {
             console.log("Error in getFriends: ", err);
-        })
+        });
 });
+
+// ////// GETTING AN ACCESS REQUEST /////////////////////////
+app.get('/get-access-status.json', (req, res)=> {
+    database.getAllSpaces()
+        .then(allSpaces => {
+            // console.log('ALL SPACES !!!!!!: ', allSpaces.rows);
+            let spaceIds=[];
+            for(let i=0; i<allSpaces.rows.length; i++){
+                spaceIds.push(allSpaces.rows[i].id);
+            }
+            // console.log('ALL SPACES IDS !!!!!!: ', spaceIds);
+            database.getAccessStatus(req.session.user.id, spaceIds)
+                .then(accessStatus => {
+                    console.log('RES OF ACCESS STAT: ', accessStatus.rows);
+                    // let userId = req.params.users.id;
+                    // for(let s=0; s<allSpaces.rows.length; s++){
+                    //     for(let a=0; i<accessStatus.rows.length; i++) {
+                    //         if(accessStatus.rows[a].space_id !== allSpace.rows[s]) {
+                    //             res.json('Request access');
+                    //         } else if() {
+                    //
+                    //         }
+                    //
+                    // }
+
+
+
+                    // res.json(accessStatus.rows);
+                })
+                .catch(err=> {
+                    console.log('ER IN getAccessStatus: ', err.message);
+                })
+        })
+        .catch(err=> {
+            console.log('ERR IN getAllSpaces: ', err.message);
+        })
+
+})
+
 
 app.get('/friendship.status.json/:id', (req, res)=>{
     database.getFriendsStatus(req.params.id, req.session.user.id)
@@ -575,7 +614,7 @@ io.on('connection', function(socket) {
             });
     });
 
-    /// SENDING AN ACCES REQUST //////////////////////////////////
+    /// SENDING AN ACCES REQUEST //////////////////////////////////
     socket.on('sendAccessReq',function(spaceId){
         database.getSpaceDetails(spaceId)
             .then(res => {

@@ -377,3 +377,29 @@ module.exports.sendAccessReq = function(space_id, owner_id, contributor_id) {
     ];
     return db.query(q, params);
 };
+
+module.exports.getAccessStatus = function(contributor_id, arrSpaceIds){
+    const q = `
+    SELECT * from permissions
+    WHERE contributor_id =$1
+    AND space_id = ANY($2)
+
+        `;
+    const params =[
+        contributor_id || null,
+        arrSpaceIds || null
+
+    ];
+    return db.query(q, params);
+    // const q = `
+    //     SELECT users.id as user_id,
+    //     first, last, url, spaces.id, spaces.owner_id, spaces.name
+    //     FROM users
+    //     LEFT JOIN images
+    //     ON images.user_id =users.id
+    //     JOIN spaces
+    //     ON spaces.owner_id=users.id
+    //     WHERE users.id = ANY($1)
+    // `;
+    // return db.query(q, [arrayOfIds]);
+}

@@ -120,3 +120,19 @@ export function allTheSpaces(allAvailSpacesAction) {
         allAvailSpacesAction
     };
 }
+
+export async function receiveAccessStatus() {
+    const { data } = await axios.get('/get-access-status.json');
+    return {
+        type: 'SPACE_ACCESS_STATUS',
+        access: data
+    };
+}
+
+export function sentAccessRequest(accessReqAction) {
+    console.log('ACCESS SENT ACTION: ', accessReqAction);
+    return {
+        type: 'REQ_ACCESS_SENT',
+        accessReqAction
+    };
+}

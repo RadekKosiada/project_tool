@@ -132,5 +132,12 @@ export default function reducer (state = {}, action) {
         };
         console.log('ALL AVAIL SPACES: ', state.allAvailSpacesReducer);
     }
+    else if (action.type=='REQ_ACCESS_SENT'){
+        state={
+            ...state,
+            reqAccessReducer: action.accessReqAction
+        };
+        console.log('ACCESS REDUCER: ', state.reqAccessReducer);
+    }
     return state;
 }
