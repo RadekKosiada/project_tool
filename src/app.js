@@ -180,6 +180,7 @@ export class App extends React.Component {
                                     image={this.state.url}
                                     setBio={this.setBio}
                                     clickHandler={this.showUploader}
+                                    key={props.match.url}
                                 />
                             )}
                         />

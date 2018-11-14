@@ -54,12 +54,16 @@ class SpaceManager extends React.Component {
             return null;
         }
         let requestsForYou = this.props.spaceInfo.map((permission, idx) =>{
-            console.log(permission)
-            return (
-                <div key={idx} className="single-space-bttn">
-                    whatev
-                </div>
-            );
+            let userId = this.props.currentUserId;
+
+            console.log('PERMISSION: ', permission, userId);
+            if(permission.ownerId==userId && permission.accepted==false){
+                return (
+                    <div key={idx} className="single-space-bttn">
+                        <button className="bttn-white">Access request for {permission.name}</button>
+                    </div>
+                );
+            }
         });
 
         return (
@@ -75,7 +79,7 @@ class SpaceManager extends React.Component {
                             {allSpaces}
                         </div>
 
-                        {this.props.spaceInfo.length && <h5 id="req-manager-list">No requests received</h5> ||
+                        {!this.props.spaceInfo.length && <h5 id="req-manager-list">No requests received</h5> ||
                             <h5 id="req-manager-list">Access requests to your space: </h5>}
                         <div id="your-req-container">
                             {requestsForYou}

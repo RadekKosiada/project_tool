@@ -78,7 +78,7 @@ class Profile extends React.Component {
                         setMuffinBio={this.props.setBio}
                     />
 
-                    <SpaceManager />
+                    <SpaceManager currentUserId={this.props.id}/>
 
                     <br />
                     <button className="bttn"

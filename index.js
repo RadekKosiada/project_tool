@@ -464,6 +464,7 @@ io.on('connection', function(socket) {
                                         ownersAndSpaces.rows[s].permissionId=access.rows[a].id;
                                         ownersAndSpaces.rows[s].ownerId=access.rows[a].owner_id;
                                         ownersAndSpaces.rows[s].spaceId=access.rows[a].space_id;
+                                        ownersAndSpaces.rows[s].spaceName=access.rows[a].name;
                                         ownersAndSpaces.rows[s].contributor_id=access.rows[a].contributor_id;
                                         ownersAndSpaces.rows[s].accepted=access.rows[a].accepted;
                                     }
