@@ -33,13 +33,13 @@ class SpaceManager extends React.Component {
     }
 
     render() {
-        let {yourSpaces} = this.props;
-        console.log('yourSpaces: ', this.props);
+        let {yourSpaces, accessRequests, spaceInfo } = this.props;
+        console.log('PROPS: ', this.props);
+
         if(!this.props.yourSpaces) {
             return null;
         }
         let allSpaces = this.props.yourSpaces.map((space, idx) => {
-
             return (
                 <div key={idx} className="single-space-bttn">
                     <Link to = {`/space/${space.id}`} className="bttn-white" >
@@ -50,16 +50,37 @@ class SpaceManager extends React.Component {
         });
         console.log('space: ', allSpaces);
 
+        if(!this.props.spaceInfo) {
+            return null;
+        }
+        let requestsForYou = this.props.spaceInfo.map((permission, idx) =>{
+            console.log(permission)
+            return (
+                <div key={idx} className="single-space-bttn">
+                    whatev
+                </div>
+            );
+        });
+
         return (
             <div>
                 {/* <h5 id="space-manager-title">Create and manage your space</h5> */}
                 <button className="bttn-white" onClick={this.showSpacePopup}>Create a new space</button>
                 <div id="all-spaces">
                     <div>
-                        {!this.props.yourSpaces.length && <h5 id="space-manager-list">You have no spaces yet</h5> || <h5 id="space-manager-list">Your own spaces</h5>}
+                        {!this.props.yourSpaces.length && <h5 id="space-manager-list">You have no spaces yet</h5> ||
+                            <h5 id="space-manager-list">Your own spaces</h5>}
+
                         <div id="your-space-container">
                             {allSpaces}
                         </div>
+
+                        {this.props.spaceInfo.length && <h5 id="req-manager-list">No requests received</h5> ||
+                            <h5 id="req-manager-list">Access requests to your space: </h5>}
+                        <div id="your-req-container">
+                            {requestsForYou}
+                        </div>
+
                     </div>
                 </div>
 
@@ -75,7 +96,9 @@ class SpaceManager extends React.Component {
 const mapStateToProps=state=> {
     console.log('STATE:', state);
     return {
-        yourSpaces: state.allSpacesReducer
+        yourSpaces: state.allSpacesReducer,
+        accessRequests: state.accessStatusReducer,
+        spaceInfo: state.allAvailSpacesReducer
     };
 };
 

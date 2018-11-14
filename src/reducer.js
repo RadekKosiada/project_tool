@@ -3,7 +3,8 @@ export default function reducer (state = {}, action) {
         state = Object.assign({}, state, {
             users: action.users
         });
-    } else if (action.type == 'ACCEPT_REQUEST'){
+    }
+    else if (action.type == 'ACCEPT_REQUEST'){
         state = {
             ...state,
             users: state.users.map(wannabe=> {
@@ -132,12 +133,20 @@ export default function reducer (state = {}, action) {
         };
         console.log('ALL AVAIL SPACES: ', state.allAvailSpacesReducer);
     }
+    else if (action.type=='SPACE_ACCESS_STATUS') {
+        state={
+            ...state,
+            accessStatusReducer: action.access
+        };
+        console.log('STATE ACCESS REDUCER: ', state.reqStatusReducer);
+    }
     else if (action.type=='REQ_ACCESS_SENT'){
         state={
             ...state,
-            reqAccessReducer: action.accessReqAction
+            reqAccessReducer: [...state.reqAccessReducer, action.accessReqAction]
         };
         console.log('ACCESS REDUCER: ', state.reqAccessReducer);
     }
+
     return state;
 }

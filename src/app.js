@@ -28,13 +28,13 @@ export function Logo() {
 
 ////// LOG OUT BUTTON //////////////////////////////
 export function Logout(props) {
-    return <a className="logout-bttn" title="Log out" href='/logout'><img src="./imgs/logout.png" /></a>
+    return <a className="logout-bttn" title="Log out" href='/logout'>LOGOUT</a>
     {/*return <img className="logout-bttn" src="/imgs/logout.png" />*/}
 }
 
 /////////LINK TO MY PROFILE ///////////////////////
 export function LinkToProfile(props) {
-    return <a className="to-my-profile-bttn" title="Your profile" href='/'><img src="./imgs/profile.png" /></a>
+    return <a className="to-my-profile-bttn" title="Your profile" href='/'>PROFILE</a>
 }
 
 ///////UPLOADER ///////////////////////////////////
@@ -150,12 +150,12 @@ export class App extends React.Component {
                     {/*BUTTON TO SPACES*/}
                     <a className="bttn-chat" title="Spaces" href={`/spaces/${this.state.id}`}>SPACES</a>
                     {/*BUTTON TO FRIENDS*/}
-                    <a className="bttn-to-friends" title="Your friends" href="/friends"><img src="./imgs/friends.png" /></a>
+                    <a className="bttn-to-friends" title="Your friends" href="/friends">FRIENDS</a>
 
-                    <a className="bttn-chat" title="Chat" href="/chat"><img src="./imgs/chat.png" /></a>
+                    <a className="bttn-chat" title="Chat" href="/chat">CHAT</a>
 
                     <Logout />
-                    <a className="bttn-online" title="Who's online" href="/online"><span><img src="./imgs/alert.png" /></span></a>
+                    <a className="bttn-online" title="Who's online" href="/online"><span>ONLINE</span></a>
 
                     <h3 id="name-nav-bar">{this.state.first}</h3>
                     <ProfilePic

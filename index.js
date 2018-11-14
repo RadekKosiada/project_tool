@@ -137,66 +137,64 @@ app.get('/get-all-friends.json', (req, res) => {
         });
 });
 
+
 // ////// GETTING AN ACCESS REQUEST /////////////////////////
-app.get('/get-access-status.json', (req, res)=> {
-    database.getAllSpaces()
-        .then(allSpaces => {
-            // console.log('ALL SPACES !!!!!!: ', allSpaces.rows);
-            let spaceIds=[];
-            for(let i=0; i<allSpaces.rows.length; i++){
-                spaceIds.push(allSpaces.rows[i].id);
-            }
-            // console.log('ALL SPACES IDS !!!!!!: ', spaceIds);
-            database.getAccessStatus(req.session.user.id, spaceIds)
-                .then(accessStatus => {
-                    console.log('RES OF ACCESS STAT: ', accessStatus.rows);
-                    // let userId = req.params.users.id;
-                    // for(let s=0; s<allSpaces.rows.length; s++){
-                    //     for(let a=0; i<accessStatus.rows.length; i++) {
-                    //         if(accessStatus.rows[a].space_id !== allSpace.rows[s]) {
-                    //             res.json('Request access');
-                    //         } else if() {
-                    //
-                    //         }
-                    //
-                    // }
-
-
-
-                    // res.json(accessStatus.rows);
-                })
-                .catch(err=> {
-                    console.log('ER IN getAccessStatus: ', err.message);
-                })
-        })
-        .catch(err=> {
-            console.log('ERR IN getAllSpaces: ', err.message);
-        })
-
-})
-
+// app.get('/get-access-status.json', (req, res)=> {
+//     database.getAllSpaces()
+//         .then(allSpaces => {
+//             // console.log('ALL SPACES !!!!!!: ', allSpaces.rows);
+//             let spaceIds=[];
+//             for(let i=0; i<allSpaces.rows.length; i++){
+//                 spaceIds.push(allSpaces.rows[i].id);
+//             }
+//             // console.log('ALL SPACES IDS !!!!!!: ', spaceIds);
+//
+//             database.getAccessStatus(req.session.user.id, spaceIds)
+//                 .then(accessStatus => {
+//
+//                     for (let a=0; a<accessStatus.rows.length; a++) {
+//                         console.log('RES OF ACCESS STAT: ', accessStatus.rows[a].accepted);
+//                         if(typeof accessStatus.rows[a].accepted=='undefined') {
+//                             res.json('Request access');
+//                         } else if(accessStatus.rows[a].accepted== false) {
+//                             res.json('Request pending');
+//                         } else if (accessStatus.rows[a].accepted ==true) {
+//                             console.log('YAAAAAAAAAAAY!!!!!!!!')
+//                             res.json(`Access granted`)
+//                         }
+//                     }
+//                     // res.json(accessStatus.rows);
+//                 })
+//                 .catch(err=> {
+//                     console.log('ERR IN getAccessStatus: ', err.message);
+//                 })
+//         })
+//         .catch(err=> {
+//             console.log('ERR IN getAllSpaces: ', err.message);
+//         })
+// })
 
 app.get('/friendship.status.json/:id', (req, res)=>{
     database.getFriendsStatus(req.params.id, req.session.user.id)
-    .then(fStatus => {
-        // console.log(fStatus.rows[0].sender_id);
-        if (typeof (fStatus.rows[0]) == 'undefined') {
-            res.json('Send friend request');
-            return;
-        } else if (fStatus.rows[0].sender_id == req.session.user.id && !fStatus.rows[0].accepted) {
-            //change this condition as it's not enough!!!
-            // console.log(fStatus.rows[0].accepted);
-            res.json('Cancel my friend request');
-        } else if((fStatus.rows[0].sender_id == req.session.user.id && fStatus.rows[0].accepted) ||
-    (fStatus.rows[0].receiver_id ==req.session.user.id && fStatus.rows[0].accepted)){
-            res.json('End friendship');
-        } else if (fStatus.rows[0].receiver_id ==req.session.user.id && !fStatus.rows[0].accepted) {
-            res.json('Accept friend request');
-        }
-    })
-    .catch(err=> {
-        console.log('ERROR in db.getFriendsStatus: ', err);
-    })
+        .then(fStatus => {
+            // console.log(fStatus.rows[0].sender_id);
+            if (typeof (fStatus.rows[0]) == 'undefined') {
+                res.json('Send friend request');
+                return;
+            } else if (fStatus.rows[0].sender_id == req.session.user.id && !fStatus.rows[0].accepted) {
+                //change this condition as it's not enough!!!
+                // console.log(fStatus.rows[0].accepted);
+                res.json('Cancel my friend request');
+            } else if((fStatus.rows[0].sender_id == req.session.user.id && fStatus.rows[0].accepted) ||
+        (fStatus.rows[0].receiver_id ==req.session.user.id && fStatus.rows[0].accepted)){
+                res.json('End friendship');
+            } else if (fStatus.rows[0].receiver_id ==req.session.user.id && !fStatus.rows[0].accepted) {
+                res.json('Accept friend request');
+            }
+        })
+        .catch(err=> {
+            console.log('ERROR in db.getFriendsStatus: ', err);
+        })
 });
 
 //SENDING FRIEND REQUEST
@@ -383,8 +381,6 @@ server.listen(8080, function() {
     console.log("I'm listening.");
 });
 
-
-
 //socket io server side code -------------------//////////////////////////
 
 let onlineUsers=[];
@@ -433,7 +429,12 @@ io.on('connection', function(socket) {
         .catch(err => {
             console.log('ERR in getAllUsersSpaces: ', err.message);
         });
+///////////////////////////////////////////////////////////////
+
 ///// ALL POSSIBLE EXISTING SPACES ////////////////////////////
+
+///////////////////////////////////////////////////////////////
+
     database.getAllSpaces()
         .then(allTheSpaces =>{
             // console.log('All SPACES !!!!!: ', allTheSpaces.rows);
@@ -442,22 +443,40 @@ io.on('connection', function(socket) {
                 usersArr.push(allTheSpaces.rows[i].owner_id);
             }
             let ownersIds=[...new Set(usersArr)];
+            let spaceIdsArr=[];
+            for(let i=0; i<allTheSpaces.rows.length; i++){
+                spaceIdsArr.push(allTheSpaces.rows[i].id);
+            }
             // console.log('OWNERS ARR: ', ownersIds);
-            // socket.emit('allTheSpaces', allTheSpaces.rows);
             database.getAllSpacesAndOwners(ownersIds)
                 .then(ownersAndSpaces =>{
-                    // console.log('RES OF getAllSpacesAndOwners: ', ownersAndSpaces.rows);
-                    // let ownersAndSpacesObj= {
-                    //     requester_id=socket.request.session.user.id,
-                    //     first: ownersAndSpaces.rows.
-                    //     last: ownersAndSpaces.rows
-                    //     url: ownersAndSpaces.rows
-                    //     id: ownersAndSpaces.rows
-                    //     owner_id:ownersAndSpaces.rows
-                    //     name:ownersAndSpaces.rows
-                    //
-                    // }
-                    socket.emit('AllSpacesAndOwners', ownersAndSpaces.rows);
+                    console.log('OWNERS & SPACE!!!!!! ', ownersAndSpaces.rows[2])
+                    // socket.emit('AllSpacesAndOwners', ownersAndSpaces.rows);
+                    // socket.emit('AllSpacesAndOwners', ownersAndSpaces.rows);
+                    console.log('HEYYYY', ownersAndSpaces.rows);
+                    database.getAccessStatus(socket.request.session.user.id, spaceIdsArr)
+                        .then(access=> {
+                            // console.log('RES ALL SPACES & OWNERS: ', ownersAndSpaces.rows);
+                            // console.log('RES get Access Status', access.rows);
+                            for(let s=0; s<ownersAndSpaces.rows.length; s++){
+                                for(let a=0; a<access.rows.length; a++){
+                                    if(ownersAndSpaces.rows[s].id ==access.rows[a].space_id) {
+                                        ownersAndSpaces.rows[s].permissionId=access.rows[a].id;
+                                        ownersAndSpaces.rows[s].ownerId=access.rows[a].owner_id;
+                                        ownersAndSpaces.rows[s].spaceId=access.rows[a].space_id;
+                                        ownersAndSpaces.rows[s].contributor_id=access.rows[a].contributor_id;
+                                        ownersAndSpaces.rows[s].accepted=access.rows[a].accepted;
+                                    }
+                                }
+                            }
+                            console.log('BIG FAT OBJECT!!!!!!!!', ownersAndSpaces.rows);
+
+                            socket.emit('AllSpacesAndOwners', ownersAndSpaces.rows);
+                            // socket.emit('AllSpacesAndOwners', ownersSpacesAccess.rows);
+                        })
+                        .catch(err=> {
+                            console.log('ERR in getAccessStatus: ', err.message);
+                        });
                 })
                 .catch(err=> {
                     console.log('ERR IN getAllSpacesAndOwners: ', err.message);

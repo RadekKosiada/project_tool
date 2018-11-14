@@ -7,10 +7,11 @@ import {App, Logout, Uploader } from './app.js';
 import FriendButton from './friendButton.js';
 import SpaceManager from './SpaceManager.js';
 import NewSpacePopup from './spacePopup.js';
+import { connect } from 'react-redux';
 
 // console.log('space manager', SpaceManager);
 
-export function DeletePopup(props) {
+function DeletePopup(props) {
     return (
         <div className="overlay">
             <div id="delete-popup">
@@ -23,7 +24,7 @@ export function DeletePopup(props) {
     )
 }
 
-export default class Profile extends React.Component {
+class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state={
@@ -92,3 +93,12 @@ export default class Profile extends React.Component {
         );
     }
 }
+
+const mapStateToProps=state=> {
+    return {
+        accessRequests: state.accessStatusReducer
+        // reqAccessStatus: state.access
+    };
+};
+
+export default connect(mapStateToProps)(Profile);

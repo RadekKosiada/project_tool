@@ -319,7 +319,7 @@ module.exports.getSpaceDetails = function(id) {
     `;
     const params = [ id || null ];
     return db.query(q, params);
-}
+};
 
 module.exports.saveNewTask = function(owner_id, title, task, space_id) {
     const q = `
@@ -381,7 +381,7 @@ module.exports.sendAccessReq = function(space_id, owner_id, contributor_id) {
 module.exports.getAccessStatus = function(contributor_id, arrSpaceIds){
     const q = `
     SELECT * from permissions
-    WHERE contributor_id =$1
+    WHERE contributor_id =$1 OR owner_id=$1
     AND space_id = ANY($2)
 
         `;
