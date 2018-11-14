@@ -31,10 +31,16 @@ class SpaceManager extends React.Component {
             newSpacePopupVisible: false
         });
     }
+    giveAccess(spaceId, contributor_id){
+        let socket=initSocket();
+        console.log('SPACE ID:', spaceId, contributor_id);
+        socket.emit('giveAccess', spaceId);
+    }
 
     render() {
         let {yourSpaces, accessRequests, spaceInfo } = this.props;
-        console.log('PROPS: ', this.props);
+        // console.log('PROPS: ', this.props);
+        let userId = this.props.currentUserId;
 
         if(!this.props.yourSpaces) {
             return null;
@@ -48,23 +54,38 @@ class SpaceManager extends React.Component {
                 </div>
             );
         });
-        console.log('space: ', allSpaces);
+        console.log('space: ', spaceInfo);
 
         if(!this.props.spaceInfo) {
             return null;
         }
         let requestsForYou = this.props.spaceInfo.map((permission, idx) =>{
-            let userId = this.props.currentUserId;
 
-            console.log('PERMISSION: ', permission, userId);
-            if(permission.ownerId==userId && permission.accepted==false){
+            // console.log('PERMISSION: ', permission, userId);
+            if(permission.ownerId==userId && !permission.accepted){
                 return (
                     <div key={idx} className="single-space-bttn">
-                        <button className="bttn-white">Access request for {permission.name}</button>
+                        <p>User {permission.contributor_id} requested access to {permission.name} ID: {permission.spaceId}</p>
+                        <button className="bttn-white" onClick={this.giveAccess.bind(this, permission.spaceId, permission.contributor_id)}>Grant access</button>
                     </div>
                 );
             }
         });
+
+        let otherSpaces = this.props.spaceInfo.map((permission, idx) => {
+
+            if(permission.contributor_id==userId && permission.accepted){
+                return(
+                    <div key={idx} className="single-space-bttn">
+                        <Link to = {`/space/${permission.spaceId}`} className="bttn-white" >
+                            {permission.name} created by user {permission.ownerId}
+                        </Link>
+                    </div>
+                )
+            }
+        })
+        // console.log('SPACES!!!!!!!!!!!!!!!!!!!!!!!: ',typeof  otherSpaces);
+        // console.log('LOOOOPING', looping(otherSpaces));
 
         return (
             <div>
@@ -74,16 +95,24 @@ class SpaceManager extends React.Component {
                     <div>
                         {!this.props.yourSpaces.length && <h5 id="space-manager-list">You have no spaces yet</h5> ||
                             <h5 id="space-manager-list">Your own spaces</h5>}
-
                         <div id="your-space-container">
                             {allSpaces}
                         </div>
 
-                        {!this.props.spaceInfo.length && <h5 id="req-manager-list">No requests received</h5> ||
-                            <h5 id="req-manager-list">Access requests to your space: </h5>}
+                        {/*{!otherSpaces.length && <h5 id="other-spaces-list">No access granted to other spaces</h5> ||
+                                <h5 id="req-manager-list">You received access to:</h5>}*/}
+
+                        <div id="others-space-container">
+                            {otherSpaces}
+                        </div>
+
+                        {/*{!requestsForYou.length && <h5 id="req-manager-list">No requests received</h5>}*/}
                         <div id="your-req-container">
                             {requestsForYou}
                         </div>
+
+
+
 
                     </div>
                 </div>
@@ -107,3 +136,13 @@ const mapStateToProps=state=> {
 };
 
 export default connect(mapStateToProps)(SpaceManager)
+
+
+// function looping(arg){
+//     let counter=0;
+//     for(let i=0; i<arg.length; i++){
+//         if(typeof arg[i] === 'object'){
+//             return counter++;
+//         }
+//     }
+// }

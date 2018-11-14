@@ -388,18 +388,22 @@ module.exports.getAccessStatus = function(contributor_id, arrSpaceIds){
     const params =[
         contributor_id || null,
         arrSpaceIds || null
-
     ];
     return db.query(q, params);
-    // const q = `
-    //     SELECT users.id as user_id,
-    //     first, last, url, spaces.id, spaces.owner_id, spaces.name
-    //     FROM users
-    //     LEFT JOIN images
-    //     ON images.user_id =users.id
-    //     JOIN spaces
-    //     ON spaces.owner_id=users.id
-    //     WHERE users.id = ANY($1)
-    // `;
-    // return db.query(q, [arrayOfIds]);
-}
+};
+
+module.exports.giveAccess=function(space_id, contributor_id) {
+    const q= `
+        UPDATE permissions
+        SET accepted=true
+        WHERE space_id=2
+        AND contributor_id=2
+        RETURNING accepted;
+    `;
+    const params =[
+        space_id || null,
+        owner_id || null,
+        contributor_id || null
+    ];
+    return db.query(q, params);
+};

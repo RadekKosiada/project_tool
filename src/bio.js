@@ -63,7 +63,7 @@ export default class Bio extends React.Component {
                 <div>
                     <p className="displayed-bio">{this.props.cupcakeBio}</p>
                     <p><button className="bio-bttn" onClick={this.showTextarea}>
-                        Edit bio</button>
+                        Share your objectives</button>
                     </p>
                 </div>
             )

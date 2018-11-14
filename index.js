@@ -450,10 +450,8 @@ io.on('connection', function(socket) {
             // console.log('OWNERS ARR: ', ownersIds);
             database.getAllSpacesAndOwners(ownersIds)
                 .then(ownersAndSpaces =>{
-                    console.log('OWNERS & SPACE!!!!!! ', ownersAndSpaces.rows[2])
-                    // socket.emit('AllSpacesAndOwners', ownersAndSpaces.rows);
-                    // socket.emit('AllSpacesAndOwners', ownersAndSpaces.rows);
-                    console.log('HEYYYY', ownersAndSpaces.rows);
+                    // console.log('OWNERS & SPACE!!!!!! ', ownersAndSpaces.rows[2]);
+                    // console.log('HEYYYY', ownersAndSpaces.rows);
                     database.getAccessStatus(socket.request.session.user.id, spaceIdsArr)
                         .then(access=> {
                             // console.log('RES ALL SPACES & OWNERS: ', ownersAndSpaces.rows);
@@ -470,7 +468,7 @@ io.on('connection', function(socket) {
                                     }
                                 }
                             }
-                            console.log('BIG FAT OBJECT!!!!!!!!', ownersAndSpaces.rows);
+                            // console.log('BIG FAT OBJECT!!!!!!!!', ownersAndSpaces.rows);
 
                             socket.emit('AllSpacesAndOwners', ownersAndSpaces.rows);
                             // socket.emit('AllSpacesAndOwners', ownersSpacesAccess.rows);
@@ -634,7 +632,7 @@ io.on('connection', function(socket) {
             });
     });
 
-    /// SENDING AN ACCES REQUEST //////////////////////////////////
+    /// SENDING AN ACCESS REQUEST //////////////////////////////////
     socket.on('sendAccessReq',function(spaceId){
         database.getSpaceDetails(spaceId)
             .then(res => {
@@ -659,7 +657,17 @@ io.on('connection', function(socket) {
             .catch(err=> {
                 console.log('ERR in spaceDetails from sendAccessReq: ', err.message);
             });
+    });
 
+    ///// GIVING ACCESS //////////////////////////////////////////////
+    socket.on('giveAccess', function(spaceId, owner_id, contributor_id) {
+        database.giveAccess(spaceId, contributor_id)
+            .then(result =>{
+                console.log('RESULT of giveAccess', result.rows);
+            })
+            .catch(err => {
+                console.log('ERR in giveAccess: ', err.message);
+            });
     });
 
     //// DELETING SINGLE TASK ////////////////////////////////////
