@@ -153,7 +153,7 @@ class Space extends React.Component {
                         <div className="task-green"></div>
                         <div className="task-blue"></div>
                         <div className="task-red"></div>
-                        <div className="task-delete" key={task.id} onClick={this.deleteTask.bind(this, task.id)}><img src="./imgs/alert.png" /></div>
+                        <div className="task-delete" key={task.id} onClick={this.deleteTask.bind(this, task.id)}></div>
                     </div>
                 </div>
             );
@@ -163,19 +163,22 @@ class Space extends React.Component {
             <div className="single-space">
                 <h3 className="space-name"><span className="bold">Work space: </span>{this.state.spaceOwner.name}</h3>
                 <div className="space-nav-bar">
-                    <p><span className="bold">Owner: </span>{this.state.spaceOwner.first}</p>
-                    <p><span className="bold">Category: </span>{this.state.spaceOwner.category}</p>
-                    <p><span className="bold">Created at: </span>{changeDate(this.state.spaceOwner.created_at)}</p>
-                    <p><span className="bold">ETA: </span>{this.state.spaceOwner.eta}</p>
+                    <div className="space-info">
+                        <p><span className="bold">Owner: </span>{this.state.spaceOwner.first} {this.state.spaceOwner.last}</p>
+                        <p><span className="bold">Category: </span>{this.state.spaceOwner.category}</p>
+                        <p><span className="space-date bold">Created at: </span>{changeDate(this.state.spaceOwner.created_at)}</p>
+                    </div>
+                    {/*}<p><span className="bold">ETA: </span>{this.state.spaceOwner.eta}</p>*/}
+                    <div className="open-space-chat" onClick={this.openChat}></div>
                     <div className="space-color-bttns">
-                        <p><span className="bold">Colors: </span></p>
+                        {/*}<p><span className="bold">Colors: </span></p>
                         <button className="yellow"></button>
                         <button className="green"></button>
                         <button className="blue"></button>
-                        <button className="red"></button>
-                        <img className="space-delete" src="./imgs/alert.png" onClick={this.deleteSpace.bind(this, spaceId)} />
+                        <button className="red"></button>*/}
+                        <div className="space-delete" onClick={this.deleteSpace.bind(this, spaceId)}></div>
                     </div>
-                    <button className="open-chat" onClick={this.openChat}>Chat</button>
+
 
                 </div>
                 <div className="tasks-container">
@@ -188,14 +191,16 @@ class Space extends React.Component {
                     </div>
                     <div className="tasks-list">
                         {tasksFromCurrentSpace}
-                        {this.state.chatOpened &&
-                        <Chat
-                            hideChat={this.hideChat}
-                            spaceOwner={this.state.spaceOwner.first}
-                            name={this.state.spaceOwner.name}
-                        />}
+
                     </div>
+
                 </div>
+                {this.state.chatOpened &&
+                <Chat
+                    hideChat={this.hideChat}
+                    spaceOwner={this.state.spaceOwner.first}
+                    name={this.state.spaceOwner.name}
+                />}
 
             </div>
         );

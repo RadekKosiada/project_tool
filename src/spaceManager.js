@@ -54,7 +54,7 @@ class SpaceManager extends React.Component {
         let allSpaces = this.props.yourSpaces.map((space, idx) => {
             return (
                 <div key={idx} className="single-space-bttn">
-                    <Link to = {`/space/${space.id}`} className="bttn-white" >
+                    <Link to = {`/space/${space.id}`} className="bttn-to-space" >
                         {space.name}
                     </Link>
                 </div>
@@ -70,10 +70,10 @@ class SpaceManager extends React.Component {
             // console.log('PERMISSION: ', permission, userId);
             if(permission.ownerId==userId && !permission.accepted){
                 return (
-                    <div key={idx} className="single-space-bttn">
-                        <p>User {permission.contributor_id} requested access to {permission.name} ID: {permission.spaceId}</p>
-                        <button className="bttn-white" onClick={this.giveAccess.bind(this, permission.spaceId, permission.contributor_id)}>Grant access</button>
-                        <button className="bttn-white" onClick={this.rejectAccess.bind(this, permission.spaceId, permission.contributor_id)}>Reject access</button>
+                    <div key={idx} className="">
+                        <p>User {permission.contributor_id} requested access to {permission.name} {permission.spaceId}</p>
+                        <button className="bttn-to-space" onClick={this.giveAccess.bind(this, permission.spaceId, permission.contributor_id)}>Grant access</button>
+                        <button className="bttn-to-space" onClick={this.rejectAccess.bind(this, permission.spaceId, permission.contributor_id)}>Reject access</button>
                     </div>
                 );
             }
@@ -84,7 +84,7 @@ class SpaceManager extends React.Component {
             if(permission.contributor_id==userId && permission.accepted){
                 return(
                     <div key={idx} className="single-space-bttn">
-                        <Link to = {`/space/${permission.spaceId}`} className="bttn-white" >
+                        <Link to = {`/space/${permission.spaceId}`} className="bttn-to-space" >
                             {permission.name} created by user {permission.ownerId}
                         </Link>
                     </div>
@@ -97,7 +97,7 @@ class SpaceManager extends React.Component {
         return (
             <div>
                 {/* <h5 id="space-manager-title">Create and manage your space</h5> */}
-                <button className="bttn-white" onClick={this.showSpacePopup}>Create a new space</button>
+                <button className="bttn-to-space" onClick={this.showSpacePopup}>Create a new space</button>
                 <div id="all-spaces">
                     <div>
                         {!this.props.yourSpaces.length && <h5 id="space-manager-list">You have no spaces yet</h5> ||
@@ -106,8 +106,8 @@ class SpaceManager extends React.Component {
                             {allSpaces}
                         </div>
 
-                        {/*{!otherSpaces.length && <h5 id="other-spaces-list">No access granted to other spaces</h5> ||
-                                <h5 id="req-manager-list">You received access to:</h5>}*/}
+                        {!otherSpaces.length && <h5 id="other-spaces-list">No access granted to other spaces</h5> ||
+                                <h5 id="req-manager-list">You received access to:</h5>}
 
                         <div id="others-space-container">
                             {otherSpaces}

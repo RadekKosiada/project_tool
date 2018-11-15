@@ -51,7 +51,7 @@ export default class Login extends React.Component {
                 <br />
                 <input name="password" type="password" placeholder="Password" onChange={this.handleChange} />
                 <br />
-                <button className="bio-bttn" onClick={this.handleSubmit}>Log in</button>
+                <button className="bttn-to-space" onClick={this.handleSubmit}>Log in</button>
             </div>
             );
     }

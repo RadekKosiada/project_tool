@@ -108,6 +108,7 @@ app.post('/delete-chat', (req, res) => {
     database.deletingChat()
         .then(result=>{
             console.log('DELETING CHAT: ', result.rows);
+            res.json(null);
         })
         .catch(err => {
             console.log('ERR in DELETING CHAT: ', err.message);

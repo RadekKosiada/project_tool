@@ -57,7 +57,7 @@ export default class Registration extends React.Component {
                 <input name="email" placeholder="E-Mail address" onChange={this.handleChange} />
                 <input name="password" type="password" placeholder="Password" onChange={this.handleChange} />
                 <br />
-                <button className="bttn-register" onClick={this.handleSubmit}>Register</button>
+                <button className="bttn-to-space" onClick={this.handleSubmit}>Register</button>
                 <br />
                 <p>Already a member? <Link to="/login">Log in!</Link></p>
 

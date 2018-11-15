@@ -59,7 +59,7 @@ export function Uploader(props) {
     return (
         <div className="overlay">
             <div id="uploader">
-                <p className="close-popup" onClick={props.hideUploader}>&#10006;</p>
+                <p className="close-uploader" onClick={props.hideUploader}>&#10006;</p>
                 <h3>Update your picture</h3>
                 <br />
                 <label htmlFor="file">
@@ -144,18 +144,17 @@ export class App extends React.Component {
     render() {
         return (
             <div id="app-component">
-                <Logo />
                 <div id="nav-bar">
+                    <Logo />
                     <LinkToProfile />
                     {/*BUTTON TO SPACES*/}
-                    <a className="bttn-chat" title="Spaces" href={`/spaces/${this.state.id}`}>SPACES</a>
-                    {/*BUTTON TO FRIENDS*/}
-                    <a className="bttn-to-friends" title="Your friends" href="/friends">FRIENDS</a>
+                    <a className="bttn-spaces" title="Spaces" href={`/spaces/${this.state.id}`}>SPACES</a>
 
-                    <a className="bttn-chat" title="Chat" href="/chat">CHAT</a>
+                    {/*BUTTON TO FRIENDS  <a className="bttn-to-friends" title="Your friends" href="/friends">FRIENDS</a>*/}
+                    {/* CHAT <a className="bttn-chat" title="Chat" href="/chat">CHAT</a> */}
+                    {/*ONLINE <a className="bttn-online" title="Who's online" href="/online"><span>ONLINE</span></a>*/}
 
                     <Logout />
-                    <a className="bttn-online" title="Who's online" href="/online"><span>ONLINE</span></a>
 
                     <h3 id="name-nav-bar">{this.state.first}</h3>
                     <ProfilePic

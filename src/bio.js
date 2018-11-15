@@ -54,15 +54,15 @@ export default class Bio extends React.Component {
                         onChange={this.handleChange}
                     >{this.props.cupcakeBio}</textarea>
                     <br />
-                    <button className="bio-bttn" onClick={this.handleSubmit}>Save</button>
-                    <button className="bio-bttn" onClick={this.hideTextarea}>Cancel</button>
+                    <button className="bttn-to-space" onClick={this.handleSubmit}>Save</button>
+                    <button className="bttn-to-space" onClick={this.hideTextarea}>Cancel</button>
                 </div>
             );
         } else {
             return(
                 <div>
                     <p className="displayed-bio">{this.props.cupcakeBio}</p>
-                    <p><button className="bio-bttn" onClick={this.showTextarea}>
+                    <p><button className="bttn-to-space" onClick={this.showTextarea}>
                         Share your objectives</button>
                     </p>
                 </div>

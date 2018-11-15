@@ -44,8 +44,8 @@ class Chat extends React.Component{
         const displayMessages = (
             <div id="chat-component">
 
-                <p className="close-popup" onClick={this.props.hideChat}>&#10006;</p>
-                <h3>Let's discuss {(this.props.name).toLowerCase()}</h3>
+                <p className="close-chat-popup" onClick={this.props.hideChat}>&#10006;</p>
+                <h3 className="chat-header">Let's discuss {(this.props.name).toLowerCase()}</h3>
                 <div className="chat-messages-container"
                     ref={elem => (this.elem = elem)} >
 
@@ -63,7 +63,7 @@ class Chat extends React.Component{
                         </div>
                     ))}
                 </div>
-                <textarea className="chat-textarea" onKeyDown={this.sendMessage} />
+                <textarea className="chat-textarea" placeholder="type your message and push enter ..." onKeyDown={this.sendMessage} />
             </div>
         )
         return (

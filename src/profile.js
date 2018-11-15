@@ -15,10 +15,10 @@ function DeletePopup(props) {
     return (
         <div className="overlay">
             <div id="delete-popup">
-                <p className="close-popup" onClick={props.hideDeletePopup}>&#10006;</p>
+                <p className="close-del-popup" onClick={props.hideDeletePopup}>&#10006;</p>
                 <h4>Do you really want to delete your profile?</h4>
-                <button className="bio-bttn" onClick={props.deleteProfile}>Yes</button>
-                <button className="bio-bttn" onClick={props.hideDeletePopup}>No</button>
+                <button className="bttn-to-space" onClick={props.deleteProfile}>Yes</button>
+                <button className="bttn-to-space" onClick={props.hideDeletePopup}>No</button>
             </div>
         </div>
     )
@@ -81,7 +81,7 @@ class Profile extends React.Component {
                     <SpaceManager currentUserId={this.props.id}/>
 
                     <br />
-                    <button className="bttn"
+                    <button className="bttn-to-space delete"
                         onClick={this.showDeletePopup}>Delete profile</button>
                     {this.state.deletePopupVisible &&
                             (<DeletePopup
