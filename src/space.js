@@ -74,9 +74,9 @@ class Space extends React.Component {
 
         console.log('HANDLE SUBMIT FIRED: ',taskObj);
         socket.emit('newTask', taskObj);
-        // this.setState({
-        //     textareaValue: ''
-        // });
+        
+        document.getElementById('spaceInput').value='';
+        document.getElementById('spaceTextarea').value='';
     }
 
     deleteTask(taskId){
@@ -168,7 +168,8 @@ class Space extends React.Component {
                         <button className="red"></button>
                         <img className="space-delete" src="./imgs/alert.png" onClick={this.deleteSpace.bind(this, spaceId)} />
                     </div>
-                    <button className="open-chat" onClick={this.openChat}>Start a chat</button>
+                    <button className="open-chat" onClick={this.openChat}>Chat</button>
+
                 </div>
                 <div className="tasks-container">
                     <div className="tasks-saving-tool">
@@ -180,14 +181,15 @@ class Space extends React.Component {
                     </div>
                     <div className="tasks-list">
                         {tasksFromCurrentSpace}
-                    </div>
-                    {this.state.chatOpened &&
+                        {this.state.chatOpened &&
                         <Chat
                             hideChat={this.hideChat}
                             spaceOwner={this.state.spaceOwner.first}
                             name={this.state.spaceOwner.name}
                         />}
+                    </div>
                 </div>
+
             </div>
         );
 

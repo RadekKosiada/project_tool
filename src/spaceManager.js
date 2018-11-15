@@ -44,7 +44,7 @@ class SpaceManager extends React.Component {
     }
 
     render() {
-        let {yourSpaces, accessRequests, spaceInfo } = this.props;
+        let {yourSpaces, spaceInfo } = this.props;
         // console.log('PROPS: ', this.props);
         let userId = this.props.currentUserId;
 
@@ -137,12 +137,11 @@ const mapStateToProps=state=> {
     console.log('STATE:', state);
     return {
         yourSpaces: state.allSpacesReducer,
-        accessRequests: state.accessStatusReducer,
         spaceInfo: state.allAvailSpacesReducer
     };
 };
 
-export default connect(mapStateToProps)(SpaceManager)
+export default connect(mapStateToProps)(SpaceManager);
 
 
 // function looping(arg){

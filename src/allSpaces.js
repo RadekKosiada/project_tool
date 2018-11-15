@@ -27,7 +27,7 @@ class AllSpaces extends React.Component {
         }
         let allAvailSpaces = this.props.allSpacesComponent.map((space, idx) => {
 
-            console.log('single space: ', space);
+            // console.log('single space: ', space);
 
             let accessButton ='';
             if(space.accepted){
@@ -38,8 +38,8 @@ class AllSpaces extends React.Component {
                 accessButton='Request access';
             }
 
-            console.log('CURR USER ID: ', space.owner_id);
-            console.log('OTHER ID: ', this.props);
+            // console.log('CURR USER ID: ', space.owner_id);
+            // console.log('OTHER ID: ', this.props);
 
             return (
                 <div key={ idx } className="all-spaces-single">

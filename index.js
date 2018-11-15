@@ -395,6 +395,7 @@ io.on('connection', function(socket) {
         userId: socket.request.session.user.id,
         socketId: socket.id
     });
+    console.log('ONLINE USERS!!!!!!!!!!!!!!!!!!!!!!!!!', onlineUsers)
     //will return array of every single user ids
     let ids = onlineUsers.map(user=> {
         return user.userId;
@@ -663,13 +664,20 @@ io.on('connection', function(socket) {
     socket.on('giveAccess', function(spaceId, contributor_id) {
         database.giveAccess(spaceId, contributor_id)
             .then(result =>{
-                console.log('RESULT of giveAccess', result.rows);
-                socket.emit('givingAccess', result.rows[0].accepted);
+                console.log('RESULT of giveAccess', result.rows[0]);
+                socket.emit('givingAccess', result.rows[0]);
+                // onlineUsers.push({
+                //     userId: socket.request.session.user.id,
+                //     socketId: socket.id
+                // });
+                // console.log('ONLINE USERS!!!!!!!GIVING ACESS', onlineUsers);
             })
             .catch(err => {
                 console.log('ERR in giveAccess: ', err);
             });
     });
+
+//io.sockets.sockets[socketId].emit
 
     /// REJECTING ACCESS ///////////////////////////////////////////
     socket.on('rejectAccess', function(spaceId, contributor_id) {

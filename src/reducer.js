@@ -116,6 +116,13 @@ export default function reducer (state = {}, action) {
         };
         // console.log('TASKS AFTER DELETE: ', state.allTasksReducer);
     }
+    // else if (action.type=='SPACE_ACCESS_STATUS') {
+    //     state={
+    //         ...state,
+    //         accessStatusReducer: action.access
+    //     };
+    //     console.log('STATE ACCESS REDUCER: ', state.reqStatusReducer);
+    // }
     else if(action.type=='DELETE_SPACE') {
         state= {
             ...state,
@@ -131,21 +138,64 @@ export default function reducer (state = {}, action) {
             ...state,
             allAvailSpacesReducer: action.allAvailSpacesAction
         };
-        console.log('ALL AVAIL SPACES: ', state.allAvailSpacesReducer);
+        // console.log('ALL AVAIL SPACES: ', state.allAvailSpacesReducer);
     }
-    else if (action.type=='SPACE_ACCESS_STATUS') {
-        state={
-            ...state,
-            accessStatusReducer: action.access
-        };
-        console.log('STATE ACCESS REDUCER: ', state.reqStatusReducer);
-    }
+
     else if (action.type=='REQ_ACCESS_SENT'){
         state={
             ...state,
-            reqAccessReducer: [...state.reqAccessReducer, action.accessReqAction]
+            allAvailSpacesReducer: state.allAvailSpacesReducer.map(space=> {
+                // console.log('ACTION: ', action)
+                if(space.id == action.accessReqAction.space_id) {
+                    // console.log('IF BLOCK REQ ACCESS SENT');
+                    return {
+                        ...space,
+                        accepted: false,
+                        contributor_id: action.contributor_id,
+                        permissionId: action.id
+                    };
+                }else {
+                    return space;
+                }
+            })
+
         };
-        console.log('ACCESS REDUCER: ', state.reqAccessReducer);
+        // console.log('ACCESS SENT REDUCER: ', state.allAvailSpacesReducer);
+    }
+    else if (action.type=='ACCESS_GIVEN') {
+
+        state={
+            ...state,
+            allAvailSpacesReducer: state.allAvailSpacesReducer.map(space => {
+                // console.log('ACTION ACCESS GRANTED:', action);
+                if(space.id === action.giveAccessAction.space_id) {
+                    console.log('IF BLOCK REQ ACCESS GIVEN');
+                    return {
+                        ...space,
+                        accepted: true,
+                        contributor_id: action.contributor_id,
+                        permissionId: action.id
+                    };
+                }else {
+                    return space;
+                }
+            })
+        };
+        console.log('ACCESS GIVEN REDUCER: ', state.allAvailSpacesReducer);
+    }
+    //DONE
+    else if(action.type=='ACCESS_DELETED') {
+
+        state={
+            ...state,
+            allAvailSpacesReducer: state.allAvailSpacesReducer.filter(permission => {
+                console.log('ACTION ACCESS REJECTED:', action);
+                if(permission.permissionId !== action.delAccessAction) {
+                    return permission;
+                }
+            })
+        };
+        console.log('ACCESS_DELETED REDUCER: ', state.allAvailSpacesReducer);
     }
 
     return state;

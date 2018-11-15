@@ -94,8 +94,8 @@ export function initSocket(store) {
         });
 
         /// ACCEPTING REQUEST ///////////////////////////////////
-        socket.on('acceptingAccessReq', function(accessGranted) {
-            // console.log('')
+        socket.on('givingAccess', function(accessGranted) {
+            console.log('SOCKET ACCEPTING REQUEST: ',accessGranted );
             store.dispatch(givingAccess(accessGranted));
         });
         ///// REJECTING ACCESS /////////////////////////////////

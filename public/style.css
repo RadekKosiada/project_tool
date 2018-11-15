@@ -105,24 +105,6 @@ body{
     transition-duration: 0.5s;
 }
 
-/* NEW CHAT COMPONENT RENDERED IN THE SPACE */
-#chat-component{
-    border: 1px solid grey;
-}
-#chat-component .close-popup{
-    position: relative;
-    left: 30%;
-}
-
-.close-popup:hover {
-    cursor: pointer;
-    transform: rotate(180deg);
-}
-.close-popup:active{
-    font-size: 2vw;
-    text-decoration: none;
-}
-
 .profile-menu{
 
 }
@@ -444,10 +426,31 @@ body{
 }
 
 /* CHAT */
+
+#chat-component .close-popup{
+    position: inherit;
+    left: 30%;
+}
+.close-popup:hover {
+    cursor: pointer;
+    transform: rotate(180deg);
+}
+.close-popup:active{
+    font-size: 2vw;
+    text-decoration: none;
+}
+
 #chat-component{
     margin-top: 0.5vw;
     text-align: center;
-
+    border: 1px solid grey;
+    position: absolute;
+    left: 70%;
+    top:20%;
+    margin-bottom: 10vw;
+    width: 25vw;
+    height: 30vw;
+    background-color: grey;
 }
 
 .chat-messages-container{
@@ -456,6 +459,8 @@ body{
     height: 20vw;
     background-color: rgba(211,211,211, 0.01);
     border-bottom: none;
+    /* width: 25vw;
+    height: 20vw; */
 }
 
 .chat-messages-container img{
@@ -467,13 +472,13 @@ body{
 .chat-textarea{
     resize: none;
     height: 10vw;
-    margin-top: -7px;
+    width: 25vw;
+    height: 5vw;
 
 }
 
 .chat-messages-container, .chat-textarea{
     border: 1px solid grey;
-    width: 55vw;
     display: inline-block;
     /* box-shadow: 2vw 0vw 4vw grey; */
 }
@@ -486,7 +491,6 @@ body{
     margin-top: 1vw;
     margin-left: 1vw;
 }
-
 
 
 #chat-date{
@@ -595,8 +599,8 @@ body{
 .tasks-container .yellow{
 
 }
-.tasks-container textarea,
-.tasks-container input{
+#spaceInput,
+#spaceTextarea{
     display: inline-block;
     position: relative;
     width: 45vw;
@@ -608,14 +612,14 @@ body{
     border: none;
 }
 
-.tasks-container input{
+#spaceInput{
     height: 3vw;
     margin-top:1.5vw;
     border-bottom: 0.25vw solid rgba(119,204,98, 0.25);
 }
 
-.tasks-container textarea:focus,
-.tasks-container input:focus {
+#spaceTextarea:focus,
+#spaceInput:focus {
     outline: none;
     /* box-shadow: 0.75vw 0.75vw 2vw grey; */
     border: 0.25vw solid rgb(119,204,98);

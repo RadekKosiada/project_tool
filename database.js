@@ -398,7 +398,7 @@ module.exports.giveAccess=function(space_id, contributor_id) {
         SET accepted='true'
         WHERE space_id=$1
         AND contributor_id=$2
-        RETURNING accepted
+        RETURNING *
     `;
     const params =[
         space_id || null,
@@ -418,6 +418,6 @@ module.exports.rejectAccess = function(space_id, contributor_id) {
         space_id || null,
         contributor_id || null
     ];
-    
+
     return db.query(q, params);
 };

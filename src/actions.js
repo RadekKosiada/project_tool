@@ -106,7 +106,7 @@ export function deletedTask(delTaskAction) {
 }
 
 export function deletedSpace(delSpaceAction) {
-    console.log('Del Space Action: ', delSpaceAction);
+    // console.log('Del Space Action: ', delSpaceAction);
     return {
         type: 'DELETE_SPACE',
         delSpaceAction
@@ -114,7 +114,7 @@ export function deletedSpace(delSpaceAction) {
 }
 
 export function allTheSpaces(allAvailSpacesAction) {
-    console.log('ALL AVAIL SPACES: ', allAvailSpacesAction);
+    // console.log('ALL AVAIL SPACES: ', allAvailSpacesAction);
     return{
         type: 'ALL_AVAIL_SPACES',
         allAvailSpacesAction
@@ -134,5 +134,21 @@ export function sentAccessRequest(accessReqAction) {
     return {
         type: 'REQ_ACCESS_SENT',
         accessReqAction
+    };
+}
+
+export function givingAccess(giveAccessAction) {
+    console.log('ACCESS GRANTED ACTION: ', giveAccessAction);
+    return {
+        type: 'ACCESS_GIVEN',
+        giveAccessAction
+    };
+}
+
+export function deletingAccess(delAccessAction) {
+    console.log('ACCESS REJECTED ACTION: ', delAccessAction);
+    return {
+        type: 'ACCESS_DELETED',
+        delAccessAction
     };
 }
