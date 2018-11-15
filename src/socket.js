@@ -12,7 +12,9 @@ import {onlineUsers,
     deletedTask,
     deletedSpace,
     allTheSpaces,
-    sentAccessRequest
+    sentAccessRequest,
+    givingAccess,
+    deletingAccess
 } from './actions';
 
 let socket;
@@ -89,6 +91,16 @@ export function initSocket(store) {
         socket.on('sendingAccessReq', function(sentAccessReq) {
             console.log('SENT ACCESS SOCKET:', sentAccessReq);
             store.dispatch(sentAccessRequest(sentAccessReq));
+        });
+
+        /// ACCEPTING REQUEST ///////////////////////////////////
+        socket.on('acceptingAccessReq', function(accessGranted) {
+            // console.log('')
+            store.dispatch(givingAccess(accessGranted));
+        });
+        ///// REJECTING ACCESS /////////////////////////////////
+        socket.on('rejectingAccess', function(accessRejected) {
+            store.dispatch(deletingAccess(accessRejected));
         });
     }
 

@@ -395,15 +395,29 @@ module.exports.getAccessStatus = function(contributor_id, arrSpaceIds){
 module.exports.giveAccess=function(space_id, contributor_id) {
     const q= `
         UPDATE permissions
-        SET accepted=true
-        WHERE space_id=2
-        AND contributor_id=2
-        RETURNING accepted;
+        SET accepted='true'
+        WHERE space_id=$1
+        AND contributor_id=$2
+        RETURNING accepted
     `;
     const params =[
         space_id || null,
-        owner_id || null,
         contributor_id || null
     ];
+    return db.query(q, params);
+};
+
+module.exports.rejectAccess = function(space_id, contributor_id) {
+    const q =`
+    DELETE FROM permissions
+    WHERE space_id=$1
+    AND contributor_id = $2
+    RETURNING *
+    `;
+    const params=[
+        space_id || null,
+        contributor_id || null
+    ];
+    
     return db.query(q, params);
 };

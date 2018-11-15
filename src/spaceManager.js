@@ -34,7 +34,13 @@ class SpaceManager extends React.Component {
     giveAccess(spaceId, contributor_id){
         let socket=initSocket();
         console.log('SPACE ID:', spaceId, contributor_id);
-        socket.emit('giveAccess', spaceId);
+        socket.emit('giveAccess', spaceId, contributor_id);
+    }
+
+    rejectAccess(spaceId, contributor_id){
+        let socket=initSocket();
+        console.log('SPACE ID:', spaceId, contributor_id);
+        socket.emit('rejectAccess', spaceId, contributor_id);
     }
 
     render() {
@@ -67,6 +73,7 @@ class SpaceManager extends React.Component {
                     <div key={idx} className="single-space-bttn">
                         <p>User {permission.contributor_id} requested access to {permission.name} ID: {permission.spaceId}</p>
                         <button className="bttn-white" onClick={this.giveAccess.bind(this, permission.spaceId, permission.contributor_id)}>Grant access</button>
+                        <button className="bttn-white" onClick={this.rejectAccess.bind(this, permission.spaceId, permission.contributor_id)}>Reject access</button>
                     </div>
                 );
             }

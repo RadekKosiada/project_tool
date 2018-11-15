@@ -660,16 +660,29 @@ io.on('connection', function(socket) {
     });
 
     ///// GIVING ACCESS //////////////////////////////////////////////
-    socket.on('giveAccess', function(spaceId, owner_id, contributor_id) {
+    socket.on('giveAccess', function(spaceId, contributor_id) {
         database.giveAccess(spaceId, contributor_id)
             .then(result =>{
                 console.log('RESULT of giveAccess', result.rows);
+                socket.emit('givingAccess', result.rows[0].accepted);
             })
             .catch(err => {
-                console.log('ERR in giveAccess: ', err.message);
+                console.log('ERR in giveAccess: ', err);
             });
     });
 
+    /// REJECTING ACCESS ///////////////////////////////////////////
+    socket.on('rejectAccess', function(spaceId, contributor_id) {
+        database.rejectAccess(spaceId, contributor_id)
+            .then(result =>{
+                console.log('RESULT of rejectAccess', result.rows);
+                // passing id of permission from permission table to redux
+                socket.emit('rejectingAccess', result.rows[0].id);
+            })
+            .catch(err => {
+                console.log('ERR in rejectAccess: ', err);
+            });
+    });
     //// DELETING SINGLE TASK ////////////////////////////////////
     socket.on('deleteSingleTask', function(taskId) {
         database.deleteSingleTask(taskId)
