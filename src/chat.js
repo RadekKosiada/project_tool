@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { initSocket } from './socket';
 import ProfilePic from './profilePic';
+import axios from './axios';
 
 
 class Chat extends React.Component{
@@ -31,6 +32,9 @@ class Chat extends React.Component{
             e.target.value = '';
         }
     }
+    // deleteMessages(){
+    //
+    // }
     render(){
         let { messages} = this.props;
         console.log('chat messages: ', this.props.messages);

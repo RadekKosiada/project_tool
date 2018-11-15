@@ -49,6 +49,13 @@ class Space extends React.Component {
         this.setState({
             chatOpened: false
         });
+        axios.post('/delete-chat')
+            .then(res=> {
+                console.log("YAY", res.data);
+            })
+            .catch(err=> {
+                console.log('ERR in delete-chat', err.message);
+            });
     }
     handleChangeTitle(e) {
         this.setState({
@@ -74,7 +81,7 @@ class Space extends React.Component {
 
         console.log('HANDLE SUBMIT FIRED: ',taskObj);
         socket.emit('newTask', taskObj);
-        
+
         document.getElementById('spaceInput').value='';
         document.getElementById('spaceTextarea').value='';
     }

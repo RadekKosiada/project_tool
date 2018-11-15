@@ -42,6 +42,13 @@ module.exports.getLastChatMessages =function() {
     return db.query(q);
 };
 
+module.exports.deletingChat = function() {
+    const q=`
+    DELETE FROM messages WHERE id >0;
+    `;
+    return db.query(q);
+};
+
 //change the query as I have two tables!!!!!
 module.exports.getOnlineUsersByIds = function(arrayOfIds) {
     const query = `SELECT users.id as user_id,

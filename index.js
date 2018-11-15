@@ -96,11 +96,24 @@ app.post('/deleteProfile', (req, res) => {
     database.deleteProfile(req.session.user.id).then((results)=> {
         req.session = null;
         res.json(null);
+        //location.replace in client
     })
         .catch(err=> {
             console.log('ERR IN DEL PROFILE: ', err.message);
         });
 });
+
+///// DELETING CHAT //////////////////////////////////////////////////
+app.post('/delete-chat', (req, res) => {
+    database.deletingChat()
+        .then(result=>{
+            console.log('DELETING CHAT: ', result.rows);
+        })
+        .catch(err => {
+            console.log('ERR in DELETING CHAT: ', err.message);
+        });
+})
+
 
 app.get('/allImages', (req, res) => {
     database.getAllImages(req.session.user.id)
