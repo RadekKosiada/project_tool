@@ -22,7 +22,19 @@ import AllSpaces from './allSpaces.js';
 ///// LOGO COMPONENT ///////////////////////////////
 export function Logo() {
     return (
-        <img className="logo" src="./imgs/logo.png"/>
+        <div className="logo-wrapper">
+            <h1 id="logo-small">Your online<br />
+                <span className="hover">w</span>
+                <span className="hover">o</span>
+                <span className="hover">r</span>
+                <span className="hover">k</span>
+                <span className="hover">s</span>
+                <span className="hover">p</span>
+                <span className="hover">a</span>
+                <span className="hover">c</span>
+                <span className="hover">e</span>    
+            </h1>
+        </div>
     );
 }
 

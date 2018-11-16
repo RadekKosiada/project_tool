@@ -15,13 +15,18 @@ class Space extends React.Component {
             textareaValue: '',
             submitFired: false,
             spaceOwner: '',
-            chatOpened: false
+            chatOpened: false,
+            classStyle: 'task-infobar-green'
         };
         this.handleChangeTitle=this.handleChangeTitle.bind(this);
         this.handleChangeTask=this.handleChangeTask.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
         this.openChat=this.openChat.bind(this);
         this.hideChat=this.hideChat.bind(this);
+        this.changeToYellow=this.changeToYellow.bind(this);
+        this.changeToBlue=this.changeToBlue.bind(this);
+        this.changeToRed=this.changeToRed.bind(this);
+        this.changeToGreen=this.changeToGreen.bind(this);
         // this.deleteSpace=this.deleteSpace.bind(this);
         // this.deleteTask=this.deleteTask.bind(this, i);
         // this.saveTask=this.saveTask.bind(this);
@@ -86,6 +91,27 @@ class Space extends React.Component {
         document.getElementById('spaceTextarea').value='';
     }
 
+    changeToYellow(){
+        this.setState({
+            classStyle: 'task-infobar-yellow'
+        });
+    }
+    changeToBlue(){
+        this.setState({
+            classStyle: 'task-infobar-blue'
+        });
+    }
+    changeToRed(){
+        this.setState({
+            classStyle: 'task-infobar-red'
+        });
+    }
+    changeToGreen(){
+        this.setState({
+            classStyle: 'task-infobar-green'
+        });
+    }
+
     deleteTask(taskId){
         let socket=initSocket();
         console.log(taskId);
@@ -99,17 +125,6 @@ class Space extends React.Component {
         this.props.history.push()
         location.replace('/');
     }
-    // saveTask(e) {
-    //     let socket=initSocket();
-    //
-    //     if(e.which===13){
-    //         let taskToSave= e.target.value;
-    //         //from the frontend to the backend;
-    //         console.log('SAVE TASK FIRED: ', taskToSave);
-    //         socket.emit('newTask', taskToSave);
-    //         e.target.value = '';
-    //     }
-    // }
 
     render() {
         let spaceId = this.props.match.params.id;
@@ -130,7 +145,7 @@ class Space extends React.Component {
         let tasksFromCurrentSpace = tasksArr.map(task => {
             return (
                 <div key={task.id} className="single-task">
-                    <div className="task-infobar">
+                    <div className={this.state.classStyle}>
                         {/*  INITIALS*/}
                         <span className="task-initials bold">
                             {(task.first).charAt(0)}
@@ -149,10 +164,10 @@ class Space extends React.Component {
                         {task.task}
                     </div>
                     <div className="task-toolbar">
-                        <div className="task-yellow"></div>
-                        <div className="task-green"></div>
-                        <div className="task-blue"></div>
-                        <div className="task-red"></div>
+                        <div className="task-yellow" onClick={this.changeToYellow}></div>
+                        <div className="task-green" onClick={this.changeToGreen}></div>
+                        <div className="task-blue" onClick={this.changeToBlue}></div>
+                        <div className="task-red" onClick={this.changeToRed}></div>
                         <div className="task-delete" key={task.id} onClick={this.deleteTask.bind(this, task.id)}></div>
                     </div>
                 </div>

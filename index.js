@@ -94,12 +94,14 @@ app.post('/upload', uploader.single('file'), s3.upload, (req, res) => {
 app.post('/deleteProfile', (req, res) => {
     // database.getUsersProfile(req.session.user.id)
     database.deleteProfile(req.session.user.id).then((results)=> {
+        console.log('SESSION AFTER DEL: ', req.session);
         req.session = null;
         res.json(null);
         //location.replace in client
     })
         .catch(err=> {
             console.log('ERR IN DEL PROFILE: ', err.message);
+            res.sendStatus(500);
         });
 });
 
@@ -373,6 +375,7 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/welcome', function(req, res, next) {
+    console.log('SESSION!!!!', req.session);
     if(req.session.user) {
         res.redirect('/')
     } else {

@@ -57,6 +57,7 @@ class Profile extends React.Component {
         this.setState({
             deletePopupVisible: false
         });
+        // location.replace('/welcome');
     }
 
     render() {

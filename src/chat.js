@@ -44,8 +44,9 @@ class Chat extends React.Component{
         const displayMessages = (
             <div id="chat-component">
 
-                <p className="close-chat-popup" onClick={this.props.hideChat}>&#10006;</p>
-                <h3 className="chat-header">Let's discuss {(this.props.name).toLowerCase()}</h3>
+                <p className="close-chat-popup"></p>
+                <h3 className="chat-header" onClick={this.props.hideChat}>Let's discuss {(this.props.name).toLowerCase()}</h3>
+
                 <div className="chat-messages-container"
                     ref={elem => (this.elem = elem)} >
 

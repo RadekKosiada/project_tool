@@ -106,8 +106,7 @@ module.exports.deleteProfile =function(id){
         db.query((`DELETE FROM users WHERE id =$1`),params),
         db.query((`DELETE FROM images WHERE user_id = $1`),params),
         db.query((`DELETE FROM messages WHERE user_id=$1`),params),
-        db.query((`DELETE FROM friendships WHERE receiver_id=$1`),params),
-        db.query((`DELETE FROM friendships WHERE sender_id=$1`),params),
+        db.query((`DELETE FROM permissions WHERE contributor_id=$1`),params)
     ]);
 };
 

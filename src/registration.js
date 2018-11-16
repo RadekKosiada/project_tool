@@ -49,7 +49,7 @@ export default class Registration extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="registration">
                 {this.state.error && <p className="error">Something went wrong! Try again</p>}
                 <input name="first" placeholder="First name" onChange={this.handleChange} />
                 <input name="last" placeholder="Last name" onChange={this.handleChange} />

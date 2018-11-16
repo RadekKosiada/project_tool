@@ -9,7 +9,7 @@ import {Logo} from './app.js';
 export default function Welcome() {
     return (
         <div id="welcome-component">
-            <h1>Welcome to<br />YOUR ONLINE WORKSPACE</h1>
+            <h1>Welcome to</h1>
             <br />
             <Logo />
             <br />

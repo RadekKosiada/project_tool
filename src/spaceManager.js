@@ -71,7 +71,7 @@ class SpaceManager extends React.Component {
             if(permission.ownerId==userId && !permission.accepted){
                 return (
                     <div key={idx} className="">
-                        <p>User {permission.contributor_id} requested access to {permission.name} {permission.spaceId}</p>
+                        <p>User {permission.contributor_id} requested access to {permission.name}</p>
                         <button className="bttn-to-space" onClick={this.giveAccess.bind(this, permission.spaceId, permission.contributor_id)}>Grant access</button>
                         <button className="bttn-to-space" onClick={this.rejectAccess.bind(this, permission.spaceId, permission.contributor_id)}>Reject access</button>
                     </div>
