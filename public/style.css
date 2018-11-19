@@ -32,7 +32,7 @@ body{
     margin-bottom: 1vw;
     color: rgb(74,125,62);
     font-size: 10vw;
-    text-align: left;
+    text-align: center;
     display: inline-block;
     background-color: white;
     /* transform: rotateY(50deg); */
@@ -754,10 +754,10 @@ body{
     /* padding: 1.15vw; */
 }
 .space-delete{
-    background-image: url("./imgs/delete.png");
+    background-image: url("./imgs/delete_white.png");
 }
 .open-space-chat{
-    background-image: url("./imgs/chat2.png");
+    background-image: url("./imgs/chat2_white.png");
 }
 
 .yellow {

@@ -32,7 +32,8 @@ export function Logo() {
                 <span className="hover">p</span>
                 <span className="hover">a</span>
                 <span className="hover">c</span>
-                <span className="hover">e</span>    
+                <span className="hover">e</span>
+
             </h1>
         </div>
     );

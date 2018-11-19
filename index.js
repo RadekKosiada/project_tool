@@ -383,10 +383,37 @@ app.get('/welcome', function(req, res, next) {
     }
 })
 
+app.post('/create-space', (req, res) => {
+    database.saveNewSpace(req.session.user.id, req.body.name, req.body.category)
+        .then(space => {
+            console.log('SPACE SAVED: ', space.rows[0].owner_id);
+            database.getUsersProfile(space.rows[0].owner_id)
+                .then(user => {
+                    let spaceInfo={
+                        first: user.rows[0].first,
+                        last: user.rows[0].last,
+                        url: user.rows[0].url,
+                        id: space.rows[0].id,
+                        created_at: space.rows[0].created_at,
+                        name: space.rows[0].name,
+                        category: space.rows[0].category,
+                        status: space.rows[0].status,
+                        color: space.rows[0].color,
+                        eta: space.rows[0].eta
+                    };
+                    // console.log('SPACE INFO TO BE SENT: ', spaceInfo);
+                    res.json(spaceInfo);
+                })
+                .catch(err => {
+                    console.log('ERR in getUsersProfile: ', err.message);
+                });
+        });
+});
+
 // star route handles everything;
 app.get('*', function(req, res) {
     if(!req.session.user) {
-        res.redirect('/welcome')
+        res.redirect('/welcome');
 
     } else {
         res.sendFile(__dirname + '/index.html');
@@ -585,36 +612,6 @@ io.on('connection', function(socket) {
             .catch(err => {
                 console.log('ERR in saveMessage: ', err.message);
             });
-    });
-
-    // CREATING A NEW SPACE ////////////////////////////////////
-    socket.on('newSpace', function(spaceObj) {
-        // console.log('SPACE OBJ: ', spaceObj.name, spaceObj.category);
-        database.saveNewSpace(socket.request.session.user.id, spaceObj.name, spaceObj.category)
-            .then(space => {
-                console.log('SPACE SAVED: ', space.rows[0].owner_id);
-                database.getUsersProfile(space.rows[0].owner_id)
-                    .then(user => {
-                        let spaceInfo={
-                            first: user.rows[0].first,
-                            last: user.rows[0].last,
-                            url: user.rows[0].url,
-                            id: space.rows[0].id,
-                            created_at: space.rows[0].created_at,
-                            name: space.rows[0].name,
-                            category: space.rows[0].category,
-                            status: space.rows[0].status,
-                            color: space.rows[0].color,
-                            eta: space.rows[0].eta
-                        };
-                        // console.log('SPACE INFO TO BE SENT: ', spaceInfo);
-                        io.sockets.emit('newSpace', spaceInfo);
-                    })
-                    .catch(err => {
-                        console.log('ERR in getUsersProfile: ', err.message);
-                    });
-            })
-            .catch(err => console.log('ERR in saveNewSpace: ', err.message));
     });
 
     //SAVING A NEW TASK //////////////////////////////////////////

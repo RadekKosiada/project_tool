@@ -51,11 +51,6 @@ export function initSocket(store) {
             store.dispatch(allUsersSpaces(allSpaces));
         });
 
-        socket.on('newSpace', function(newWorkspace) {
-            // console.log('newSpace Socket: ', newSpace);
-            store.dispatch(newSpace(newWorkspace));
-        });
-
         socket.on('allCurrentTasks', function(allSpacesTasks) {
             // console.log('allCurrentTasks Socket: ', allSpacesTasks);
             store.dispatch(allTasks(allSpacesTasks));

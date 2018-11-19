@@ -104,9 +104,9 @@ module.exports.deleteProfile =function(id){
     const params =[ id||null];
     return Promise.all([
         db.query((`DELETE FROM users WHERE id =$1`),params),
-        db.query((`DELETE FROM images WHERE user_id = $1`),params),
-        db.query((`DELETE FROM messages WHERE user_id=$1`),params),
-        db.query((`DELETE FROM permissions WHERE contributor_id=$1`),params)
+        // db.query((`DELETE FROM images WHERE user_id = $1`),params),
+        // db.query((`DELETE FROM messages WHERE user_id=$1`),params),
+        // db.query((`DELETE FROM permissions WHERE contributor_id=$1`),params)
     ]);
 };
 

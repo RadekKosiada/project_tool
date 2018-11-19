@@ -1,6 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { initSocket } from './socket';
+import axios from './axios';
+import {newSpace} from './actions';
+import store from './store';
 
 export default class NewSpacePopup extends React.Component {
     constructor(props) {
@@ -26,14 +27,20 @@ export default class NewSpacePopup extends React.Component {
         // console.log('space category:', this.state.category);
     }
     handleSubmit(){
-        let socket=initSocket();
+
         let spaceObj= {
             name: this.state.name,
             category: this.state.category
         };
         console.log(spaceObj);
-        socket.emit('newSpace', spaceObj);
-        // socket.emit('spaceCategory', this.state.category);
+        axios.post('/create-space', spaceObj)
+            .then(function (response){
+                store.dispatch(newSpace(response.data));
+            })
+            .catch(function(err) {
+                alert(err.message);
+            });
+
         this.props.hideSpacePopup();
     }
     render() {

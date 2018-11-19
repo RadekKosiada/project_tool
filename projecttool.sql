@@ -16,14 +16,14 @@ DROP TABLE IF EXISTS images CASCADE;
 CREATE TABLE images(
 id SERIAL PRIMARY KEY,
 url VARCHAR (300),
-user_id INT NOT NULL REFERENCES users(id)
+user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS messages CASCADE;
 
 CREATE TABLE messages(
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES users(id),
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     message VARCHAR (1000)
 );
@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS spaces CASCADE;
 
 CREATE TABLE spaces(
     id SERIAL PRIMARY KEY,
-    owner_id INT NOT NULL REFERENCES users(id),
+    owner_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     name VARCHAR(255) NOT NULL,
     status VARCHAR(255),
@@ -45,9 +45,9 @@ DROP TABLE IF EXISTS tasks CASCADE;
 
 CREATE TABLE tasks(
     id SERIAL PRIMARY KEY,
-    owner_id INT NOT NULL REFERENCES users(id),
+    owner_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     editor_id INT REFERENCES users(id),
-    space_id INT NOT NULL REFERENCES spaces(id),
+    space_id INT NOT NULL REFERENCES spaces(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     title VARCHAR(255) NOT NULL,
     task VARCHAR(1000) NOT NULL,
@@ -61,8 +61,8 @@ DROP TABLE IF EXISTS permissions CASCADE;
 
 CREATE TABLE permissions(
     id SERIAL PRIMARY KEY,
-    owner_id INT NOT NULL REFERENCES users(id),
-    contributor_id INT NOT NULL REFERENCES users(id),
-    space_id INT NOT NULL REFERENCES spaces(id),
+    owner_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    contributor_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    space_id INT NOT NULL REFERENCES spaces(id) ON DELETE CASCADE,
     accepted BOOLEAN DEFAULT false
 );
