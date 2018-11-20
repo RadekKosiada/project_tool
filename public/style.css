@@ -853,22 +853,21 @@ body{
     overflow-y: auto;
 }
 
-.task-initials{
+/* task-initials and task-infobar */
+/* color of both is defined in space.js */
+.task-initials {
     font-size: 1.5vw;
     border-radius: 50%;
     padding: 0.1vw 0.2vw;
-    border: 0.1vw solid rgb(74,125,62);
     background-color: white;
-    color: rgb(74,125,62);
     margin: 0.25vw;
     margin-right: 0.5vw;
     align-self: flex-start;
-
+    font-weight: bold;
 }
-.task-infobar-green,
-.task-infobar-yellow,
-.task-infobar-blue,
-.task-infobar-red {
+
+
+.task-infobar {
     padding: 0.35vw;
     /* background-color: rgb(74,125,62); */
     display: flex;
@@ -877,22 +876,6 @@ body{
     align-items: center;
     /* flex-flow: row wrap; */
 }
-.task-infobar-green{
-    background-color: rgb(74,125,62);
-}
-
-.task-infobar-yellow{
-    background-color: rgb(240,216,72);
-}
-
-.task-infobar-blue{
-    background-color: rgb(82,128,199);
-}
-
-.task-infobar-red{
-    background-color: rgb(242,58,58);
-}
-
 
 .task-date{
     font-size: 0.75vw;

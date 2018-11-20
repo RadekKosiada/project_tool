@@ -110,6 +110,20 @@ module.exports.deleteProfile =function(id){
     ]);
 };
 
+module.exports.changeToYellow = function(color, id) {
+    const q = `
+        UPDATE tasks
+        SET color = $1
+        WHERE id = $2
+        RETURNING *
+    `;
+    const params = [
+        color || null,
+        id || null
+    ];
+    return db.query(q, params);
+};
+
 module.exports.getAllImages=function(user_id) {
     const q = `
         SELECT * FROM images
@@ -126,7 +140,7 @@ module.exports.getOtherUsersProfile = function(id) {
     `;
     const params = [ id || null];
     return db.query(q, params);
-}
+};
 
 module.exports.getFriendsStatus = function(friend_id, user_id) {
     const q = `

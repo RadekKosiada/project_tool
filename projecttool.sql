@@ -53,7 +53,7 @@ CREATE TABLE tasks(
     task VARCHAR(1000) NOT NULL,
     status VARCHAR(255),
     category VARCHAR(255),
-    color VARCHAR(255),
+    color VARCHAR(255) DEFAULT 'rgb(74,125,62)',
     eta INT
 );
 

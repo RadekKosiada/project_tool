@@ -4,11 +4,29 @@ import axios from './axios';
 import { initSocket } from './socket';
 import { connect } from 'react-redux';
 import Chat from './chat.js';
+import store from './store';
+import {allTasks} from './actions';
+
+const green = 'rgb(74,125,62)';
+const yellow = 'rgb(240, 216, 72)';
+const blue = 'rgb(82,128,199)';
+const red = 'rgb(242,58,58)';
+
+// function to create object for each color and pass it with axios to server;
+function createObj(id, background, clr) {
+    let colorObj ={}
+    return colorObj ={
+        taskId: id,
+        backgroundColor: background,
+        color: clr
+    };
+}
 
 class Space extends React.Component {
     constructor(props) {
-        super(props)
-        console.log('PROPS FROM SPACE: ', props)
+        super(props);
+        console.log('PROPS FROM SPACE: ', props);
+
         this.state ={
             title: '',
             task: '',
@@ -16,20 +34,21 @@ class Space extends React.Component {
             submitFired: false,
             spaceOwner: '',
             chatOpened: false,
-            classStyle: 'task-infobar-green'
+            classStyle: 'task-infobar',
+            // classInitials: 'task-initials init-green bold',
+            styleInitials: {
+                color: green
+            },
+            styleTaskbar: {
+                backgroundColor: green
+            }
+
         };
         this.handleChangeTitle=this.handleChangeTitle.bind(this);
         this.handleChangeTask=this.handleChangeTask.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
         this.openChat=this.openChat.bind(this);
         this.hideChat=this.hideChat.bind(this);
-        this.changeToYellow=this.changeToYellow.bind(this);
-        this.changeToBlue=this.changeToBlue.bind(this);
-        this.changeToRed=this.changeToRed.bind(this);
-        this.changeToGreen=this.changeToGreen.bind(this);
-        // this.deleteSpace=this.deleteSpace.bind(this);
-        // this.deleteTask=this.deleteTask.bind(this, i);
-        // this.saveTask=this.saveTask.bind(this);
     }
     componentDidMount() {
         const currentSpaceId = this.props.match.params.id;
@@ -91,25 +110,78 @@ class Space extends React.Component {
         document.getElementById('spaceTextarea').value='';
     }
 
-    changeToYellow(){
+    changeToYellow(taskId){
         this.setState({
-            classStyle: 'task-infobar-yellow'
+            styleTaskbar:{
+                backgroundColor: yellow
+            },
+            styleInitials: {
+                color: yellow
+            },
         });
+        let yellowObj = createObj(taskId, this.state.styleTaskbar.backgroundColor, this.state.styleInitials.color)
+        console.log('COLOR OBJ: ', yellowObj);
+
+        axios.post('/change-to-yellow', yellowObj)
+            .then(res=> {
+                console.log("change-to-yellow-fired", res.data, taskId);
+                store.dispatch(allTasks(res.data));
+            })
+            .catch(err=> {
+                console.log('ERR in change-to-yellow', err.message);
+            });
+
     }
-    changeToBlue(){
+    changeToBlue(taskId){
         this.setState({
-            classStyle: 'task-infobar-blue'
+            styleTaskbar:{
+                backgroundColor: blue
+            },
+            styleInitials: {
+                color: blue
+            },
         });
+        axios.post('/change-to-blue')
+            .then(res=> {
+                console.log("change-to-blue-fired", res.data, taskId);
+            })
+            .catch(err=> {
+                console.log('ERR in change-to-blue', err.message);
+            });
     }
-    changeToRed(){
+    changeToRed(taskId){
         this.setState({
-            classStyle: 'task-infobar-red'
+            styleTaskbar: {
+                backgroundColor: red
+            },
+            styleInitials: {
+                color: red
+            },
         });
+        axios.post('/change-to-red')
+            .then(res=> {
+                console.log("change-to-red-fired", res.data, taskId);
+            })
+            .catch(err=> {
+                console.log('ERR in change-to-red', err.message);
+            });
     }
-    changeToGreen(){
+    changeToGreen(taskId){
         this.setState({
-            classStyle: 'task-infobar-green'
+            styleTaskbar: {
+                backgroundColor: green
+            },
+            styleInitials: {
+                color: green
+            },
         });
+        axios.post('/change-to-green')
+            .then(res=> {
+                console.log("change-to-green-fired", res.data, taskId);
+            })
+            .catch(err=> {
+                console.log('ERR in change-to-green', err.message);
+            });
     }
 
     deleteTask(taskId){
@@ -145,9 +217,9 @@ class Space extends React.Component {
         let tasksFromCurrentSpace = tasksArr.map(task => {
             return (
                 <div key={task.id} className="single-task">
-                    <div className={this.state.classStyle}>
+                    <div className="task-infobar" style={this.state.styleTaskbar}>
                         {/*  INITIALS*/}
-                        <span className="task-initials bold">
+                        <span className="task-initials" style={this.state.styleInitials}>
                             {(task.first).charAt(0)}
                             {(task.last).charAt(0)}
                         </span>
@@ -164,10 +236,10 @@ class Space extends React.Component {
                         {task.task}
                     </div>
                     <div className="task-toolbar">
-                        <div className="task-yellow" onClick={this.changeToYellow}></div>
-                        <div className="task-green" onClick={this.changeToGreen}></div>
-                        <div className="task-blue" onClick={this.changeToBlue}></div>
-                        <div className="task-red" onClick={this.changeToRed}></div>
+                        <div className="task-yellow" onClick={this.changeToYellow.bind(this, task.id)}></div>
+                        <div className="task-green" onClick={this.changeToGreen.bind(this, task.id)}></div>
+                        <div className="task-blue" onClick={this.changeToBlue.bind(this, task.id)}></div>
+                        <div className="task-red" onClick={this.changeToRed.bind(this, task.id)}></div>
                         <div className="task-delete" key={task.id} onClick={this.deleteTask.bind(this, task.id)}></div>
                     </div>
                 </div>

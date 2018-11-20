@@ -60,6 +60,10 @@ export function initSocket(store) {
             // console.log('newTask Socket: ', workTask);
             store.dispatch(newTask(workTask));
         });
+
+        socket.on('newTaskCreationError', function(task){
+            store.dispatch(newTaskCreationError(task));
+        });
         ////// DELETING TASKS ////////////////////////////////////
         // deletingTask from index.js
         // deletedTask function from action.js

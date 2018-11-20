@@ -384,6 +384,7 @@ app.get('/welcome', function(req, res, next) {
 })
 
 app.post('/create-space', (req, res) => {
+    console.log('SPACE OBJ: ', req.body.name, req.body.category);
     database.saveNewSpace(req.session.user.id, req.body.name, req.body.category)
         .then(space => {
             console.log('SPACE SAVED: ', space.rows[0].owner_id);
@@ -407,6 +408,17 @@ app.post('/create-space', (req, res) => {
                 .catch(err => {
                     console.log('ERR in getUsersProfile: ', err.message);
                 });
+        });
+});
+
+app.post('/change-to-yellow', (req, res) => {
+    console.log('yellowObj: ',  req.body.color, req.body.taskId);
+    database.changeToYellow(req.body.taskId, req.body.color)
+        .then(result => {
+            console.log('RES of changeToYellow!!!!! ', result.data);
+        })
+        .catch(err=> {
+            console.log('ERR IN changeToYellow: ', err.message);
         });
 });
 
@@ -643,6 +655,7 @@ io.on('connection', function(socket) {
                     });
             })
             .catch(err => {
+                io.sockets.emit('newTaskCreationError', task);
                 console.log('ERR in saveNewNote: ', err.message);
             });
     });
