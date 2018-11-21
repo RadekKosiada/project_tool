@@ -102,7 +102,8 @@ body{
 
 #uploader,
 #delete-popup,
-#space-popup {
+#space-popup,
+#delete-space-popup {
     /* border: 1px solid grey; */
     box-shadow: 2vw 2vw 3vw rgb(0,0,0, 0.5);
     background-color: white;
@@ -120,9 +121,16 @@ body{
 }
 
 #delete-popup{
-    /* margin-top: -30vw; */
-    height: 8vw;
-    /* margin-top:  */
+    line-height: 2.5vw;
+    height: 12vw;
+    padding: 0.5vw;
+    font-size: 1.5vw;
+}
+
+#delete-space-popup{
+    padding: 0.5vw;
+    font-size: 1.5vw;
+    height: 10.5vw;
 }
 
 #delete-popup h4{

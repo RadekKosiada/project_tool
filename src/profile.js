@@ -17,6 +17,7 @@ function DeletePopup(props) {
             <div id="delete-popup">
                 <p className="close-del-popup" onClick={props.hideDeletePopup}>&#10006;</p>
                 <h4>Do you really want to delete your profile?</h4>
+                <p>It will delete all the spaces with your and your friends' input as well as your contribution to spaces of your friends.</p>
                 <button className="bttn-to-space" onClick={props.deleteProfile}>Yes</button>
                 <button className="bttn-to-space" onClick={props.hideDeletePopup}>No</button>
             </div>

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Chat from './chat.js';
 import store from './store';
 import {allTasks} from './actions';
+import DelSpacePopup from './DelSpacePopup';
 
 const green = 'rgb(74,125,62)';
 const yellow = 'rgb(240, 216, 72)';
@@ -41,7 +42,8 @@ class Space extends React.Component {
             },
             styleTaskbar: {
                 backgroundColor: green
-            }
+            },
+            delSpacePopupVisible: false
 
         };
         this.handleChangeTitle=this.handleChangeTitle.bind(this);
@@ -49,6 +51,8 @@ class Space extends React.Component {
         this.handleSubmit=this.handleSubmit.bind(this);
         this.openChat=this.openChat.bind(this);
         this.hideChat=this.hideChat.bind(this);
+        this.openDelSpacePopup=this.openDelSpacePopup.bind(this);
+        this.hideDelSpacePopup =this.hideDelSpacePopup.bind(this);
     }
     componentDidMount() {
         const currentSpaceId = this.props.match.params.id;
@@ -119,7 +123,7 @@ class Space extends React.Component {
                 color: yellow
             },
         });
-        let yellowObj = createObj(taskId, this.state.styleTaskbar.backgroundColor, this.state.styleInitials.color)
+        let yellowObj = createObj(taskId, this.state.styleTaskbar.backgroundColor, this.state.styleInitials.color);
         console.log('COLOR OBJ: ', yellowObj);
 
         axios.post('/change-to-yellow', yellowObj)
@@ -190,13 +194,26 @@ class Space extends React.Component {
         socket.emit('deleteSingleTask', taskId);
     }
 
-    deleteSpace(spaceId) {
-        let socket=initSocket();
-        console.log(spaceId);
-        socket.emit('deleteSingleSpace', spaceId);
-        this.props.history.push()
-        location.replace('/');
+    openDelSpacePopup(){
+        this.setState({
+            delSpacePopupVisible: true
+        });
     }
+
+    hideDelSpacePopup(){
+        console.log('hideDelSpacePopup fired!!!!')
+        this.setState({
+            delSpacePopupVisible: false
+        });
+    }
+
+    // deleteSpace(spaceId) {
+    //     let socket=initSocket();
+    //     console.log(spaceId);
+    //     socket.emit('deleteSingleSpace', spaceId);
+    //     this.props.history.push();
+    //     location.replace('/');
+    // }
 
     render() {
         let spaceId = this.props.match.params.id;
@@ -263,7 +280,7 @@ class Space extends React.Component {
                         <button className="green"></button>
                         <button className="blue"></button>
                         <button className="red"></button>*/}
-                        <div className="space-delete" onClick={this.deleteSpace.bind(this, spaceId)}></div>
+                        <div className="space-delete" onClick={this.openDelSpacePopup}></div>
                     </div>
 
 
@@ -288,7 +305,12 @@ class Space extends React.Component {
                     spaceOwner={this.state.spaceOwner.first}
                     name={this.state.spaceOwner.name}
                 />}
-
+                {this.state.delSpacePopupVisible &&
+                <DelSpacePopup
+                    hideDelSpacePopup ={this.hideDelSpacePopup}
+                    spaceId={this.props.match.params.id}
+                    deleteSpace={this.deleteSpace}
+                />}
             </div>
         );
 
