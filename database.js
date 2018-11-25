@@ -115,7 +115,7 @@ module.exports.changeToYellow = function(color, id) {
         UPDATE tasks
         SET color = $1
         WHERE id = $2
-        RETURNING *
+        RETURNING color
     `;
     const params = [
         color || null,

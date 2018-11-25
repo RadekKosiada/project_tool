@@ -14,11 +14,10 @@ const blue = 'rgb(82,128,199)';
 const red = 'rgb(242,58,58)';
 
 // function to create object for each color and pass it with axios to server;
-function createObj(id, background, clr) {
+function createObj(id, clr) {
     let colorObj ={}
     return colorObj ={
         taskId: id,
-        backgroundColor: background,
         color: clr
     };
 }
@@ -29,6 +28,7 @@ class Space extends React.Component {
         console.log('PROPS FROM SPACE: ', props);
 
         this.state ={
+            color: 'hello',
             title: '',
             task: '',
             textareaValue: '',
@@ -37,13 +37,14 @@ class Space extends React.Component {
             chatOpened: false,
             classStyle: 'task-infobar',
             // classInitials: 'task-initials init-green bold',
-            styleInitials: {
-                color: green
-            },
-            styleTaskbar: {
-                backgroundColor: green
-            },
-            delSpacePopupVisible: false
+            // styleInitials: {
+            //     color: green
+            // },
+            // styleTaskbar: {
+            //     backgroundColor: green
+            // },
+            delSpacePopupVisible: false,
+
 
         };
         this.handleChangeTitle=this.handleChangeTitle.bind(this);
@@ -116,15 +117,15 @@ class Space extends React.Component {
 
     changeToYellow(taskId){
         this.setState({
-            styleTaskbar:{
-                backgroundColor: yellow
-            },
-            styleInitials: {
-                color: yellow
-            },
+            color: 'yellow'
+        }, function() {
+            console.log('FIRST state color: ', this.state.color, );
         });
-        let yellowObj = createObj(taskId, this.state.styleTaskbar.backgroundColor, this.state.styleInitials.color);
-        console.log('COLOR OBJ: ', yellowObj);
+
+
+        console.log('SECOND state color: ', this.state.color, 'yellow', this.state.color);
+        let yellowObj = createObj(taskId, this.state.color);
+        console.log('YELLOW OBJ: ', yellowObj, yellow);
 
         axios.post('/change-to-yellow', yellowObj)
             .then(res=> {
@@ -138,16 +139,15 @@ class Space extends React.Component {
     }
     changeToBlue(taskId){
         this.setState({
-            styleTaskbar:{
-                backgroundColor: blue
-            },
-            styleInitials: {
-                color: blue
-            },
+            color: 'rgb(82,128,199)'
         });
-        axios.post('/change-to-blue')
+        let blueObj = createObj(taskId, this.state.color);
+        console.log('BLUE OBJ: ', blueObj, blue);
+
+        axios.post('/change-to-blue', blueObj)
             .then(res=> {
                 console.log("change-to-blue-fired", res.data, taskId);
+                store.dispatch(allTasks(res.data));
             })
             .catch(err=> {
                 console.log('ERR in change-to-blue', err.message);
@@ -155,16 +155,14 @@ class Space extends React.Component {
     }
     changeToRed(taskId){
         this.setState({
-            styleTaskbar: {
-                backgroundColor: red
-            },
-            styleInitials: {
-                color: red
-            },
+            color: 'rgb(242,58,58)'
         });
-        axios.post('/change-to-red')
+        let redObj = createObj(taskId, this.state.color);
+        console.log('RED OBJ: ', redObj, red);
+        axios.post('/change-to-red', redObj)
             .then(res=> {
                 console.log("change-to-red-fired", res.data, taskId);
+                store.dispatch(allTasks(res.data));
             })
             .catch(err=> {
                 console.log('ERR in change-to-red', err.message);
@@ -172,16 +170,14 @@ class Space extends React.Component {
     }
     changeToGreen(taskId){
         this.setState({
-            styleTaskbar: {
-                backgroundColor: green
-            },
-            styleInitials: {
-                color: green
-            },
+            color: 'rgb(74,125,62)'
         });
-        axios.post('/change-to-green')
+        let greenObj = createObj(taskId, this.state.color);
+        console.log('GREEN  OBJ: ', greenObj, green);
+        axios.post('/change-to-green', greenObj)
             .then(res=> {
                 console.log("change-to-green-fired", res.data, taskId);
+                store.dispatch(allTasks(res.data));
             })
             .catch(err=> {
                 console.log('ERR in change-to-green', err.message);
@@ -206,14 +202,6 @@ class Space extends React.Component {
             delSpacePopupVisible: false
         });
     }
-
-    // deleteSpace(spaceId) {
-    //     let socket=initSocket();
-    //     console.log(spaceId);
-    //     socket.emit('deleteSingleSpace', spaceId);
-    //     this.props.history.push();
-    //     location.replace('/');
-    // }
 
     render() {
         let spaceId = this.props.match.params.id;

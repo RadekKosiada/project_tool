@@ -76,12 +76,16 @@ if (process.env.NODE_ENV != 'production') {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
+// app.post('/upload',  uploader.single('file'), s3.upload, (req, res) =>{
+//     console.log('REQ FILE NAME: ', req.file.filename);
+// });
 
-
-//single as we upload a signle file;
-//'file' the same string as in the formData.append
+// single as we upload a signle file;
+// 'file' the same string as in the formData.append
 app.post('/upload', uploader.single('file'), s3.upload, (req, res) => {
+    console.log('REQ FILE NAME: ', req.file.filename);
     const imgUrl = s3Url + req.file.filename;
+    console.log('IMG URL: ', imgUrl);
     database.uploadImage(imgUrl, req.session.user.id)
         .then(results=>{
             // console.log('RESULTS OF UPLOAD IMG', results.rows);
@@ -412,8 +416,8 @@ app.post('/create-space', (req, res) => {
 });
 
 app.post('/change-to-yellow', (req, res) => {
-    console.log('yellowObj: ',  req.body.color, req.body.taskId);
-    database.changeToYellow(req.body.taskId, req.body.color)
+    console.log('yellowObj: ', req.body.color, req.body.taskId);
+    database.changeToYellow(req.body.color, req.body.taskId)
         .then(result => {
             console.log('RES of changeToYellow!!!!! ', result.data);
         })
@@ -433,7 +437,7 @@ app.get('*', function(req, res) {
 });
 
 //not app anymore, so we can also listen to socket, too
-server.listen(8080, function() {
+app.listen(process.env.PORT || 8080, function() {
     console.log("I'm listening.");
 });
 
