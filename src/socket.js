@@ -24,7 +24,7 @@ export function initSocket(store) {
         socket= io.connect();
         //function will run everytime we update online users;
         socket.on('onlineUsersMuffin', function(listOfUsers) {
-            console.log('listOfUsers: ', listOfUsers);
+            // console.log('listOfUsers: ', listOfUsers);
             store.dispatch(onlineUsers(listOfUsers));
         });
 
@@ -82,7 +82,7 @@ export function initSocket(store) {
 
         /////ALL POSSIBLE EXISTING SPACES ////////////////////
         socket.on('AllSpacesAndOwners', function(allAvailSpaces){
-            console.log('ALLTHE SPACES AVAIL:, ', allAvailSpaces);
+            // console.log('ALLTHE SPACES AVAIL:, ', allAvailSpaces);
             store.dispatch(allTheSpaces(allAvailSpaces));
         });
 

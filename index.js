@@ -578,29 +578,6 @@ io.on('connection', function(socket) {
             });
     }
 
-    ///USER LEFT ////////////////////////////////////////////////
-    socket.on('disconnect', function(socket) {
-        console.log(`socket with the id ${socket.id} is now disconnected`);
-
-        let indexToRemove = onlineUsers.findIndex(user => {
-            console.log('USER!!!!!!!!!!!!!!!', user)
-            return user.socketId == socket.id;
-        });
-        console.log('indextoremove: ', indexToRemove)
-        onlineUsers.splice(indexToRemove, 1);
-
-        let counter= 0;
-        for(let i=0; i<onlineUsers.length; i++) {
-            if(onlineUsers[i].userId === socket.request.session.user.id) {
-                counter++;
-            }
-        }
-        if(!counter) {
-            io.sockets.emit('userLeft',  socket.request.session.user.id);
-        }
-
-    });
-
     // CHAT: HANDLING NEW MESSAGE //////////////////////////////////////////////
     socket.on('newMessage', function(newMessage) {
         // console.log('newMessage from CHAT: ', newMessage);

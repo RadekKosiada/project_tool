@@ -60,7 +60,7 @@ class SpaceManager extends React.Component {
                 </div>
             );
         });
-        console.log('space: ', spaceInfo);
+        // console.log('space: ', spaceInfo);
 
         if(!this.props.spaceInfo) {
             return null;
@@ -134,7 +134,7 @@ class SpaceManager extends React.Component {
 }
 
 const mapStateToProps=state=> {
-    console.log('STATE:', state);
+    // console.log('STATE:', state);
     return {
         yourSpaces: state.allSpacesReducer,
         spaceInfo: state.allAvailSpacesReducer

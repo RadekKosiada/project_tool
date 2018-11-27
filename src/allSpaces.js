@@ -20,7 +20,7 @@ class AllSpaces extends React.Component {
     render() {
         let currentUsersId = this.props.id;
         let accessReqs=this.props;
-        console.log(accessReqs);
+        // console.log(accessReqs);
 
         if(!this.props.allSpacesComponent) {
             return null;

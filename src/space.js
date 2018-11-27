@@ -25,7 +25,7 @@ function createObj(id, clr) {
 class Space extends React.Component {
     constructor(props) {
         super(props);
-        console.log('PROPS FROM SPACE: ', props);
+        // console.log('PROPS FROM SPACE: ', props);
 
         this.state ={
             color: 'hello',
@@ -37,12 +37,12 @@ class Space extends React.Component {
             chatOpened: false,
             classStyle: 'task-infobar',
             // classInitials: 'task-initials init-green bold',
-            // styleInitials: {
-            //     color: green
-            // },
-            // styleTaskbar: {
-            //     backgroundColor: green
-            // },
+            styleInitials: {
+                color: green
+            },
+            styleTaskbar: {
+                backgroundColor: green
+            },
             delSpacePopupVisible: false,
 
 
@@ -57,10 +57,10 @@ class Space extends React.Component {
     }
     componentDidMount() {
         const currentSpaceId = this.props.match.params.id;
-        console.log('CURRENT SPACE ID: ', currentSpaceId);
+        // console.log('CURRENT SPACE ID: ', currentSpaceId);
         axios.get('/get-space-details/'+ currentSpaceId)
             .then(res => {
-                console.log('SPACEINFO CLIENT: ', res.data);
+                // console.log('SPACEINFO CLIENT: ', res.data);
                 this.setState({
                     spaceOwner: res.data
                 });
@@ -80,7 +80,7 @@ class Space extends React.Component {
         });
         axios.post('/delete-chat')
             .then(res=> {
-                console.log("YAY", res.data);
+                // console.log("YAY", res.data);
             })
             .catch(err=> {
                 console.log('ERR in delete-chat', err.message);
@@ -108,7 +108,7 @@ class Space extends React.Component {
             space_id: this.props.match.params.id
         };
 
-        console.log('HANDLE SUBMIT FIRED: ',taskObj);
+        // console.log('HANDLE SUBMIT FIRED: ',taskObj);
         socket.emit('newTask', taskObj);
 
         document.getElementById('spaceInput').value='';
@@ -119,21 +119,21 @@ class Space extends React.Component {
         this.setState({
             color: 'yellow'
         }, function() {
-            console.log('FIRST state color: ', this.state.color, );
+            // console.log('FIRST state color: ', this.state.color, );
         });
 
 
-        console.log('SECOND state color: ', this.state.color, 'yellow', this.state.color);
+        // console.log('SECOND state color: ', this.state.color, 'yellow', this.state.color);
         let yellowObj = createObj(taskId, this.state.color);
-        console.log('YELLOW OBJ: ', yellowObj, yellow);
+        // console.log('YELLOW OBJ: ', yellowObj, yellow);
 
         axios.post('/change-to-yellow', yellowObj)
             .then(res=> {
-                console.log("change-to-yellow-fired", res.data, taskId);
+                // console.log("change-to-yellow-fired", res.data, taskId);
                 store.dispatch(allTasks(res.data));
             })
             .catch(err=> {
-                console.log('ERR in change-to-yellow', err.message);
+                console.log('Yellow: this feature is coming soon', err.message);
             });
 
     }
@@ -142,15 +142,15 @@ class Space extends React.Component {
             color: 'rgb(82,128,199)'
         });
         let blueObj = createObj(taskId, this.state.color);
-        console.log('BLUE OBJ: ', blueObj, blue);
+        // console.log('BLUE OBJ: ', blueObj, blue);
 
         axios.post('/change-to-blue', blueObj)
             .then(res=> {
-                console.log("change-to-blue-fired", res.data, taskId);
+                // console.log("change-to-blue-fired", res.data, taskId);
                 store.dispatch(allTasks(res.data));
             })
             .catch(err=> {
-                console.log('ERR in change-to-blue', err.message);
+                console.log('Blue: this feature is coming soon', err.message);
             });
     }
     changeToRed(taskId){
@@ -158,14 +158,14 @@ class Space extends React.Component {
             color: 'rgb(242,58,58)'
         });
         let redObj = createObj(taskId, this.state.color);
-        console.log('RED OBJ: ', redObj, red);
+        // console.log('RED OBJ: ', redObj, red);
         axios.post('/change-to-red', redObj)
             .then(res=> {
-                console.log("change-to-red-fired", res.data, taskId);
+                // console.log("change-to-red-fired", res.data, taskId);
                 store.dispatch(allTasks(res.data));
             })
             .catch(err=> {
-                console.log('ERR in change-to-red', err.message);
+                console.log('Red: this feature is coming soon', err.message);
             });
     }
     changeToGreen(taskId){
@@ -173,14 +173,14 @@ class Space extends React.Component {
             color: 'rgb(74,125,62)'
         });
         let greenObj = createObj(taskId, this.state.color);
-        console.log('GREEN  OBJ: ', greenObj, green);
+        // console.log('GREEN  OBJ: ', greenObj, green);
         axios.post('/change-to-green', greenObj)
             .then(res=> {
-                console.log("change-to-green-fired", res.data, taskId);
+                // console.log("change-to-green-fired", res.data, taskId);
                 store.dispatch(allTasks(res.data));
             })
             .catch(err=> {
-                console.log('ERR in change-to-green', err.message);
+                console.log('Green: this feature is coming soon', err.message);
             });
     }
 
@@ -218,7 +218,7 @@ class Space extends React.Component {
             }
         }
         // console.log('YOUR TASKS ARRAY!!!!!', tasksArr);
-        console.log('STATE!!!!!!!', this.state);
+        // console.log('STATE!!!!!!!', this.state);
         let tasksFromCurrentSpace = tasksArr.map(task => {
             return (
                 <div key={task.id} className="single-task">
@@ -241,10 +241,10 @@ class Space extends React.Component {
                         {task.task}
                     </div>
                     <div className="task-toolbar">
-                        <div className="task-yellow" onClick={this.changeToYellow.bind(this, task.id)}></div>
-                        <div className="task-green" onClick={this.changeToGreen.bind(this, task.id)}></div>
-                        <div className="task-blue" onClick={this.changeToBlue.bind(this, task.id)}></div>
-                        <div className="task-red" onClick={this.changeToRed.bind(this, task.id)}></div>
+                        <div className="task-yellow" title="changing colors coming soon" onClick={this.changeToYellow.bind(this, task.id)}></div>
+                        <div className="task-green" title="changing colors coming soon" onClick={this.changeToGreen.bind(this, task.id)}></div>
+                        <div className="task-blue" title="changing colors coming soon" onClick={this.changeToBlue.bind(this, task.id)}></div>
+                        <div className="task-red" title="changing colors coming soon" onClick={this.changeToRed.bind(this, task.id)}></div>
                         <div className="task-delete" key={task.id} onClick={this.deleteTask.bind(this, task.id)}></div>
                     </div>
                 </div>
@@ -324,7 +324,7 @@ function getLang()
         lang = (navigator.languages).toString();
 }
 getLang();
-console.log('LANGUAGE: ', lang);
+// console.log('LANGUAGE: ', lang);
 
 // console.log(lang);
 function changeDate(date) {
