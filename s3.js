@@ -11,7 +11,7 @@ const client = knox.createClient({
     secret: secrets.AWS_SECRET,
     //change the name of the bucket.. unique for the whole amazon, no funny characters no dots!!
     // just letters and numbers;
-    bucket: 'spicedling'
+    bucket: 'kosiada-portfolio'
 });
 
 exports.upload =function(req, res, next) {

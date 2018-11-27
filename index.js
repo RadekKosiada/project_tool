@@ -10,7 +10,7 @@ const multer = require('multer');
 const uidSafe = require('uid-safe');
 const path = require('path');
 const server = require('http').Server(app);
-const io = require('socket.io')(server, { origins: 'localhost:8080' });
+const io = require('socket.io')(server, { origins: 'localhost:8080 online-workspace.herokuapp.com/:*' });
 // const io = require('socket.io')(server, { origins: 'localhost:8080' https://my-app.herokuapp.com});
 
 app.use(compression());
@@ -82,6 +82,7 @@ if (process.env.NODE_ENV != 'production') {
 
 // single as we upload a signle file;
 // 'file' the same string as in the formData.append
+
 app.post('/upload', uploader.single('file'), s3.upload, (req, res) => {
     console.log('REQ FILE NAME: ', req.file.filename);
     const imgUrl = s3Url + req.file.filename;
@@ -437,7 +438,7 @@ app.get('*', function(req, res) {
 });
 
 //not app anymore, so we can also listen to socket, too
-app.listen(process.env.PORT || 8080, function() {
+server.listen(process.env.PORT || 8080, function() {
     console.log("I'm listening.");
 });
 
@@ -448,7 +449,7 @@ let onlineUsers=[];
 io.on('connection', function(socket) {
     console.log(`socket with the id ${socket.id} is now connected`);
     //socket.request.session.user.id to get user's id!!!!
-    console.log(socket.request.session);
+    console.log('SOCKET REQ SESSION', socket.request.session);
 
     //list of everyone who's currently online;
     onlineUsers.push({
