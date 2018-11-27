@@ -10,7 +10,7 @@ const multer = require('multer');
 const uidSafe = require('uid-safe');
 const path = require('path');
 const server = require('http').Server(app);
-const io = require('socket.io')(server, { origins: 'localhost:8080 https://online-workspace.herokuapp.com:*' });
+const io = require('socket.io')(server, { origins: 'localhost:8080 online-workspace.herokuapp.com:*' });
 // const io = require('socket.io')(server, { origins: 'localhost:8080' https://my-app.herokuapp.com});
 
 app.use(compression());
