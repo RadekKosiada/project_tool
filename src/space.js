@@ -80,7 +80,7 @@ class Space extends React.Component {
         });
         axios.post('/delete-chat')
             .then(res=> {
-                // console.log("YAY", res.data);
+                console.log("YAY", res.data);
             })
             .catch(err=> {
                 console.log('ERR in delete-chat', err.message);

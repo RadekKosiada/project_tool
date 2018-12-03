@@ -559,21 +559,9 @@ body{
 }
 /* CHAT */
 
-.close-chat-popup{
+.chat-close{
     color: rgb(242,58,58);
-    position: relative;
-    left: 42%;
-    top: 7.5%;
     font-size: 2vw;
-
-}
-.close-chat-popup:hover {
-    cursor: pointer;
-    transform: rotate(180deg);
-}
-.close-chat-popup:active{
-    font-size: 2vw;
-    text-decoration: none;
 }
 
 #chat-component{
@@ -592,9 +580,28 @@ body{
 .chat-header{
     background-color: rgb(240,216,72);
     border: 1vw solid rgb(240,216,72);
-    cursor: pointer;
-    /* padding-top: 1vw; */
 }
+
+.chat-header h3{
+    font-size: 2vw;
+}
+.chat-header p{
+    color: rgb(242,58,58);
+    font-size: 1.5vw;
+    position: absolute;
+    top: 0.15%;
+    left: 93%;
+    font-weight: bold;
+}
+
+.chat-header p:hover {
+    cursor: pointer;
+}
+
+.chat-header p:active{
+    text-decoration: none;
+}
+
 
 .chat-messages-container{
     /* margin-top: 1vw; */
